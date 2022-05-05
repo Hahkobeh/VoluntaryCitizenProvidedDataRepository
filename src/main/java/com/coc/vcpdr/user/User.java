@@ -1,11 +1,9 @@
 package com.coc.vcpdr.user;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.sql.Date;
 
-@Data
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -14,8 +12,6 @@ public class User {
     private Integer userID;
     private String email;
     private String password;
-    @Column(name="telephonenumber")
-    private String telephoneNumber;
     @Column(name="persongivenname")
     private String personGivenName;
     @Column(name="personsurname")
@@ -23,13 +19,16 @@ public class User {
     @Column(name="lastupdated")
     private Date lastUpdated;
 
-    public User(String email, String password, String telephoneNumber, String personGivenName, String personSurName, Date lastUpdated) {
+    public User(String email, String password, String personGivenName, String personSurName, Date lastUpdated) {
         this.email = email;
         this.password = password;
-        this.telephoneNumber = telephoneNumber;
         this.personGivenName = personGivenName;
         this.personSurName = personSurName;
         this.lastUpdated = lastUpdated;
+    }
+
+    public User() {
+
     }
 
     public Integer getUserID() {
@@ -56,14 +55,6 @@ public class User {
         this.password = password;
     }
 
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
-
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
-    }
-
     public String getPersonGivenName() {
         return personGivenName;
     }
@@ -88,5 +79,4 @@ public class User {
         this.lastUpdated = lastUpdated;
     }
 
-    public User(){}
 }

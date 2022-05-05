@@ -26,8 +26,11 @@ public class VCPDR implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("running");
-        User user = new User("jacob@gmail.com", "password12", "9998887777", "Jacob", "Artuso", new Date(System.currentTimeMillis()));
-        userRepository.save(user);
+        User user = new User("jacob@gmail.com", "password12", "Jacob", "Artuso", new Date(System.currentTimeMillis()));
+        User user2 = new User("jacobo@gmail.com", "password12", "Jacob", "Artuso", new Date(System.currentTimeMillis()));
 
+
+        userRepository.save(user);
+        userRepository.save(user2);
     }
 }

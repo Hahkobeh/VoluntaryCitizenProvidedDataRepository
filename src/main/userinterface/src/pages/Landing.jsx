@@ -21,6 +21,7 @@ function Landing(props){
 
     return (
         <div className="landing">
+            <h1>VCPDR</h1>
             <form onSubmit={attemptLogin}>
                 <label>
                     email
@@ -37,7 +38,6 @@ function Landing(props){
             </Link>
 
 
-            <h1>ghehg</h1>
 
         </div>
     );

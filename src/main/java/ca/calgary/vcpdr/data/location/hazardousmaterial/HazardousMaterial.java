@@ -11,7 +11,9 @@ public class HazardousMaterial {
     private int userID;
     @Id
     private String address;
-
+    @Id
+    @Column()
+    private String commonName;
 
 
 }

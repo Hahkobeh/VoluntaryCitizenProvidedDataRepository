@@ -1,4 +1,4 @@
-package ca.calgary.vcpdr.data.person;
+package ca.calgary.vcpdr.data.personal.person;
 
 import org.springframework.stereotype.Service;
 

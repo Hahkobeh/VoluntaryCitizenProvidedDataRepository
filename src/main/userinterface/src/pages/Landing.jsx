@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
+import axios from 'axios';
 
 
 function Landing(props){
@@ -11,11 +12,33 @@ function Landing(props){
 
     const attemptLogin = (e) => {
         e.preventDefault();
-        console.log("login attempted using:" + email + ", " + password);
 
-        if(email === "hello!") {
-            props.login()
+        if(email === ""){
+            return;
         }
+
+        if(password === ""){
+            return;
+        }
+
+        const loginInfo = {
+            email: email,
+            password: password
+        };
+
+
+        console.log(loginInfo);
+
+        axios.post("http://localhost:8080/api/user/v1/login", loginInfo)
+            .then(res => {
+                console.log(res.data)
+                console.log(typeof res.data)
+                if(res.data !== "") {
+                    props.login(res.data)
+                }
+            });
+
+
     }
 
 
@@ -35,6 +58,9 @@ function Landing(props){
             </form>
             <Link to="/registration">
                 <button>Register!</button>
+            </Link>
+            <Link to="/about">
+                <button>About!</button>
             </Link>
 
 

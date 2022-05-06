@@ -16,6 +16,12 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public User login(LoginForm loginForm){
+        return userRepository.findByEmailAndPassword(loginForm.getEmail(), loginForm.getPassword());
+
+    }
+
+
     void deleteUser(int id){
         userRepository.deleteById(id);
     }

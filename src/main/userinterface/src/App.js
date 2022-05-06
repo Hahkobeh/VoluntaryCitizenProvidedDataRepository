@@ -1,28 +1,32 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
-import {useState} from "react";
+import React, {useState} from "react";
 import Profile from "./pages/Profile";
 import Registration from "./pages/Registration";
+import About from "./pages/About";
 
 function App() {
 
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [user, setUser] = useState(null);
 
-    const login = () => {
-        setLoggedIn(true);
+
+
+    const login = (data) => {
+        setUser(data);
     }
 
     const logout = () => {
-        setLoggedIn(false);
+        setUser(null);
     }
 
     return (
         <div className="App">
             <Router>
                 <Routes>
-                    <Route path="/" element={loggedIn ? <Profile logout={logout}/> : <Landing login={login}/>}/>
+                    <Route path="/" element={user !== null ? <Profile logout={logout} user={user}/> : <Landing login={login}/>}/>
                     <Route path="/registration" element={<Registration/>}/>
+                    <Route path="/about" element={<About/>}/>
                 </Routes>
 
             </Router>

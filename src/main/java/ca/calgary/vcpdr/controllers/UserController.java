@@ -12,6 +12,8 @@ import ca.calgary.vcpdr.data.personal.person.PersonService;
 import ca.calgary.vcpdr.data.personal.telephone.TelephoneService;
 import ca.calgary.vcpdr.data.personal.vehicle.VehicleService;
 import ca.calgary.vcpdr.data.personal.vulnerableperson.VulnerablePersonService;
+import ca.calgary.vcpdr.data.user.LoginForm;
+import ca.calgary.vcpdr.data.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -59,11 +61,9 @@ public class UserController{
         return true;
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     @ResponseBody
-    public boolean login(){
-        return false;
-
-
+    public User login(@RequestBody LoginForm loginForm){
+        return userService.login(loginForm);
     }
 }

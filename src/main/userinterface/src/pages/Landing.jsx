@@ -14,6 +14,7 @@ function Landing(props){
         e.preventDefault();
 
         if(email === ""){
+            props.login("temp");
             return;
         }
 

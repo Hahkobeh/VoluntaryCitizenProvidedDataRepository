@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import InformationPage from '../components/InformationPage';
+import Tabs from '../components/Tabs';
+import '../style/Profile.scss'
 
 class Profile extends Component {
 
@@ -58,11 +61,10 @@ class Profile extends Component {
         const names = ["User","Person","Telephones"]
         return (
             <div>
-                <p>{names.at(0)} : {names[1]}</p>
-                <p>{this.email}</p>
+                
+                <Tabs logout={this.props.logout}/>
+                <InformationPage/>
 
-
-                <button onClick={this.props.logout}>Logout!</button>
                 
             </div>
         );

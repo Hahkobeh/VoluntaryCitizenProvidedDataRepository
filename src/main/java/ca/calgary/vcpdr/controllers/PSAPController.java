@@ -10,10 +10,5 @@ import ca.calgary.vcpdr.data.user.UserService;
 @RequestMapping(path = "api/psap/v1")
 @CrossOrigin(origins = {"http://localhost:3001"})
 public class PSAPController {
-    private final UserService userService;
 
-    @Autowired
-    public PSAPController(UserService userService) {
-        this.userService = userService;
-    }
 }

@@ -12,4 +12,4 @@ function Tab({name, colour}) {
 
 
 
-export default Tab
+export default Tab;

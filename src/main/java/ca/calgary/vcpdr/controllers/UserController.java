@@ -3,17 +3,19 @@ package ca.calgary.vcpdr.controllers;
 import ca.calgary.vcpdr.data.location.hazardousmaterial.HazardousMaterialService;
 import ca.calgary.vcpdr.data.location.keyholder.KeyHolderService;
 import ca.calgary.vcpdr.data.location.property.PropertyService;
-import ca.calgary.vcpdr.data.medical.medicalcondition.MedicalConditionRepository;
 import ca.calgary.vcpdr.data.medical.medicalcondition.MedicalConditionService;
 import ca.calgary.vcpdr.data.medical.medicalinformation.MedicalInformationService;
 import ca.calgary.vcpdr.data.medical.prescribedmedication.PrescribedMedicationService;
 import ca.calgary.vcpdr.data.personal.emergencycontact.EmergencyContactService;
 import ca.calgary.vcpdr.data.personal.person.PersonService;
+import ca.calgary.vcpdr.data.personal.telephone.Telephone;
 import ca.calgary.vcpdr.data.personal.telephone.TelephoneService;
 import ca.calgary.vcpdr.data.personal.vehicle.VehicleService;
 import ca.calgary.vcpdr.data.personal.vulnerableperson.VulnerablePersonService;
-import ca.calgary.vcpdr.data.user.LoginForm;
+import ca.calgary.vcpdr.forms.LoginForm;
 import ca.calgary.vcpdr.data.user.User;
+import ca.calgary.vcpdr.forms.RegistrationForm;
+import ca.calgary.vcpdr.forms.TelephoneForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -55,15 +57,32 @@ public class UserController{
         this.vulnerablePersonService = vulnerablePersonService;
     }
 
-    @PostMapping("/adduser")
+    //USER
+
+    @PostMapping("/register")
     @ResponseBody
-    public boolean addUser(){
-        return true;
+    public User registerUser(@RequestBody RegistrationForm registrationForm){
+        User user = userService.register(registrationForm);
+        telephoneService.addTelephone(new TelephoneForm(user.getUserID(), registrationForm.getTelephoneNumber(), registrationForm.getTelephoneType()));
+        return user;
     }
 
     @PostMapping("/login")
     @ResponseBody
     public User login(@RequestBody LoginForm loginForm){
         return userService.login(loginForm);
+    }
+
+    //TELEPHONE
+
+    @PostMapping("/add-phone")
+    @ResponseBody
+    public Telephone addPhone(@RequestBody TelephoneForm telephoneForm){
+        return telephoneService.addTelephone(telephoneForm);
+    }
+
+    @GetMapping("/test")
+    public void test(){
+        userService.test();
     }
 }

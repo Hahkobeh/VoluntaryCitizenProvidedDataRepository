@@ -1,4 +1,4 @@
-package ca.calgary.vcpdr.data.user;
+package ca.calgary.vcpdr.forms;
 
 import lombok.Data;
 

@@ -1,48 +1,37 @@
 package ca.calgary.vcpdr.data.user;
 
-import ca.calgary.vcpdr.data.personal.telephone.Telephone;
-
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
-
 
 @Entity
-@Table(name = "users")
+@Table(name="users")
 public class User {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userID;
+    @Id
+    @Column(name = "userID", nullable = false)
+    private int userId;
+    @Basic
+    @Column(name = "email", nullable = false, length = 255)
     private String email;
+    @Basic
+    @Column(name = "password", nullable = false, length = 255)
     private String password;
-    @Column(name="persongivenname")
+    @Basic
+    @Column(name = "personGivenName", nullable = false, length = 255)
     private String personGivenName;
-    @Column(name="personsurname")
+    @Basic
+    @Column(name = "personSurName", nullable = false, length = 255)
     private String personSurName;
-    @Column(name="lastlogin")
+    @Basic
+    @Column(name = "lastLogin", nullable = false)
     private Date lastLogin;
 
-    @OneToMany(mappedBy = "userID")
-    private List<Telephone> telephoneList;
-
-    public User(String email, String password, String personGivenName, String personSurName) {
-        this.email = email;
-        this.password = password;
-        this.personGivenName = personGivenName;
-        this.personSurName = personSurName;
-        this.lastLogin = new Date(new java.util.Date().getTime());
+    public int getUserId() {
+        return userId;
     }
 
-    public User() {
-
-    }
-
-    public Integer getUserID() {
-        return userID;
-    }
-
-    public void setUserID(Integer userID) {
-        this.userID = userID;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {
@@ -81,28 +70,48 @@ public class User {
         return lastLogin;
     }
 
-    public void setLastLogin(Date lastUpdated) {
-        this.lastLogin = lastUpdated;
-    }
-
-    public List<Telephone> getTelephoneList() {
-        return telephoneList;
-    }
-
-    public void setTelephoneList(List<Telephone> telephoneList) {
-        this.telephoneList = telephoneList;
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                "userID=" + userID +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", personGivenName='" + personGivenName + '\'' +
-                ", personSurName='" + personSurName + '\'' +
-                ", lastLogin=" + lastLogin +
-                ", telephoneList=" + telephoneList +
-                '}' + '\n';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (userId != user.userId) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (personGivenName != null ? !personGivenName.equals(user.personGivenName) : user.personGivenName != null)
+            return false;
+        if (personSurName != null ? !personSurName.equals(user.personSurName) : user.personSurName != null)
+            return false;
+        if (lastLogin != null ? !lastLogin.equals(user.lastLogin) : user.lastLogin != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = userId;
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (personGivenName != null ? personGivenName.hashCode() : 0);
+        result = 31 * result + (personSurName != null ? personSurName.hashCode() : 0);
+        result = 31 * result + (lastLogin != null ? lastLogin.hashCode() : 0);
+        return result;
+    }
+
+    public User(String email, String password, String personGivenName, String personSurName) {
+        this.email = email;
+        this.password = password;
+        this.personGivenName = personGivenName;
+        this.personSurName = personSurName;
+        this.lastLogin = new Date(new java.util.Date().getTime());
+    }
+
+    public User() {
     }
 }

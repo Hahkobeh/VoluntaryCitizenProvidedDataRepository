@@ -6,16 +6,12 @@ import ca.calgary.vcpdr.data.location.property.PropertyService;
 import ca.calgary.vcpdr.data.medical.medicalcondition.MedicalConditionService;
 import ca.calgary.vcpdr.data.medical.medicalinformation.MedicalInformationService;
 import ca.calgary.vcpdr.data.medical.prescribedmedication.PrescribedMedicationService;
+import ca.calgary.vcpdr.data.personal.dependents.DependentService;
 import ca.calgary.vcpdr.data.personal.emergencycontact.EmergencyContactService;
 import ca.calgary.vcpdr.data.personal.person.PersonService;
-import ca.calgary.vcpdr.data.personal.telephone.Telephone;
 import ca.calgary.vcpdr.data.personal.telephone.TelephoneService;
 import ca.calgary.vcpdr.data.personal.vehicle.VehicleService;
-import ca.calgary.vcpdr.data.personal.vulnerableperson.VulnerablePersonService;
-import ca.calgary.vcpdr.forms.LoginForm;
-import ca.calgary.vcpdr.data.user.User;
-import ca.calgary.vcpdr.forms.RegistrationForm;
-import ca.calgary.vcpdr.forms.TelephoneForm;
+import ca.calgary.vcpdr.data.personal.vulnerablepersoninformation.VulnerablePersonInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +24,9 @@ public class UserController{
 
 
     private final UserService userService;
-    private final HazardousMaterialService hazardousMaterialService;
-    private final KeyHolderService keyHolderService;
-    private final PropertyService propertyService;
+    private final HazardousMaterialService hazardousMaterialsService;
+    private final KeyHolderService keyHoldersService;
+    private final PropertyService propertiesService;
     private final MedicalInformationService medicalInformationService;
     private final MedicalConditionService medicalConditionService;
     private final PrescribedMedicationService prescribedMedicationService;
@@ -38,15 +34,15 @@ public class UserController{
     private final EmergencyContactService emergencyContactService;
     private final TelephoneService telephoneService;
     private final VehicleService vehicleService;
-    private final VulnerablePersonService vulnerablePersonService;
-
+    private final VulnerablePersonInformationService vulnerablePersonInformationService;
+    private final DependentService dependentService;
 
     @Autowired
-    public UserController(UserService userService, HazardousMaterialService hazardousMaterialService, KeyHolderService keyHolderService, PropertyService propertyService, MedicalInformationService medicalInformationService, MedicalConditionService medicalConditionService, PrescribedMedicationService prescribedMedicationService, PersonService personService, EmergencyContactService emergencyContactService, TelephoneService telephoneService, VehicleService vehicleService, VulnerablePersonService vulnerablePersonService) {
+    public UserController(UserService userService, HazardousMaterialService hazardousMaterialsService, KeyHolderService keyHoldersService, PropertyService propertiesService, MedicalInformationService medicalInformationService, MedicalConditionService medicalConditionService, PrescribedMedicationService prescribedMedicationService, PersonService personService, EmergencyContactService emergencyContactService, TelephoneService telephoneService, VehicleService vehicleService, VulnerablePersonInformationService vulnerablePersonInformationService, DependentService dependentService) {
         this.userService = userService;
-        this.hazardousMaterialService = hazardousMaterialService;
-        this.keyHolderService = keyHolderService;
-        this.propertyService = propertyService;
+        this.hazardousMaterialsService = hazardousMaterialsService;
+        this.keyHoldersService = keyHoldersService;
+        this.propertiesService = propertiesService;
         this.medicalInformationService = medicalInformationService;
         this.medicalConditionService = medicalConditionService;
         this.prescribedMedicationService = prescribedMedicationService;
@@ -54,22 +50,26 @@ public class UserController{
         this.emergencyContactService = emergencyContactService;
         this.telephoneService = telephoneService;
         this.vehicleService = vehicleService;
-        this.vulnerablePersonService = vulnerablePersonService;
+        this.vulnerablePersonInformationService = vulnerablePersonInformationService;
+        this.dependentService = dependentService;
     }
 
+
+
+    /*
     //USER
 
     @PostMapping("/register")
     @ResponseBody
-    public User registerUser(@RequestBody RegistrationForm registrationForm){
-        User user = userService.register(registrationForm);
-        telephoneService.addTelephone(new TelephoneForm(user.getUserID(), registrationForm.getTelephoneNumber(), registrationForm.getTelephoneType()));
-        return user;
+    public Userold registerUser(@RequestBody RegistrationForm registrationForm){
+        Userold userold = userService.register(registrationForm);
+        telephoneService.addTelephone(new TelephoneForm(userold.getUserID(), registrationForm.getTelephoneNumber(), registrationForm.getTelephoneType()));
+        return userold;
     }
 
     @PostMapping("/login")
     @ResponseBody
-    public User login(@RequestBody LoginForm loginForm){
+    public Userold login(@RequestBody LoginForm loginForm){
         return userService.login(loginForm);
     }
 
@@ -79,7 +79,7 @@ public class UserController{
     @ResponseBody
     public Telephone addPhone(@RequestBody TelephoneForm telephoneForm){
         return telephoneService.addTelephone(telephoneForm);
-    }
+    }*/
 
     @GetMapping("/test")
     public void test(){

@@ -1,26 +1,30 @@
 package ca.calgary.vcpdr;
 
 
-import ca.calgary.vcpdr.data.personal.telephone.Telephone;
-import ca.calgary.vcpdr.data.personal.telephone.TelephoneRepository;
-import ca.calgary.vcpdr.data.user.User;
-import ca.calgary.vcpdr.data.user.UserRepository;
-import ca.calgary.vcpdr.enums.Province;
+
+import ca.calgary.vcpdr.controllers.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.Query;
-
-import java.sql.Date;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-public class VCPDR{
+@EnableTransactionManagement
+public class VCPDR implements CommandLineRunner {
 
+
+    @Autowired
+    private UserController userController;
 
     public static void main(String[] args) {
         SpringApplication.run(VCPDR.class, args);
     }
 
 
+    @Override
+    public void run(String... args) throws Exception {
+        //userController.test();
+        System.out.println("You're Great!");
+    }
 }

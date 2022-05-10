@@ -1,7 +1,6 @@
 package ca.calgary.vcpdr.data.user;
 
 import ca.calgary.vcpdr.forms.LoginForm;
-import ca.calgary.vcpdr.forms.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +11,7 @@ public class UserService {
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+
     }
 
     public void saveUser(User user){
@@ -23,11 +23,7 @@ public class UserService {
 
     }
 
-    public User register(RegistrationForm registrationForm){
-        User user = new User(registrationForm.getEmail(), registrationForm.getPassword(), registrationForm.getPersonGivenName(), registrationForm.getPersonSurName());
-        userRepository.save(user);
-        return user;
-    }
+
 
 
     void deleteUser(int id){
@@ -35,7 +31,8 @@ public class UserService {
     }
 
     public void test(){
+        User user = new User("ja@gmail.com","pass","jacob","artuso");
+        userRepository.save(user);
         System.out.println(userRepository.blah());
-        System.out.println(userRepository.findAllByUserID(1));
     }
 }

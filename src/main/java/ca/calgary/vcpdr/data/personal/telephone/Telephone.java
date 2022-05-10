@@ -1,38 +1,68 @@
 package ca.calgary.vcpdr.data.personal.telephone;
 
-import lombok.Data;
-
 import javax.persistence.*;
-import java.io.Serializable;
-
 
 @Entity
-@Table(name = "telephones")
-@IdClass(CompKey.class)
-public class Telephone{
+@IdClass(TelephonePK.class)
+@Table(name="telephones")
+public class Telephone {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Integer userID;
+    @Column(name = "userID", nullable = false)
+    private int userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "telephonenumber")
+    @Column(name = "telephoneNumber", nullable = false, length = 10)
     private String telephoneNumber;
-    @Column(name = "telephonetype")
+    @Basic
+    @Column(name = "telephoneType", nullable = false, length = 20)
     private String telephoneType;
 
-    public Telephone(Integer userID, String telephoneNumber, String telephoneType) {
-        this.userID = userID;
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getTelephoneNumber() {
+        return telephoneNumber;
+    }
+
+    public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
+    }
+
+    public String getTelephoneType() {
+        return telephoneType;
+    }
+
+    public void setTelephoneType(String telephoneType) {
         this.telephoneType = telephoneType;
     }
 
     @Override
-    public String toString() {
-        return "Telephone{" +
-                "userID=" + userID +
-                ", telephoneNumber='" + telephoneNumber + '\'' +
-                ", telephoneType='" + telephoneType + '\'' +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Telephone that = (Telephone) o;
+
+        if (userId != that.userId) return false;
+        if (telephoneNumber != null ? !telephoneNumber.equals(that.telephoneNumber) : that.telephoneNumber != null)
+            return false;
+        if (telephoneType != null ? !telephoneType.equals(that.telephoneType) : that.telephoneType != null)
+            return false;
+
+        return true;
     }
 
-    public Telephone() {
+    @Override
+    public int hashCode() {
+        int result = userId;
+        result = 31 * result + (telephoneNumber != null ? telephoneNumber.hashCode() : 0);
+        result = 31 * result + (telephoneType != null ? telephoneType.hashCode() : 0);
+        return result;
     }
 }

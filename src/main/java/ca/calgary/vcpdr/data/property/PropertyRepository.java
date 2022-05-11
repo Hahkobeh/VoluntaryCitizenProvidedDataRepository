@@ -1,8 +1,8 @@
-package ca.calgary.vcpdr.data.user;
+package ca.calgary.vcpdr.data.property;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface PropertyRepository extends CrudRepository<Property, Integer> {
 }

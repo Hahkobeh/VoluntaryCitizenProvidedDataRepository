@@ -1,21 +1,29 @@
 package ca.calgary.vcpdr.controllers;
 
-import ca.calgary.vcpdr.data.location.hazardousmaterial.HazardousMaterialService;
-import ca.calgary.vcpdr.data.location.keyholder.KeyHolderService;
-import ca.calgary.vcpdr.data.location.property.PropertyService;
-import ca.calgary.vcpdr.data.medical.medicalcondition.MedicalConditionService;
-import ca.calgary.vcpdr.data.medical.medicalinformation.MedicalInformationService;
-import ca.calgary.vcpdr.data.medical.prescribedmedication.PrescribedMedicationService;
-import ca.calgary.vcpdr.data.personal.dependents.DependentService;
-import ca.calgary.vcpdr.data.personal.emergencycontact.EmergencyContactService;
-import ca.calgary.vcpdr.data.personal.person.PersonService;
-import ca.calgary.vcpdr.data.personal.telephone.TelephoneService;
-import ca.calgary.vcpdr.data.personal.vehicle.VehicleService;
-import ca.calgary.vcpdr.data.personal.vulnerablepersoninformation.VulnerablePersonInformationService;
+
+import ca.calgary.vcpdr.data.accountcreator.AccountCreatorService;
+import ca.calgary.vcpdr.data.emergencycontact.EmergencyContactService;
+import ca.calgary.vcpdr.data.hazardousmaterial.HazardousMaterialService;
+import ca.calgary.vcpdr.data.keyholder.KeyholderService;
+import ca.calgary.vcpdr.data.medicalcondition.MedicalConditionService;
+import ca.calgary.vcpdr.data.medicalinformation.MedicalInformationService;
+import ca.calgary.vcpdr.data.person.Person;
+import ca.calgary.vcpdr.data.person.PersonService;
+import ca.calgary.vcpdr.data.prescribedmedication.PrescribedMedicationService;
+import ca.calgary.vcpdr.data.property.PropertyService;
+import ca.calgary.vcpdr.data.telephone.TelephoneService;
+import ca.calgary.vcpdr.data.user.User;
+import ca.calgary.vcpdr.data.user.UserService;
+import ca.calgary.vcpdr.data.vehicle.VehicleService;
+import ca.calgary.vcpdr.data.vulnerablepersoninformation.VulnerablePersonInformationService;
+import ca.calgary.vcpdr.forms.LoginForm;
+import ca.calgary.vcpdr.forms.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ca.calgary.vcpdr.data.user.UserService;
+
+import java.util.Date;
+
 
 @Controller
 @RequestMapping(path = "api/user/v1")
@@ -25,7 +33,7 @@ public class UserController{
 
     private final UserService userService;
     private final HazardousMaterialService hazardousMaterialsService;
-    private final KeyHolderService keyHoldersService;
+    private final KeyholderService keyholdersService;
     private final PropertyService propertiesService;
     private final MedicalInformationService medicalInformationService;
     private final MedicalConditionService medicalConditionService;
@@ -35,13 +43,12 @@ public class UserController{
     private final TelephoneService telephoneService;
     private final VehicleService vehicleService;
     private final VulnerablePersonInformationService vulnerablePersonInformationService;
-    private final DependentService dependentService;
-
+    private final AccountCreatorService accountCreatorService;
     @Autowired
-    public UserController(UserService userService, HazardousMaterialService hazardousMaterialsService, KeyHolderService keyHoldersService, PropertyService propertiesService, MedicalInformationService medicalInformationService, MedicalConditionService medicalConditionService, PrescribedMedicationService prescribedMedicationService, PersonService personService, EmergencyContactService emergencyContactService, TelephoneService telephoneService, VehicleService vehicleService, VulnerablePersonInformationService vulnerablePersonInformationService, DependentService dependentService) {
+    public UserController(UserService userService, HazardousMaterialService hazardousMaterialsService, KeyholderService keyholdersService, PropertyService propertiesService, MedicalInformationService medicalInformationService, MedicalConditionService medicalConditionService, PrescribedMedicationService prescribedMedicationService, PersonService personService, EmergencyContactService emergencyContactService, TelephoneService telephoneService, VehicleService vehicleService, VulnerablePersonInformationService vulnerablePersonInformationService, AccountCreatorService accountCreatorService) {
         this.userService = userService;
         this.hazardousMaterialsService = hazardousMaterialsService;
-        this.keyHoldersService = keyHoldersService;
+        this.keyholdersService = keyholdersService;
         this.propertiesService = propertiesService;
         this.medicalInformationService = medicalInformationService;
         this.medicalConditionService = medicalConditionService;
@@ -51,38 +58,39 @@ public class UserController{
         this.telephoneService = telephoneService;
         this.vehicleService = vehicleService;
         this.vulnerablePersonInformationService = vulnerablePersonInformationService;
-        this.dependentService = dependentService;
+        this.accountCreatorService = accountCreatorService;
     }
 
-
-
-    /*
-    //USER
+    //User
 
     @PostMapping("/register")
     @ResponseBody
-    public Userold registerUser(@RequestBody RegistrationForm registrationForm){
-        Userold userold = userService.register(registrationForm);
-        telephoneService.addTelephone(new TelephoneForm(userold.getUserID(), registrationForm.getTelephoneNumber(), registrationForm.getTelephoneType()));
-        return userold;
+    public User register(@RequestBody RegistrationForm registrationForm){
+        System.out.println("Register request received at: " + new Date().toString());
+        User user = userService.createUser(registrationForm.getEmail(), registrationForm.getPassword());
+        Person person = personService.createPerson(user.getUserId(), registrationForm.getPersonGivenName(), registrationForm.getPersonSurName());
+        accountCreatorService.createLink(user.getUserId(), person.getPersonId());
+        telephoneService.createTelephone(person.getPersonId(), registrationForm.getTelephoneNumber(), registrationForm.getTelephoneType());
+        return user;
     }
 
     @PostMapping("/login")
     @ResponseBody
-    public Userold login(@RequestBody LoginForm loginForm){
-        return userService.login(loginForm);
+    public User login(@RequestBody LoginForm loginForm){
+        System.out.println("Login request received at: " + new Date().toString());
+        User user = userService.login(loginForm.getEmail(), loginForm.getPassword());
+        return null;
     }
 
-    //TELEPHONE
+    //Person
 
-    @PostMapping("/add-phone")
-    @ResponseBody
-    public Telephone addPhone(@RequestBody TelephoneForm telephoneForm){
-        return telephoneService.addTelephone(telephoneForm);
-    }*/
+    //Emergency contact
 
-    @GetMapping("/test")
-    public void test(){
-        userService.test();
-    }
+    //Hazardous material
+
+    //Keyholder
+
+    //Medical Condition
+
+    //
 }

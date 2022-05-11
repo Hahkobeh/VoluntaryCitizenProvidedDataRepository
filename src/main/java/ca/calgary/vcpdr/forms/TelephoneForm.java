@@ -13,4 +13,28 @@ public class TelephoneForm {
         this.telephoneNumber = telephoneNumber;
         this.telephoneType = telephoneType;
     }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public String getTelephoneNumber() {
+        return telephoneNumber;
+    }
+
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
+    }
+
+    public String getTelephoneType() {
+        return telephoneType;
+    }
+
+    public void setTelephoneType(String telephoneType) {
+        this.telephoneType = telephoneType;
+    }
 }

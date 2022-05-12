@@ -5,11 +5,9 @@ import javax.persistence.*;
 @Entity
 @IdClass(MedicalConditionPK.class)
 public class MedicalCondition {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "personID", nullable = false)
     private int personId;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "medicalCondition", nullable = false, length = 255)
     private String medicalCondition;

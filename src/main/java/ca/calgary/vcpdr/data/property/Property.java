@@ -9,8 +9,8 @@ public class Property {
     private int userId;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "addressID", nullable = false)
-    private int addressId;
+    @Column(name = "propertyID", nullable = false)
+    private int propertyId;
     @Basic
     @Column(name = "A1", nullable = false, length = 2)
     private String a1;
@@ -59,12 +59,12 @@ public class Property {
         this.userId = userId;
     }
 
-    public int getAddressId() {
-        return addressId;
+    public int getPropertyId() {
+        return propertyId;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
+    public void setPropertyId(int propertyId) {
+        this.propertyId = propertyId;
     }
 
     public String getA1() {
@@ -179,7 +179,7 @@ public class Property {
         Property property = (Property) o;
 
         if (userId != property.userId) return false;
-        if (addressId != property.addressId) return false;
+        if (propertyId != property.propertyId) return false;
         if (a1 != null ? !a1.equals(property.a1) : property.a1 != null) return false;
         if (a3 != null ? !a3.equals(property.a3) : property.a3 != null) return false;
         if (rd != null ? !rd.equals(property.rd) : property.rd != null) return false;
@@ -205,7 +205,7 @@ public class Property {
     @Override
     public int hashCode() {
         int result = userId;
-        result = 31 * result + addressId;
+        result = 31 * result + propertyId;
         result = 31 * result + (a1 != null ? a1.hashCode() : 0);
         result = 31 * result + (a3 != null ? a3.hashCode() : 0);
         result = 31 * result + (rd != null ? rd.hashCode() : 0);

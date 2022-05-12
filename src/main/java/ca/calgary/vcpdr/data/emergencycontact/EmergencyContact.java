@@ -5,14 +5,12 @@ import javax.persistence.*;
 @Entity
 @IdClass(EmergencyContactPK.class)
 public class EmergencyContact {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "personID", nullable = false)
     private int personId;
     @Basic
     @Column(name = "personFullName", nullable = false, length = 255)
     private String personFullName;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "telephoneNumber", nullable = false, length = 10)
     private String telephoneNumber;

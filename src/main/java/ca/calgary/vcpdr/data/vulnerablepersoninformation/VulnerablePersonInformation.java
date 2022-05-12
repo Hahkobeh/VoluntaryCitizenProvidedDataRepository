@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 @Entity
 public class VulnerablePersonInformation {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "personID", nullable = false)
     private int personId;

@@ -7,21 +7,19 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 public class VehiclePK implements Serializable {
-    @Column(name = "personID", nullable = false)
+    @Column(name = "userID", nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int personId;
+    private int userId;
     @Column(name = "registrationPlateIdentification", nullable = false, length = 10)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String registrationPlateIdentification;
 
-    public int getPersonId() {
-        return personId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setPersonId(int personId) {
-        this.personId = personId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getRegistrationPlateIdentification() {
@@ -39,7 +37,7 @@ public class VehiclePK implements Serializable {
 
         VehiclePK vehiclePK = (VehiclePK) o;
 
-        if (personId != vehiclePK.personId) return false;
+        if (userId != vehiclePK.userId) return false;
         if (registrationPlateIdentification != null ? !registrationPlateIdentification.equals(vehiclePK.registrationPlateIdentification) : vehiclePK.registrationPlateIdentification != null)
             return false;
 
@@ -48,7 +46,7 @@ public class VehiclePK implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = personId;
+        int result = userId;
         result = 31 * result + (registrationPlateIdentification != null ? registrationPlateIdentification.hashCode() : 0);
         return result;
     }

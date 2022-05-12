@@ -5,8 +5,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TelephoneService {
+    private final TelephoneRepository telephoneRepository;
+
     @Autowired
-    private TelephoneRepository telephoneRepository;
+    public TelephoneService(TelephoneRepository telephoneRepository) {
+        this.telephoneRepository = telephoneRepository;
+    }
 
     public Telephone createTelephone(int personId, String telephoneNumber, String telephoneType) {
         return telephoneRepository.save(new Telephone(personId, telephoneNumber, telephoneType));

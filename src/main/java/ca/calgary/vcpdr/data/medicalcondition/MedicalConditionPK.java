@@ -9,11 +9,9 @@ import java.io.Serializable;
 public class MedicalConditionPK implements Serializable {
     @Column(name = "personID", nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int personId;
     @Column(name = "medicalCondition", nullable = false, length = 255)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String medicalCondition;
 
     public int getPersonId() {

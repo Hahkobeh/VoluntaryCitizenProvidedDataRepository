@@ -3,14 +3,15 @@ package ca.calgary.vcpdr.data.hazardousmaterial;
 import javax.persistence.*;
 
 @Entity
-@IdClass(HazardousMaterialPK.class)
 public class HazardousMaterial {
+    @Basic
+    @Column(name = "propertyID", nullable = false)
+    private int propertyId;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "addressID", nullable = false)
-    private int addressId;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Column(name = "hazardousMaterialID", nullable = false)
+    private int hazardousMaterialId;
+    @Basic
     @Column(name = "commonName", nullable = false, length = 255)
     private String commonName;
     @Basic
@@ -29,12 +30,20 @@ public class HazardousMaterial {
     @Column(name = "quantity", nullable = true, length = 255)
     private String quantity;
 
-    public int getAddressId() {
-        return addressId;
+    public int getPropertyId() {
+        return propertyId;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
+    public void setPropertyId(int propertyId) {
+        this.propertyId = propertyId;
+    }
+
+    public int getHazardousMaterialId() {
+        return hazardousMaterialId;
+    }
+
+    public void setHazardousMaterialId(int hazardousMaterialId) {
+        this.hazardousMaterialId = hazardousMaterialId;
     }
 
     public String getCommonName() {
@@ -92,7 +101,8 @@ public class HazardousMaterial {
 
         HazardousMaterial that = (HazardousMaterial) o;
 
-        if (addressId != that.addressId) return false;
+        if (propertyId != that.propertyId) return false;
+        if (hazardousMaterialId != that.hazardousMaterialId) return false;
         if (commonName != null ? !commonName.equals(that.commonName) : that.commonName != null) return false;
         if (substanceCategory != null ? !substanceCategory.equals(that.substanceCategory) : that.substanceCategory != null)
             return false;
@@ -107,7 +117,8 @@ public class HazardousMaterial {
 
     @Override
     public int hashCode() {
-        int result = addressId;
+        int result = propertyId;
+        result = 31 * result + hazardousMaterialId;
         result = 31 * result + (commonName != null ? commonName.hashCode() : 0);
         result = 31 * result + (substanceCategory != null ? substanceCategory.hashCode() : 0);
         result = 31 * result + (substanceContainer != null ? substanceContainer.hashCode() : 0);

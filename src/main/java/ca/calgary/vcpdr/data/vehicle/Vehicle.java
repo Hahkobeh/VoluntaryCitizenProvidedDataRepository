@@ -5,11 +5,9 @@ import javax.persistence.*;
 @Entity
 @IdClass(VehiclePK.class)
 public class Vehicle {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "personID", nullable = false)
-    private int personId;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userID", nullable = false)
+    private int userId;
     @Id
     @Column(name = "registrationPlateIdentification", nullable = false, length = 10)
     private String registrationPlateIdentification;
@@ -29,12 +27,12 @@ public class Vehicle {
     @Column(name = "year", nullable = true)
     private Integer year;
 
-    public int getPersonId() {
-        return personId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setPersonId(int personId) {
-        this.personId = personId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getRegistrationPlateIdentification() {
@@ -92,7 +90,7 @@ public class Vehicle {
 
         Vehicle vehicle = (Vehicle) o;
 
-        if (personId != vehicle.personId) return false;
+        if (userId != vehicle.userId) return false;
         if (registrationPlateIdentification != null ? !registrationPlateIdentification.equals(vehicle.registrationPlateIdentification) : vehicle.registrationPlateIdentification != null)
             return false;
         if (provinceCode != null ? !provinceCode.equals(vehicle.provinceCode) : vehicle.provinceCode != null)
@@ -109,7 +107,7 @@ public class Vehicle {
 
     @Override
     public int hashCode() {
-        int result = personId;
+        int result = userId;
         result = 31 * result + (registrationPlateIdentification != null ? registrationPlateIdentification.hashCode() : 0);
         result = 31 * result + (provinceCode != null ? provinceCode.hashCode() : 0);
         result = 31 * result + (vehicleExteriorColour != null ? vehicleExteriorColour.hashCode() : 0);

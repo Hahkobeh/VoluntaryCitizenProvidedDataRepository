@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import java.util.Date;
+
 @SpringBootApplication
 @EnableTransactionManagement
 public class VCPDR implements CommandLineRunner {
@@ -26,9 +28,6 @@ public class VCPDR implements CommandLineRunner {
 
 
     public void run(String... args) throws Exception {
-        //userController.test();
-
-
-
+        System.out.println("System started at: " + new Date().toString() + ". You're great!");
     }
 }

@@ -9,11 +9,9 @@ import java.io.Serializable;
 public class EmergencyContactPK implements Serializable {
     @Column(name = "personID", nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int personId;
     @Column(name = "telephoneNumber", nullable = false, length = 10)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String telephoneNumber;
 
     public int getPersonId() {

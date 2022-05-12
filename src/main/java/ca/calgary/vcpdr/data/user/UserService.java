@@ -13,6 +13,14 @@ public class UserService {
     }
 
     public User login(String email, String password) {
-        return null;
+        return userRepository.findByEmailAndPassword(email, password);
+    }
+
+    public boolean emailExists(String email) {
+        return userRepository.findByEmail(email).isPresent();
+    }
+
+    public boolean userIdExists(int userId) {
+        return userRepository.findById(userId).isPresent();
     }
 }

@@ -56,6 +56,26 @@ public class Person {
 
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "userId=" + userId +
+                ", personId=" + personId +
+                ", personGivenName='" + personGivenName + '\'' +
+                ", personSurName='" + personSurName + '\'' +
+                ", personMaidenName='" + personMaidenName + '\'' +
+                ", personMiddleName='" + personMiddleName + '\'' +
+                ", personBirthDate=" + personBirthDate +
+                ", personSexCode='" + personSexCode + '\'' +
+                ", personPrimaryLanguage='" + personPrimaryLanguage + '\'' +
+                ", personSecondaryLanguage='" + personSecondaryLanguage + '\'' +
+                ", wheelchair=" + wheelchair +
+                ", licenseNumber='" + licenseNumber + '\'' +
+                ", licenseProvince='" + licenseProvince + '\'' +
+                '}';
+    }
+
+
     public int getUserId() {
         return userId;
     }

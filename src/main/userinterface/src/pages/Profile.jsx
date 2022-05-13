@@ -1,69 +1,60 @@
 import React, {Component} from 'react';
-import InformationPage from '../components/InformationPage';
-import Tabs from '../components/Tabs';
 import '../style/Profile.scss'
+import Navbar from "../components/Navbar";
+import axios from "axios";
+import Person from "../components/Person";
+
 
 class Profile extends Component {
 
-    email;
+
 
 
     constructor(props) {
         super(props);
 
-        this.email = props.user.email;
+
 
         this.state = {
-            userID: props.user.userID,
-            email: props.user.email,
-            personGivenName: props.user.personGivenName,
-            personSurName: props.user.personSurName,
-            lastUpdated: props.user.lastUpdated,
-            personMaidenName: "",
-            personMiddleName: "Samuel",
-            personBirthDate: "1993-01-02",
-            personSexCode: "M",
-            personPrimaryLanguage: "english",
-            personSecondaryLanguage: "french",
-            wheelchair: false,
-            telephones: [
-                {
-                    telephoneNumber: "9998887777",
-                    telephoneType: "home"
-                },
-                {
-                    telephoneNumber: "8887776666",
-                    telephoneType: "mobile"
-                },
-                {
-                    telephoneNumber: "7776665555",
-                    telephoneType: "work"
-                }
-
-            ],
-            properties: {
-
-            }
+            persons:[]
 
         }
 
-
     }
 
-    getInfo = async () => {
-
+    componentDidMount() {
+        axios.get("http://localhost:8080/api/user/v1/person/1")
+            .then(res => {
+                console.log(res.data)
+                this.setState({
+                    persons:res.data
+                })
+            })
     }
+
+
+
 
 
     render() {
 
 
-        const names = ["User","Person","Telephones"]
         return (
-            <div>
-                
-                <Tabs logout={this.props.logout}/>
-                <InformationPage/>
+            <div className="profile">
+                <Navbar/>
+                <button onClick={this.props.logout}>Logout</button>
+                <div className="info">
+                    <p>{JSON.stringify(this.props.user)}</p>
+                    <ul>
+                    {this.state.persons.map(person => (
+                        <Person person={person}/>
+                    ))}
+                    </ul>
+                    <p>{JSON.stringify(this.state.persons)}</p>
+                    <button onClick={this.getInfo}>get info!</button>
+                </div>
+
+
 
                 
             </div>

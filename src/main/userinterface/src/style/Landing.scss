@@ -1,0 +1,18 @@
+@import "Variables";
+
+.landing{
+  width: 30em;
+  background: $blue;
+  margin: 20% auto;
+  border-radius: 20px;
+
+  h1{
+    width: 100%;
+    text-align: center;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+  }
+}

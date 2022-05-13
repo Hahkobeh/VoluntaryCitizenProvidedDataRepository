@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import axios from 'axios';
+import '../style/Landing.scss'
 
 
 function Landing(props){
@@ -14,7 +15,6 @@ function Landing(props){
         e.preventDefault();
 
         if(email === ""){
-            props.login("temp");
             return;
         }
 

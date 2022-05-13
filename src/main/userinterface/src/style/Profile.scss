@@ -1,46 +1,47 @@
-.bar{
-    position: fixed;
-    width: 100%;
+@import 'Variables';
+
+.profile{
+  width: 100%;
+  height: 100vh;
+  padding-top: 100px;
+}
+
+nav{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  justify-content: space-between;
+
+  background: $blue;
+
+  img{
+    width: 100px;
     height: 100px;
-    background-color: black;
-}
+  }
 
-.tab-buttons{
+
+  .nav-options{
+    color: white;
     position: absolute;
-    right: 0;
     top: 0;
-    height: 100%;
-    background-color: red;
-    .main{
-        
-        color: red;
-    }
-}
-
-.tabs{
+    right: 2em;
+    width: 60%;
     height: 100%;
     display: flex;
-    align-content: center;
-    
+    justify-content: space-between;
+    text-align: center;
+  }
 }
 
-.tab{
-    padding: 20px;
-    display: flex;
-    border-width: 10px;
-    border-color: black;
+.person{
+  display: flex;
+  margin: 2em auto;
+  flex-direction: column;
+  background-color: $blue;
+  width: 40em;
+  text-align: center;
+
+  border-radius: 20px;
 }
-
-.tab-header{
-    margin: 0;
-
-}
-
-.r{
-    background-color: lightblue;
-}
-
-.b{
-    background-color: blue;
-}
-

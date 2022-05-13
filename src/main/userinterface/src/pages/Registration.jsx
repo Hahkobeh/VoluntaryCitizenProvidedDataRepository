@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
+import '../style/Registration.scss';
 
 class Registration extends Component {
     constructor(props) {

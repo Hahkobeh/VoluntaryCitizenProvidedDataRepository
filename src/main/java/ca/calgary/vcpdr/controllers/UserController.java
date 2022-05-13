@@ -1,20 +1,24 @@
 package ca.calgary.vcpdr.controllers;
 
 
-import ca.calgary.vcpdr.data.accountcreator.AccountCreatorService;
-import ca.calgary.vcpdr.data.emergencycontact.EmergencyContactService;
+import ca.calgary.vcpdr.data.relationships.accountcreator.AccountCreator;
+import ca.calgary.vcpdr.data.relationships.accountcreator.AccountCreatorService;
+import ca.calgary.vcpdr.data.personnal.emergencycontact.EmergencyContactService;
 import ca.calgary.vcpdr.data.hazardousmaterial.HazardousMaterialService;
-import ca.calgary.vcpdr.data.medicalcondition.MedicalConditionService;
-import ca.calgary.vcpdr.data.medicalinformation.MedicalInformationService;
-import ca.calgary.vcpdr.data.person.Person;
-import ca.calgary.vcpdr.data.person.PersonService;
-import ca.calgary.vcpdr.data.prescribedmedication.PrescribedMedicationService;
+import ca.calgary.vcpdr.data.personnal.medicalcondition.MedicalConditionService;
+import ca.calgary.vcpdr.data.personnal.medicalinformation.MedicalInformationService;
+import ca.calgary.vcpdr.data.personnal.person.Person;
+import ca.calgary.vcpdr.data.personnal.person.PersonService;
+import ca.calgary.vcpdr.data.personnal.prescribedmedication.PrescribedMedicationService;
 import ca.calgary.vcpdr.data.property.PropertyService;
-import ca.calgary.vcpdr.data.telephone.TelephoneService;
+import ca.calgary.vcpdr.data.personnal.telephone.TelephoneService;
+import ca.calgary.vcpdr.data.relationships.personrelationship.PersonRelationship;
+import ca.calgary.vcpdr.data.relationships.personrelationship.PersonRelationshipService;
+import ca.calgary.vcpdr.data.relationships.propertyrelationship.PropertyRelationshipService;
 import ca.calgary.vcpdr.data.user.User;
 import ca.calgary.vcpdr.data.user.UserService;
 import ca.calgary.vcpdr.data.vehicle.VehicleService;
-import ca.calgary.vcpdr.data.vulnerablepersoninformation.VulnerablePersonInformationService;
+import ca.calgary.vcpdr.data.personnal.vulnerablepersoninformation.VulnerablePersonInformationService;
 import ca.calgary.vcpdr.forms.LoginForm;
 import ca.calgary.vcpdr.forms.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +47,10 @@ public class UserController{
     private final VehicleService vehicleService;
     private final VulnerablePersonInformationService vulnerablePersonInformationService;
     private final AccountCreatorService accountCreatorService;
+    private final PersonRelationshipService personRelationshipService;
+    private final PropertyRelationshipService propertyRelationshipService;
     @Autowired
-    public UserController(UserService userService, HazardousMaterialService hazardousMaterialsService,  PropertyService propertiesService, MedicalInformationService medicalInformationService, MedicalConditionService medicalConditionService, PrescribedMedicationService prescribedMedicationService, PersonService personService, EmergencyContactService emergencyContactService, TelephoneService telephoneService, VehicleService vehicleService, VulnerablePersonInformationService vulnerablePersonInformationService, AccountCreatorService accountCreatorService) {
+    public UserController(UserService userService, HazardousMaterialService hazardousMaterialsService, PropertyService propertiesService, MedicalInformationService medicalInformationService, MedicalConditionService medicalConditionService, PrescribedMedicationService prescribedMedicationService, PersonService personService, EmergencyContactService emergencyContactService, TelephoneService telephoneService, VehicleService vehicleService, VulnerablePersonInformationService vulnerablePersonInformationService, AccountCreatorService accountCreatorService, PersonRelationshipService personRelationshipService, PropertyRelationshipService propertyRelationshipService) {
         this.userService = userService;
         this.hazardousMaterialsService = hazardousMaterialsService;
         this.propertiesService = propertiesService;
@@ -57,7 +63,12 @@ public class UserController{
         this.vehicleService = vehicleService;
         this.vulnerablePersonInformationService = vulnerablePersonInformationService;
         this.accountCreatorService = accountCreatorService;
+        this.personRelationshipService = personRelationshipService;
+        this.propertyRelationshipService = propertyRelationshipService;
     }
+
+
+
 
     //User
 
@@ -88,6 +99,8 @@ public class UserController{
 
     //Person
 
+
+
     @PostMapping("/person/create")
     @ResponseBody
     public Person createPerson(@RequestBody Person person){
@@ -109,9 +122,35 @@ public class UserController{
         return personService.getPersons(userId);
     }
 
-    /*@PostMapping("/person/edit")
+    @DeleteMapping("/person/delete/{personId}")
     @ResponseBody
-    public Person editPerson*/
+    public boolean deletePerson(@PathVariable int personId){
+        return personService.deletePerson(personId);
+    }
+
+    //Account creator
+
+    @GetMapping("/account-creator/{userId}")
+    @ResponseBody
+    public AccountCreator getAccountCreator(@PathVariable int userId){
+        return accountCreatorService.getLink(userId);
+    }
+
+    //Person relationships
+
+    @PostMapping("/person-relationship/create")
+    @ResponseBody
+    public PersonRelationship createPersonRelationship(@RequestBody PersonRelationship personRelationship){
+        System.out.println(personRelationship);
+        return personRelationshipService.createPersonRelationship(personRelationship);
+    }
+
+    @GetMapping("/person-relationship/{userId}")
+    @ResponseBody
+    public List<PersonRelationship> getPersonRelationships(@PathVariable int userId){
+        int personId = accountCreatorService.getUserPerson(userId);
+        return personRelationshipService.getPersonRelationships(personId);
+    }
 
     //Emergency contact
 

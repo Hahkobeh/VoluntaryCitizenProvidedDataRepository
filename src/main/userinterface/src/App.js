@@ -1,37 +1,47 @@
-import './App.scss';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Profile from "./pages/Profile";
 import Registration from "./pages/Registration";
 import About from "./pages/About";
 
 function App() {
 
-    const [user, setUser] = useState(null);
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        console.log(typeof sessionStorage.getItem("user"))
+        if(sessionStorage.getItem("user") !== "null"){
+            console.log("here!")
+            setLoggedIn(true);
+        }
+    }, []);
 
 
 
     const login = (data) => {
-        setUser(data);
+        sessionStorage.setItem("user", JSON.stringify(data));
+        setLoggedIn(true);
+
     }
 
     const logout = () => {
-        setUser(null);
+        sessionStorage.setItem("user", JSON.stringify(null));
+        setLoggedIn(false);
     }
 
     return (
-        <div className="App">
+        <>
             <Router>
                 <Routes>
-                    <Route path="/" element={user !== null ? <Profile logout={logout} user={user}/> : <Landing login={login}/>}/>
+                    <Route path="/" element={loggedIn ? <Profile logout={logout} user={JSON.parse(sessionStorage.getItem("user"))}/> : <Landing login={login}/>}/>
                     <Route path="/registration" element={<Registration/>}/>
                     <Route path="/about" element={<About/>}/>
                 </Routes>
 
             </Router>
 
-        </div>
+        </>
     );
 }
 

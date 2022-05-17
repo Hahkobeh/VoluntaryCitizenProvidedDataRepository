@@ -12,6 +12,11 @@ public class MedicalConditionPK implements Serializable {
     @Id
     private String medicalCondition;
 
+    public MedicalConditionPK(int personId, String medicalCondition) {
+        this.personId = personId;
+        this.medicalCondition = medicalCondition;
+    }
+
     public int getPersonId() {
         return personId;
     }

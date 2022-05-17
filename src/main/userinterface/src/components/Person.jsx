@@ -4,14 +4,8 @@ function Person({person: {personId, personSurName, personGivenName, personMaiden
     return (
         <li className="person" key={personId}>
             <h1>{personGivenName} {personSurName}</h1>
-            <label>
-                Maiden Name:
-                <input type="text" value={personMaidenName} name={personMaidenName}/>
-            </label>
-            <label>
-                Middle Name:
-                <label>{personMiddleName}</label>
-            </label>
+            <button className='delete'>X</button>
+            
         </li>
     );
 }

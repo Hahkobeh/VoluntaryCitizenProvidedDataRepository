@@ -9,7 +9,6 @@ public class PrescribedMedication {
     @Id
     @Column(name = "personID", nullable = false)
     private int personId;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "medicationGenericProductIdentification", nullable = false, length = 255)
     private String medicationGenericProductIdentification;

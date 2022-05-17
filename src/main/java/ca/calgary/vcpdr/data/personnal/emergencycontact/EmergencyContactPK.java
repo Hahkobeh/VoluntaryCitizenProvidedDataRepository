@@ -12,6 +12,11 @@ public class EmergencyContactPK implements Serializable {
     @Id
     private String telephoneNumber;
 
+    public EmergencyContactPK(int personId, String telephoneNumber) {
+        this.personId = personId;
+        this.telephoneNumber = telephoneNumber;
+    }
+
     public int getPersonId() {
         return personId;
     }

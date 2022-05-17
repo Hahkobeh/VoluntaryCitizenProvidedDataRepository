@@ -1,6 +1,13 @@
 package ca.calgary.vcpdr.controllers;
 
 
+import ca.calgary.vcpdr.data.personnal.emergencycontact.EmergencyContact;
+import ca.calgary.vcpdr.data.personnal.medicalcondition.MedicalCondition;
+import ca.calgary.vcpdr.data.personnal.medicalinformation.MedicalInformation;
+import ca.calgary.vcpdr.data.personnal.prescribedmedication.PrescribedMedication;
+import ca.calgary.vcpdr.data.personnal.telephone.Telephone;
+import ca.calgary.vcpdr.data.personnal.vulnerablepersoninformation.VulnerablePersonInformation;
+import ca.calgary.vcpdr.data.property.Property;
 import ca.calgary.vcpdr.data.relationships.accountcreator.AccountCreator;
 import ca.calgary.vcpdr.data.relationships.accountcreator.AccountCreatorService;
 import ca.calgary.vcpdr.data.personnal.emergencycontact.EmergencyContactService;
@@ -67,6 +74,12 @@ public class UserController{
         this.propertyRelationshipService = propertyRelationshipService;
     }
 
+    @GetMapping("/test")
+    @ResponseBody
+    public boolean testConnection(){
+        return true;
+    }
+
 
 
 
@@ -76,6 +89,7 @@ public class UserController{
     @ResponseBody
     public User register(@RequestBody RegistrationForm registrationForm){
         System.out.println("Register request received at: " + new Date());
+        System.out.println(registrationForm);
         if(userService.emailExists(registrationForm.getEmail())){
             return null;
         }
@@ -96,6 +110,13 @@ public class UserController{
         }
         return userService.login(loginForm.getEmail(), loginForm.getPassword());
     }
+
+    @GetMapping("/email-taken/{email}")
+    @ResponseBody
+    public boolean emailTaken(@PathVariable String email){
+        return userService.emailExists(email);
+    }
+
 
     //Person
 
@@ -154,11 +175,129 @@ public class UserController{
 
     //Emergency contact
 
-    //Hazardous material
+    @PostMapping("/emergency-contact/create")
+    @ResponseBody
+    public EmergencyContact createEmergencyContact(@RequestBody EmergencyContact emergencyContact){
+        return emergencyContactService.createEmergencyContact(emergencyContact);
+    }
 
-    //Keyholder
+    @DeleteMapping("/emergency-contact/delete")
+    @ResponseBody
+    public boolean deleteEmergencyContact(@RequestBody EmergencyContact emergencyContact){
+        return emergencyContactService.deleteEmergencyContact(emergencyContact);
+    }
+
+    @GetMapping("/emergency-contact/{personId}")
+    @ResponseBody
+    public List<EmergencyContact> getEmergencyContacts(@PathVariable int personId){
+        return emergencyContactService.getEmergencyContacts(personId);
+    }
+
+
+    //Telephone
+
+    @PostMapping("/telephone/create")
+    @ResponseBody
+    public Telephone createTelephone(@RequestBody Telephone telephone){
+        return telephoneService.createTelephone(telephone);
+    }
+
+    @DeleteMapping("/telephone/delete")
+    @ResponseBody
+    public boolean deleteTelephone(@RequestBody Telephone telephone){
+        return telephoneService.deleteTelephone(telephone);
+    }
+
+    @GetMapping("/telephone/{personId}")
+    @ResponseBody
+    public List<Telephone> getTelephones(@PathVariable int personId){
+        return telephoneService.getTelephones(personId);
+    }
+
+    //Medical Information
+
+    @PostMapping("/medical-information/create")
+    @ResponseBody
+    public MedicalInformation createMedicalInformation(@RequestBody MedicalInformation medicalInformation){
+        return medicalInformationService.createMedicalInformation(medicalInformation);
+    }
+
+    @DeleteMapping("/medical-information/delete")
+    @ResponseBody
+    public boolean deleteMedicalInformation(@RequestBody MedicalInformation medicalInformation){
+        return medicalInformationService.deleteMedicalInformation(medicalInformation);
+    }
+
+    @GetMapping("/medical-information/{personId}")
+    @ResponseBody
+    public MedicalInformation getMedicalInformation(@PathVariable int personId){
+        return medicalInformationService.getMedicalInformation(personId);
+    }
+
+    //Prescribed Medication
+
+    @PostMapping("/prescribed-medication/create")
+    @ResponseBody
+    public PrescribedMedication createPrescribedMedication(@RequestBody PrescribedMedication prescribedMedication){
+        return prescribedMedicationService.createPrescribedMedication(prescribedMedication);
+    }
+
+    @DeleteMapping("/prescribed-medication/delete")
+    @ResponseBody
+    public boolean deletePrescribedMedication(@RequestBody PrescribedMedication prescribedMedication){
+        return prescribedMedicationService.deletePrescibedMedication(prescribedMedication);
+    }
 
     //Medical Condition
 
-    //
+    @PostMapping("/medical-condition/create")
+    @ResponseBody
+    public MedicalCondition createMedicalCondition(@RequestBody MedicalCondition medicalCondition){
+        return medicalConditionService.createMedicalCondition(medicalCondition);
+    }
+
+    @DeleteMapping("/medical-condition/delete")
+    @ResponseBody
+    public boolean deleteMedicalCondition(@RequestBody MedicalCondition medicalCondition){
+        return medicalConditionService.deleteMedicalCondition(medicalCondition);
+    }
+
+    //Vulnerable Person Information
+
+    @PostMapping("/vpi/create")
+    @ResponseBody
+    public VulnerablePersonInformation createVPI(@RequestBody VulnerablePersonInformation vulnerablePersonInformation){
+        return vulnerablePersonInformationService.createVPI(vulnerablePersonInformation);
+    }
+
+    @DeleteMapping("/vpi/delete")
+    @ResponseBody
+    public boolean deleteVPI(@RequestBody VulnerablePersonInformation vulnerablePersonInformation){
+        return vulnerablePersonInformationService.deleteVPI(vulnerablePersonInformation);
+    }
+
+    //Property
+
+    @PostMapping("/property/create")
+    @ResponseBody
+    public Property createProperty(@RequestBody Property property){
+        return propertiesService.createProperty(property);
+    }
+
+    @PostMapping("/property/delete")
+    @ResponseBody
+    public boolean deleteProperty(@RequestBody Property property){
+        return propertiesService.deleteProperty(property);
+    }
+
+    //Property Relationship
+
+
+
+    //Hazardous material
+
+
+    //Vehicle
+
+
 }

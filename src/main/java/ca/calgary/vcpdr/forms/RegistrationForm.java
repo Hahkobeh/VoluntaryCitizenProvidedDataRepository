@@ -11,4 +11,6 @@ public class RegistrationForm {
     private String personSurName = "";
     private String telephoneNumber = "";
     private String telephoneType = "";
+
+
 }

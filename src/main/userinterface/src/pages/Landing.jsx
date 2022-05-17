@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import axios from 'axios';
 import '../style/Landing.scss'
@@ -9,10 +9,27 @@ function Landing(props){
 
     const [email, setEmail] = useState("");
 
-    const [password, setPassword] = useState("")
+    const [password, setPassword] = useState("");
+
+    useEffect(() => {
+        testConnection();
+    })
+
+    const testConnection = () => {
+        
+        axios.get("http://localhost:8080/api/user/v1/test")
+            .catch(err => {
+                console.log("NOT CONNECTED TO BACKEND!")
+            })
+        
+    }
+    
 
     const attemptLogin = (e) => {
         e.preventDefault();
+
+
+
 
         if(email === ""){
             return;
@@ -42,8 +59,13 @@ function Landing(props){
 
     }
 
+    
+
 
     return (
+        
+        
+        
         <div className="landing">
             <h1>VCPDR</h1>
             <form onSubmit={attemptLogin}>

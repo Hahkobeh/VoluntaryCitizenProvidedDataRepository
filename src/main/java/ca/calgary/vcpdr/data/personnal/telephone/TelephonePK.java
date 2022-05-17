@@ -12,6 +12,14 @@ public class TelephonePK implements Serializable {
     @Id
     private String telephoneNumber;
 
+    public TelephonePK(int personId, String telephoneNumber) {
+        this.personId = personId;
+        this.telephoneNumber = telephoneNumber;
+    }
+
+    public TelephonePK() {
+    }
+
     public int getPersonId() {
         return personId;
     }

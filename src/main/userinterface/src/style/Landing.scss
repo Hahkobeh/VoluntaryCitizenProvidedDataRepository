@@ -5,6 +5,7 @@
   background: $blue;
   margin: 20% auto;
   border-radius: 20px;
+  text-align: center;
 
   h1{
     width: 100%;
@@ -14,5 +15,8 @@
   form{
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
+    width: 20em;
+    align-items: center;
   }
 }

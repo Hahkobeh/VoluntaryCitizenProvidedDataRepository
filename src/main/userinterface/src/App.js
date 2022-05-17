@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Landing from "./pages/Landing";
 import React, {useEffect, useState} from "react";
 import Profile from "./pages/Profile";
@@ -35,7 +35,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/" element={loggedIn ? <Profile logout={logout} user={JSON.parse(sessionStorage.getItem("user"))}/> : <Landing login={login}/>}/>
-                    <Route path="/registration" element={<Registration/>}/>
+                    <Route path="/registration" element={<Registration Navigate={Navigate}/>}/>
                     <Route path="/about" element={<About/>}/>
                 </Routes>
 

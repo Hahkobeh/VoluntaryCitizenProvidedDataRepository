@@ -16,14 +16,17 @@ class Profile extends Component {
 
 
         this.state = {
-            persons:[]
+            persons:[],
+            properties:[],
+            vehicles:[],
+
 
         }
 
     }
 
     componentDidMount() {
-        axios.get("http://localhost:8080/api/user/v1/person/1")
+        axios.get(`http://localhost:8080/api/user/v1/person/${this.props.user.userId}`)
             .then(res => {
                 console.log(res.data)
                 this.setState({
@@ -44,13 +47,11 @@ class Profile extends Component {
                 <Navbar/>
                 <button onClick={this.props.logout}>Logout</button>
                 <div className="info">
-                    <p>{JSON.stringify(this.props.user)}</p>
                     <ul>
                     {this.state.persons.map(person => (
                         <Person person={person}/>
                     ))}
                     </ul>
-                    <p>{JSON.stringify(this.state.persons)}</p>
                     <button onClick={this.getInfo}>get info!</button>
                 </div>
 

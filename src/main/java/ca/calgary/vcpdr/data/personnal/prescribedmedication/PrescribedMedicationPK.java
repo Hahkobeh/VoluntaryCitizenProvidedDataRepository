@@ -9,12 +9,15 @@ import java.io.Serializable;
 public class PrescribedMedicationPK implements Serializable {
     @Column(name = "personID", nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int personId;
     @Column(name = "medicationGenericProductIdentification", nullable = false, length = 255)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String medicationGenericProductIdentification;
+
+    public PrescribedMedicationPK(int personId, String medicationGenericProductIdentification) {
+        this.personId = personId;
+        this.medicationGenericProductIdentification = medicationGenericProductIdentification;
+    }
 
     public int getPersonId() {
         return personId;

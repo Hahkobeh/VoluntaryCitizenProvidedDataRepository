@@ -2,16 +2,17 @@ import React from 'react';
 
 const Navbar = () => {
     return (
-        <nav>
+        <div className='nav'>
             <img/>
             <div className="nav-options">
-                <h3>Person</h3>
-                <h3>Property</h3>
-                <h3>Vehicle</h3>
+                <h2>Person</h2>
+                <h2>Property</h2>
+                <h2>Vehicle</h2>
+                <h2>User Info</h2>
 
             </div>
 
-        </nav>
+        </div>
     );
 };
 

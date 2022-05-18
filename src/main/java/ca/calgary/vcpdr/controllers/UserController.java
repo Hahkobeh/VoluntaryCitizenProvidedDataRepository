@@ -24,6 +24,7 @@ import ca.calgary.vcpdr.data.relationships.personrelationship.PersonRelationship
 import ca.calgary.vcpdr.data.relationships.propertyrelationship.PropertyRelationshipService;
 import ca.calgary.vcpdr.data.user.User;
 import ca.calgary.vcpdr.data.user.UserService;
+import ca.calgary.vcpdr.data.vehicle.Vehicle;
 import ca.calgary.vcpdr.data.vehicle.VehicleService;
 import ca.calgary.vcpdr.data.personnal.vulnerablepersoninformation.VulnerablePersonInformationService;
 import ca.calgary.vcpdr.forms.LoginForm;
@@ -153,7 +154,7 @@ public class UserController{
 
     @GetMapping("/account-creator/{userId}")
     @ResponseBody
-    public AccountCreator getAccountCreator(@PathVariable int userId){
+    public int getAccountCreator(@PathVariable int userId){
         return accountCreatorService.getLink(userId);
     }
 
@@ -290,7 +291,14 @@ public class UserController{
         return propertiesService.deleteProperty(property);
     }
 
+    @GetMapping("/property/{userId}")
+    @ResponseBody
+    public List<Property> getProperties(@PathVariable int userId){
+        return propertiesService.getProperties(userId);
+    }
+
     //Property Relationship
+
 
 
 
@@ -298,6 +306,12 @@ public class UserController{
 
 
     //Vehicle
+
+    @GetMapping("/vehicle/{userId}")
+    @ResponseBody
+    public List<Vehicle> getVehicles(@PathVariable int userId){
+        return null;
+    }
 
 
 }

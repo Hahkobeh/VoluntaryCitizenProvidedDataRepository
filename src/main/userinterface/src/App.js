@@ -4,19 +4,44 @@ import React, {useEffect, useState} from "react";
 import Profile from "./pages/Profile";
 import Registration from "./pages/Registration";
 import About from "./pages/About";
+import axios from 'axios';
 
 function App() {
 
     const [loggedIn, setLoggedIn] = useState(false);
 
+    const [connected, setConnected] = useState(false);
+
     useEffect(() => {
+        
+        
         console.log(typeof sessionStorage.getItem("user"))
-        if(sessionStorage.getItem("user") !== "null"){
-            console.log("here!")
+        if(sessionStorage.getItem("user") !== null){
             setLoggedIn(true);
         }
-    }, []);
 
+        testConnection()
+        
+    }, [connected]);
+
+    
+
+    
+
+    const testConnection = () => {
+        
+        axios.get("http://localhost:8080/api/user/v1/test")
+            .then(r => {
+                setConnected(true);
+                return true;
+            })
+            .catch(err => {
+                setConnected(false);
+                console.log("NOT CONNECTED TO BACKEND!");
+                return false;
+            })
+        
+    }
 
 
     const login = (data) => {
@@ -34,7 +59,7 @@ function App() {
         <>
             <Router>
                 <Routes>
-                    <Route path="/" element={loggedIn ? <Profile logout={logout} user={JSON.parse(sessionStorage.getItem("user"))}/> : <Landing login={login}/>}/>
+                    <Route path="/" element={loggedIn && connected ? <Profile logout={logout} user={JSON.parse(sessionStorage.getItem("user"))} testConnection={testConnection}/> : <Landing login={login} connected={connected} testConnection={testConnection}/>}/>
                     <Route path="/registration" element={<Registration Navigate={Navigate}/>}/>
                     <Route path="/about" element={<About/>}/>
                 </Routes>

@@ -16,8 +16,8 @@ public class AccountCreatorService {
         accountCreatorRepository.save(new AccountCreator(userId, personId));
     }
 
-    public AccountCreator getLink(int userId) {
-        return accountCreatorRepository.findById(userId).get();
+    public int getLink(int userId) {
+        return accountCreatorRepository.findById(userId).get().getPersonId();
     }
 
     public int getUserPerson(int userId){

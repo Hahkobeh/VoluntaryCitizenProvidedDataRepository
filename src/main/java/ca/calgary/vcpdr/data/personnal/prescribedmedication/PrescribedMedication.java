@@ -1,6 +1,7 @@
 package ca.calgary.vcpdr.data.personnal.prescribedmedication;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @IdClass(PrescribedMedicationPK.class)
@@ -48,12 +49,9 @@ public class PrescribedMedication {
         PrescribedMedication that = (PrescribedMedication) o;
 
         if (personId != that.personId) return false;
-        if (medicationGenericProductIdentification != null ? !medicationGenericProductIdentification.equals(that.medicationGenericProductIdentification) : that.medicationGenericProductIdentification != null)
+        if (!Objects.equals(medicationGenericProductIdentification, that.medicationGenericProductIdentification))
             return false;
-        if (medicationDoseMeasure != null ? !medicationDoseMeasure.equals(that.medicationDoseMeasure) : that.medicationDoseMeasure != null)
-            return false;
-
-        return true;
+        return Objects.equals(medicationDoseMeasure, that.medicationDoseMeasure);
     }
 
     @Override

@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Navbar = () => {
+const Navbar = (props) => {
     return (
         <div className='nav'>
-            <img/>
+            {/* <img/> */}
             <div className="nav-options">
-                <h2>Person</h2>
-                <h2>Property</h2>
-                <h2>Vehicle</h2>
+                <h2 onClick={() => props.handleTabChange("persons")}>Person</h2>
+                <h2 onClick={() => props.handleTabChange("properties")}>Property</h2>
+                <h2 onClick={() => props.handleTabChange("vehicles")}>Vehicle</h2>
                 <h2>User Info</h2>
 
             </div>

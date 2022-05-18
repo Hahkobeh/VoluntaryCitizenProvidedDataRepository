@@ -3,6 +3,8 @@ package ca.calgary.vcpdr.data.property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PropertyService {
     @Autowired
@@ -18,5 +20,9 @@ public class PropertyService {
             return true;
         }
         return false;
+    }
+
+    public List<Property> getProperties(int userId) {
+        return propertyRepository.findAllByUserId(userId);
     }
 }

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {Component} from 'react';
 import {Link, Navigate} from "react-router-dom";
 import '../style/Registration.scss';
+import {API_BASE_URL} from "../constants";
 
 class Registration extends Component {
     constructor(props) {
@@ -74,7 +75,7 @@ class Registration extends Component {
         }
 
         console.log(1)
-        const taken = await axios.get(`http://localhost:8080/api/user/v1/email-taken/${email}`)
+        const taken = await axios.get(`${API_BASE_URL}/api/user/v1/email-taken/${email}`)
         .then(res => {
             return res.data
         });
@@ -177,7 +178,7 @@ class Registration extends Component {
     }
 
     createUser = () => {
-        axios.post('http://localhost:8080/api/user/v1/register', this.state.info)
+        axios.post(`${API_BASE_URL}/api/user/v1/register`, this.state.info)
             .then(res => {
                 console.log(res.data)
                 if(res.data === null){

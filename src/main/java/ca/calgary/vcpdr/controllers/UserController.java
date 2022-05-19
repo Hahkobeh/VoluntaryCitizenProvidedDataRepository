@@ -8,7 +8,6 @@ import ca.calgary.vcpdr.data.personnal.prescribedmedication.PrescribedMedication
 import ca.calgary.vcpdr.data.personnal.telephone.Telephone;
 import ca.calgary.vcpdr.data.personnal.vulnerablepersoninformation.VulnerablePersonInformation;
 import ca.calgary.vcpdr.data.property.Property;
-import ca.calgary.vcpdr.data.relationships.accountcreator.AccountCreator;
 import ca.calgary.vcpdr.data.relationships.accountcreator.AccountCreatorService;
 import ca.calgary.vcpdr.data.personnal.emergencycontact.EmergencyContactService;
 import ca.calgary.vcpdr.data.hazardousmaterial.HazardousMaterialService;

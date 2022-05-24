@@ -18,7 +18,6 @@ function App() {
 	const [connected, setConnected] = useState(false);
 
 	useEffect(() => {
-		console.log(typeof sessionStorage.getItem('user'));
 		if (sessionStorage.getItem('user') !== null) {
 			setLoggedIn(true);
 		}

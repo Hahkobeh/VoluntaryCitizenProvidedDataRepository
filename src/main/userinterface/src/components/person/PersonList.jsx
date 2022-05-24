@@ -1,11 +1,9 @@
 import axios from 'axios';
 import React from 'react';
-import Person from '../components/Person';
-import { API_BASE_URL } from '../constants';
+import Person from './Person';
+import { API_BASE_URL } from '../../constants';
 
-const PersonList = ({ persons, reloadPersons }) => {
-	console.log(persons);
-
+const PersonList = ({ persons, reloadPersons, onSelect }) => {
 	const deletePerson = (personId) => {
 		axios
 			.delete(`${API_BASE_URL}/api/user/v1/person/delete/${personId}`)
@@ -22,6 +20,7 @@ const PersonList = ({ persons, reloadPersons }) => {
 						person={person}
 						key={person.personId}
 						deletePerson={deletePerson}
+						onSelect={onSelect}
 					/>
 				))}
 			</ul>

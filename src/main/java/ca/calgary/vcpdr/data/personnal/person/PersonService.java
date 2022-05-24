@@ -12,8 +12,8 @@ public class PersonService {
     @Autowired
     private PersonRepository personRepository;
 
-    public Person createPerson(int userId, String personGivenName, String personSurName) {
-        return personRepository.save(new Person(userId, personGivenName, personSurName));
+    public Person createPerson(int userId, String personGivenName, String personSurName, String personRelationship) {
+        return personRepository.save(new Person(userId, personGivenName, personSurName, personRelationship));
     }
 
     public Person updatePerson(Person person) {

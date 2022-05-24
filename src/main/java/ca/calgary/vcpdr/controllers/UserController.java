@@ -8,7 +8,6 @@ import ca.calgary.vcpdr.data.personnal.prescribedmedication.PrescribedMedication
 import ca.calgary.vcpdr.data.personnal.telephone.Telephone;
 import ca.calgary.vcpdr.data.personnal.vulnerablepersoninformation.VulnerablePersonInformation;
 import ca.calgary.vcpdr.data.property.Property;
-import ca.calgary.vcpdr.data.relationships.accountcreator.AccountCreatorService;
 import ca.calgary.vcpdr.data.personnal.emergencycontact.EmergencyContactService;
 import ca.calgary.vcpdr.data.hazardousmaterial.HazardousMaterialService;
 import ca.calgary.vcpdr.data.personnal.medicalcondition.MedicalConditionService;
@@ -18,8 +17,6 @@ import ca.calgary.vcpdr.data.personnal.person.PersonService;
 import ca.calgary.vcpdr.data.personnal.prescribedmedication.PrescribedMedicationService;
 import ca.calgary.vcpdr.data.property.PropertyService;
 import ca.calgary.vcpdr.data.personnal.telephone.TelephoneService;
-import ca.calgary.vcpdr.data.relationships.personrelationship.PersonRelationship;
-import ca.calgary.vcpdr.data.relationships.personrelationship.PersonRelationshipService;
 import ca.calgary.vcpdr.data.relationships.propertyrelationship.PropertyRelationshipService;
 import ca.calgary.vcpdr.data.user.User;
 import ca.calgary.vcpdr.data.user.UserService;
@@ -53,11 +50,9 @@ public class UserController{
     private final TelephoneService telephoneService;
     private final VehicleService vehicleService;
     private final VulnerablePersonInformationService vulnerablePersonInformationService;
-    private final AccountCreatorService accountCreatorService;
-    private final PersonRelationshipService personRelationshipService;
     private final PropertyRelationshipService propertyRelationshipService;
     @Autowired
-    public UserController(UserService userService, HazardousMaterialService hazardousMaterialsService, PropertyService propertiesService, MedicalInformationService medicalInformationService, MedicalConditionService medicalConditionService, PrescribedMedicationService prescribedMedicationService, PersonService personService, EmergencyContactService emergencyContactService, TelephoneService telephoneService, VehicleService vehicleService, VulnerablePersonInformationService vulnerablePersonInformationService, AccountCreatorService accountCreatorService, PersonRelationshipService personRelationshipService, PropertyRelationshipService propertyRelationshipService) {
+    public UserController(UserService userService, HazardousMaterialService hazardousMaterialsService, PropertyService propertiesService, MedicalInformationService medicalInformationService, MedicalConditionService medicalConditionService, PrescribedMedicationService prescribedMedicationService, PersonService personService, EmergencyContactService emergencyContactService, TelephoneService telephoneService, VehicleService vehicleService, VulnerablePersonInformationService vulnerablePersonInformationService, PropertyRelationshipService propertyRelationshipService) {
         this.userService = userService;
         this.hazardousMaterialsService = hazardousMaterialsService;
         this.propertiesService = propertiesService;
@@ -69,8 +64,6 @@ public class UserController{
         this.telephoneService = telephoneService;
         this.vehicleService = vehicleService;
         this.vulnerablePersonInformationService = vulnerablePersonInformationService;
-        this.accountCreatorService = accountCreatorService;
-        this.personRelationshipService = personRelationshipService;
         this.propertyRelationshipService = propertyRelationshipService;
     }
 
@@ -94,8 +87,7 @@ public class UserController{
             return null;
         }
         User user = userService.createUser(registrationForm.getEmail(), registrationForm.getPassword());
-        Person person = personService.createPerson(user.getUserId(), registrationForm.getPersonGivenName(), registrationForm.getPersonSurName());
-        accountCreatorService.createLink(user.getUserId(), person.getPersonId());
+        Person person = personService.createPerson(user.getUserId(), registrationForm.getPersonGivenName(), registrationForm.getPersonSurName(), "user");
         telephoneService.createTelephone(person.getPersonId(), registrationForm.getTelephoneNumber(), registrationForm.getTelephoneType());
         return user;
     }
@@ -126,7 +118,8 @@ public class UserController{
     @ResponseBody
     public Person createPerson(@RequestBody Person person){
         if(userService.userIdExists(person.getUserId())) {
-            return personService.createPerson(person.getUserId(), person.getPersonGivenName(), person.getPersonSurName());
+            return personService.createPerson(person.getUserId(), person.getPersonGivenName(), person.getPersonSurName(), person.getPersonRelationship());
+
         }
         return null;
     }
@@ -134,6 +127,7 @@ public class UserController{
     @PostMapping("/person/update")
     @ResponseBody
     public Person updatePerson(@RequestBody Person person){
+        System.out.println(person);
         return personService.updatePerson(person);
     }
 
@@ -149,29 +143,7 @@ public class UserController{
         return personService.deletePerson(personId);
     }
 
-    //Account creator
 
-    @GetMapping("/account-creator/{userId}")
-    @ResponseBody
-    public int getAccountCreator(@PathVariable int userId){
-        return accountCreatorService.getLink(userId);
-    }
-
-    //Person relationships
-
-    @PostMapping("/person-relationship/create")
-    @ResponseBody
-    public PersonRelationship createPersonRelationship(@RequestBody PersonRelationship personRelationship){
-        System.out.println(personRelationship);
-        return personRelationshipService.createPersonRelationship(personRelationship);
-    }
-
-    @GetMapping("/person-relationship/{userId}")
-    @ResponseBody
-    public List<PersonRelationship> getPersonRelationships(@PathVariable int userId){
-        int personId = accountCreatorService.getUserPerson(userId);
-        return personRelationshipService.getPersonRelationships(personId);
-    }
 
     //Emergency contact
 

@@ -17,6 +17,7 @@ CREATE TABLE User(
 CREATE TABLE Person(
 	userID INT NOT NULL,
 	personID INT NOT NULL UNIQUE AUTO_INCREMENT,
+	personRelationship VARCHAR(255) NOT NULL,
     personGivenName VARCHAR(255) NOT NULL,
     personSurName VARCHAR(255) NOT NULL,
     personMaidenName VARCHAR(255),
@@ -32,23 +33,6 @@ CREATE TABLE Person(
     FOREIGN KEY(userID) REFERENCES User(userID) ON DELETE CASCADE
 );
 
-CREATE TABLE AccountCreator(
-   userID INT NOT NULL UNIQUE,
-   personID INT NOT NULL UNIQUE,
-   PRIMARY KEY (userID),
-   FOREIGN KEY (userID) REFERENCES User(userID) ON DELETE CASCADE ,
-   FOREIGN KEY (personID) REFERENCES Person(personID) ON DELETE RESTRICT
-);
-
-
-CREATE TABLE PersonRelationship(
-    personID1 INT NOT NULL,
-    personID2 INT NOT NULL,
-    relationshipType VARCHAR(255) NOT NULL, /*"Mother" would specific that personid1's mother is personid2*/
-    PRIMARY KEY (personID1, personID2),
-    FOREIGN KEY (personID1) REFERENCES Person(personID) ON DELETE CASCADE,
-    FOREIGN KEY (personID2) REFERENCES Person(personID) ON DELETE CASCADE
-);
 
 CREATE TABLE Telephone(
    personID INT NOT NULL,

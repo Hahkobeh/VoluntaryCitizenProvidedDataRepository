@@ -1,14 +1,6 @@
-import {
-	BrowserRouter as Router,
-	Routes,
-	Route,
-	Navigate,
-} from 'react-router-dom';
 import Landing from './pages/Landing';
 import React, { useEffect, useState } from 'react';
 import Profile from './pages/Profile';
-import Registration from './pages/Registration';
-import About from './pages/About';
 import axios from 'axios';
 import { API_BASE_URL } from './constants';
 
@@ -45,41 +37,25 @@ function App() {
 	};
 
 	const logout = () => {
-		sessionStorage.setItem('user', JSON.stringify(null));
+		sessionStorage.removeItem('user');
 		setLoggedIn(false);
 	};
 
 	return (
 		<>
-			<Router>
-				<Routes>
-					<Route
-						path='/'
-						element={
-							loggedIn && connected ? (
-								<Profile
-									logout={logout}
-									user={JSON.parse(
-										sessionStorage.getItem('user')
-									)}
-									testConnection={testConnection}
-								/>
-							) : (
-								<Landing
-									login={login}
-									connected={connected}
-									testConnection={testConnection}
-								/>
-							)
-						}
-					/>
-					<Route
-						path='/registration'
-						element={<Registration Navigate={Navigate} />}
-					/>
-					<Route path='/about' element={<About />} />
-				</Routes>
-			</Router>
+			{loggedIn && connected ? (
+				<Profile
+					logout={logout}
+					user={JSON.parse(sessionStorage.getItem('user'))}
+					testConnection={testConnection}
+				/>
+			) : (
+				<Landing
+					login={login}
+					connected={connected}
+					testConnection={testConnection}
+				/>
+			)}
 		</>
 	);
 }

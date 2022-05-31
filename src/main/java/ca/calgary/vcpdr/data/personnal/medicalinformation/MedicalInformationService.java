@@ -23,4 +23,6 @@ public class MedicalInformationService {
     public MedicalInformation getMedicalInformation(int personId) {
         return medicalInformationRepository.findById(personId).orElse(null);
     }
+
+
 }

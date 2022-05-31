@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import '../style/registration.scss';
 import { API_BASE_URL } from '../constants';
 
 class Registration extends Component {
@@ -20,7 +19,6 @@ class Registration extends Component {
 			page: 1,
 			error: false,
 			errorMessage: '',
-			finished: false,
 		};
 	}
 
@@ -35,11 +33,14 @@ class Registration extends Component {
 	};
 
 	onSubmitFirst = async () => {
+		console.log(this.state);
 		const {
 			info: { email, password },
 			passwordCheck,
 		} = this.state;
+		console.log(password, passwordCheck);
 		if (email === '' || password === '' || passwordCheck === '') {
+			console.log('here');
 			this.setState({
 				error: true,
 				errorMessage: 'Unfilled information.',
@@ -56,6 +57,7 @@ class Registration extends Component {
 		}
 
 		if (password !== passwordCheck) {
+			console.log('in');
 			this.setState({
 				error: true,
 				errorMessage: 'Passwords do not match.',
@@ -141,7 +143,8 @@ class Registration extends Component {
 		}));
 	};
 
-	onSubmitThird = () => {
+	onSubmitThird = (e) => {
+		e.preventDefault();
 		const {
 			info: { telephoneNumber, telephoneType },
 		} = this.state;
@@ -175,9 +178,7 @@ class Registration extends Component {
 						errorMessage: 'Failed to create user.',
 					});
 				} else {
-					this.setState({
-						finished: true,
-					});
+					this.props.setPage('login');
 				}
 			});
 	};
@@ -211,28 +212,31 @@ class Registration extends Component {
 			case 1:
 				return (
 					<>
-						<label>
-							email
+						<label className='label-main'>
+							Email
 							<input
 								type='email'
+								className='input-main'
 								name='email'
 								onChange={this.handleChange}
 								value={this.state.info.email}
 							/>
 						</label>
-						<label>
-							password
+						<label className='label-main'>
+							Password
 							<input
 								type='password'
+								className='input-main'
 								name='password'
 								onChange={this.handleChange}
 								value={this.state.info.password}
 							/>
 						</label>
-						<label>
-							Re-enter password
+						<label className='label-main'>
+							Re-enter Password
 							<input
 								type='password'
+								className='input-main'
 								name='passwordCheck'
 								onChange={(e) =>
 									this.setState({
@@ -243,50 +247,64 @@ class Registration extends Component {
 							/>
 							{/* MAKE SURE THIS IS EQUAL TO info.password */}
 						</label>
-						<button onClick={this.onSubmitFirst}>Next!</button>
+						<button
+							className='button-main'
+							onClick={this.onSubmitFirst}
+						>
+							Next!
+						</button>
 					</>
 				);
 			case 2:
 				return (
 					<>
-						<label>
-							Given name
+						<label className='label-main'>
+							Given Name
 							<input
 								type='text'
+								className='input-main'
 								name='personGivenName'
 								onChange={this.handleChange}
 								value={this.state.info.personGivenName}
 							/>
 						</label>
-						<label>
-							Sur name
+						<label className='label-main'>
+							Sur Name
 							<input
 								type='text'
+								className='input-main'
 								name='personSurName'
 								onChange={this.handleChange}
 								value={this.state.info.personSurName}
 							/>
 						</label>
 
-						<button onClick={this.onSubmitSecond}>Next!</button>
+						<button
+							className='button-main'
+							onClick={this.onSubmitSecond}
+						>
+							Next!
+						</button>
 					</>
 				);
 			case 3:
 				return (
 					<>
-						<label>
+						<label className='label-main'>
 							Telephone Number
 							<input
 								type='tel'
+								className='input-main'
 								name='telephoneNumber'
 								onChange={this.handleChange}
 								value={this.state.info.telephoneNumber}
 							/>
 						</label>
-						<label>
-							Telephone type
+						<label className='label-main'>
+							Telephone Type
 							<input
 								type='text'
+								className='input-main'
 								name='telephoneType'
 								onChange={this.handleChange}
 								value={this.state.info.telephoneType}
@@ -294,10 +312,11 @@ class Registration extends Component {
 							{/* TODO make dropdown */}
 						</label>
 
-						<button onClick={this.onSubmitThird}>Done!</button>
-						<Link to='/'>
-							<button>Return</button>
-						</Link>
+						<input
+							className='button-main'
+							type='submit'
+							value='Register!'
+						/>
 					</>
 				);
 			default:
@@ -309,16 +328,22 @@ class Registration extends Component {
 	render() {
 		return (
 			<>
-				{this.state.finished ? <Navigate to='/' /> : <></>}
-				<this.pageNum />
-				<div className={'info-entry p' + this.state.page}>
+				<form className='form-main' onSubmit={this.onSubmitThird}>
+					<h1>Register</h1>
+					<this.pageNum />
 					{this.state.error ? (
-						<p>{this.state.errorMessage}</p>
+						<p className='error'>{this.state.errorMessage}</p>
 					) : (
-						<p></p>
+						<p className='error'>{'⠀'}</p>
 					)}
 					<this.InformationEntry />
-				</div>
+					<p>
+						Already have an account?{' '}
+						<span onClick={() => this.props.setPage('login')}>
+							Login!
+						</span>
+					</p>
+				</form>
 			</>
 		);
 	}

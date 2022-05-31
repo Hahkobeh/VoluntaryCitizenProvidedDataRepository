@@ -1,0 +1,73 @@
+@import 'Variables';
+
+.editor {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	right: 0;
+	width: 45%;
+	margin: 0;
+	text-align: center;
+	h2 {
+		cursor: default;
+		margin: 0;
+		color: $blue;
+		font-size: 2rem;
+		font-weight: bold;
+	}
+}
+
+.editor-list {
+	background-color: white;
+	color: white;
+	font-size: 1.2rem;
+	margin: 0;
+	padding: 0;
+
+	li {
+		margin: 0.7em auto;
+		width: 90%;
+		background-color: $blue;
+		padding: 0.4em 1em;
+		text-align: left;
+
+		display: flex;
+		justify-content: space-between;
+
+		div {
+			width: 80%;
+			word-wrap: break-word;
+			text-overflow: clip;
+		}
+		img {
+			cursor: pointer;
+		}
+	}
+	.li-form {
+		flex-direction: column;
+		background-color: $darkblue;
+	}
+	form {
+		display: flex;
+		flex-direction: column;
+		padding: 0 1em;
+
+		margin: 0.4em 0;
+		align-items: center;	
+		label {
+			display: flex;
+			justify-content: space-between;
+			align-items: right;
+			width: 100%;
+			margin-bottom: 0.2em;
+		}
+	}
+	h3 {
+		text-align: center;
+		margin: 0.1em;
+	}
+
+	span {
+		text-decoration: underline;
+	}
+}

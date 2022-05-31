@@ -3,6 +3,8 @@ package ca.calgary.vcpdr.data.personnal.medicalcondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MedicalConditionService {
     @Autowired
@@ -19,5 +21,9 @@ public class MedicalConditionService {
             return true;
         }
         return false;
+    }
+
+    public List<MedicalCondition> getMedicalConditions(int personId) {
+        return medicalConditionRepository.findAllByPersonId(personId);
     }
 }

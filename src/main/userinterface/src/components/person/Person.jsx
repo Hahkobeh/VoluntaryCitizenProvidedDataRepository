@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Delete from '../../images/delete.svg';
 const Person = ({
 	person,
 	person: { personId, personRelationship, personSurName, personGivenName },
@@ -7,17 +7,22 @@ const Person = ({
 	onSelect,
 }) => {
 	return (
-		<li className='person' onClick={() => onSelect(person, 'person')}>
+		<li className='list-item' onClick={() => onSelect(personId, 'person')}>
 			<h1>
 				{personGivenName} {personSurName},
-				{personRelationship === 'user'
-					? ' me'
-					: ' my ' + personRelationship.toLowerCase()}
+				<span>
+					{personRelationship === 'user'
+						? ' me'
+						: ' my ' + personRelationship.toLowerCase()}
+				</span>
 			</h1>
 			{personRelationship !== 'user' && (
-				<button className='' onClick={() => deletePerson(personId)}>
-					xxx
-				</button>
+				<img
+					src={Delete}
+					alt='delete person'
+					className='delete'
+					onClick={(e) => deletePerson(personId, e)}
+				/>
 			)}
 		</li>
 	);

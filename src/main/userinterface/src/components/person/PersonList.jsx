@@ -4,7 +4,8 @@ import Person from './Person';
 import { API_BASE_URL } from '../../constants';
 
 const PersonList = ({ persons, reloadPersons, onSelect }) => {
-	const deletePerson = (personId) => {
+	const deletePerson = (personId, e) => {
+		e.stopPropagation();
 		axios
 			.delete(`${API_BASE_URL}/api/user/v1/person/delete/${personId}`)
 			.then((r) => {
@@ -13,8 +14,8 @@ const PersonList = ({ persons, reloadPersons, onSelect }) => {
 	};
 
 	return (
-		<div className='info person-list'>
-			<ul>
+		<>
+			<ul className='list'>
 				{persons.map((person) => (
 					<Person
 						person={person}
@@ -24,7 +25,7 @@ const PersonList = ({ persons, reloadPersons, onSelect }) => {
 					/>
 				))}
 			</ul>
-		</div>
+		</>
 	);
 };
 export default PersonList;

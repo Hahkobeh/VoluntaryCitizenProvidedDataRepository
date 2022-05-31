@@ -48,31 +48,35 @@ const PersonForm = ({ userId, reloadPersons }) => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<label>
+		<form onSubmit={handleSubmit} className='form-main profile-form'>
+			<h1>Add Person</h1>
+			<label className='label-main'>
 				Given Name
 				<input
 					type='text'
+					className='input-main'
 					name='personGivenName'
 					onChange={handleChange}
 					value={data.personGivenName}
 				/>
 			</label>
-			<label>
+			<label className='label-main'>
 				Sur Name
 				<input
 					type='text'
+					className='input-main'
 					name='personSurName'
 					onChange={handleChange}
 					value={data.personSurName}
 				/>
 			</label>
-			<label>
+			<label className='label-main'>
 				Relationship
 				<select
 					onChange={handleChange}
 					value={data.personRelationship}
 					name='personRelationship'
+					className='select-main'
 				>
 					<option value='Parent'>Parent</option>
 					<option value='Child'>Child</option>
@@ -82,7 +86,9 @@ const PersonForm = ({ userId, reloadPersons }) => {
 					<option value='Other'>Other</option>
 				</select>
 			</label>
-			<button type='submit'>Add!</button>
+			<button type='submit' className='button-main'>
+				Add!
+			</button>
 		</form>
 	);
 };

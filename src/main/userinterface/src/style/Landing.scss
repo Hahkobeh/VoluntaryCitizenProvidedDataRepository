@@ -1,22 +1,158 @@
-@import "Variables";
+@import 'Variables';
 
-.landing{
-  width: 30em;
-  background: $blue;
-  margin: 20% auto;
-  border-radius: 20px;
-  text-align: center;
+.landing {
+	width: 100vw;
+	height: 100vh;
+	overflow-x: hidden;
+}
 
-  h1{
-    width: 100%;
-    text-align: center;
-  }
+.landing-navbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 6em;
+	display: flex;
+	z-index: 1;
 
-  form{
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    width: 20em;
-    align-items: center;
-  }
+	img {
+		position: relative;
+
+		height: 80%;
+		margin: auto 0 auto 2em;
+		cursor: pointer;
+	}
+}
+
+.landing-list {
+	list-style: none;
+	position: absolute;
+	top: 0;
+	right: 5em;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+	width: 50%;
+	margin: auto;
+	padding: 0;
+}
+
+.landing-list-item {
+	font-weight: bold;
+	font-size: 2rem;
+	width: auto;
+	margin: 0;
+	padding-top: 0.45em;
+	cursor: pointer;
+}
+
+.landing-list-item:hover {
+	color: $darkblue;
+}
+
+.selected {
+	color: black !important;
+	text-decoration: underline;
+}
+
+.landing-container {
+	position: relative;
+	margin-top: 6em;
+	width: 100%;
+}
+
+.landing-home {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	img {
+		margin: 2em auto 0;
+		width: 25vw;
+	}
+	h2 {
+		width: 80%;
+		margin: 2rem auto 0;
+		font-weight: 400;
+		font-size: 4rem;
+	}
+	button {
+		margin: 2rem auto;
+		width: 8em;
+	}
+}
+
+.landing-login {
+	display: flex;
+	flex-direction: row;
+	padding: 2rem;
+	justify-content: space-between;
+	img {
+		margin: 2em auto 0;
+		width: 30vw;
+	}
+	form {
+		width: 50%;
+		padding-right: 3rem;
+		p {
+			font-size: 1.2rem;
+		}
+		span {
+			cursor: pointer;
+			color: $blue;
+		}
+
+		.error {
+			color: red;
+			margin: 0.5rem 0 0;
+		}
+	}
+}
+
+.landing-register {
+	display: flex;
+	flex-direction: row;
+	padding: 2rem;
+	justify-content: space-between;
+	img {
+		margin: 2em auto 0;
+		width: 30vw;
+	}
+	h1 {
+		margin: 0;
+	}
+	form {
+		width: 50%;
+		padding-right: 3rem;
+
+		p {
+			font-size: 1.2rem;
+		}
+		.error {
+			color: red;
+			margin: 0.5rem 0 0;
+		}
+		span {
+			cursor: pointer;
+			color: $blue;
+		}
+	}
+}
+
+.page-number-wrapper {
+	background: $blue;
+	width: 3em;
+	height: 3em;
+	margin: 0.5em auto 0;
+	display: flex;
+	align-items: center;
+
+	.page-number {
+		color: white;
+		margin: 0;
+		font-size: 1.3rem;
+		font-weight: 700;
+		margin: auto;
+		line-height: 100%;
+	}
 }

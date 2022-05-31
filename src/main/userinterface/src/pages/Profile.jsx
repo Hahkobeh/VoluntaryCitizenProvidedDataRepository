@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import '../style/profile.scss';
-import Navbar from '../components/Navbar';
+import '../style/person.scss';
+import Navbar from '../components/NavbarProfile';
 import axios from 'axios';
 import PersonList from '../components/person/PersonList';
-import PropertyList from '../components/PropertyList';
-import VehicleList from '../components/VehicleList';
+import PropertyList from '../components/property/PropertyList';
+import VehicleList from '../components/vehicle/VehicleList';
 import { API_BASE_URL } from '../constants';
-import PersonEditor from '../components/person/PersonEditor';
 import PersonForm from '../components/person/PersonForm';
-import AdditionalPersonInfo from '../components/person/AdditionalPersonInfo';
+import PersonMenu from '../components/person/PersonMenu';
+import User from '../components/User';
 
 class Profile extends Component {
 	constructor(props) {
@@ -17,7 +18,7 @@ class Profile extends Component {
 			selectedPerson: null,
 			selectedProperty: null,
 			selectedVehicle: null,
-			tab: 'persons',
+			tab: 'person',
 			persons: [],
 			properties: [],
 			vehicles: [],
@@ -67,7 +68,6 @@ class Profile extends Component {
 	};
 
 	handleTabChange = (type) => {
-		console.log(type);
 		this.setState({
 			tab: type,
 		});
@@ -89,7 +89,7 @@ class Profile extends Component {
 
 	tabSwitch = () => {
 		switch (this.state.tab) {
-			case 'persons': {
+			case 'person': {
 				// this.state.selectedPerson === {} ?
 				if (this.state.selectedPerson === null) {
 					return (
@@ -108,35 +108,39 @@ class Profile extends Component {
 				} else {
 					return (
 						<>
-							<PersonEditor
-								selectedPerson={this.state.selectedPerson}
+							<PersonMenu
+								selectedPerson={this.state.persons.find(
+									(person) =>
+										person.personId ===
+										this.state.selectedPerson
+								)}
 								onSelect={this.onSelect}
-							/>
-							<AdditionalPersonInfo
-								personId={this.state.selectedPerson.personId}
+								reloadPersons={this.reloadPersons}
 							/>
 						</>
 					);
 				}
 			}
 
-			case 'properties':
+			case 'property':
 				return (
 					<PropertyList
 						properties={this.state.properties}
 						onSelect={this.onSelect}
 					/>
 				);
-			case 'vehicles':
+			case 'vehicle':
 				return (
 					<VehicleList
 						vehicles={this.state.vehicles}
 						onSelect={this.onSelect}
 					/>
 				);
+			case 'user':
+				return <User />;
 			default:
 				this.setState({
-					tab: 'persons',
+					tab: 'person',
 				});
 		}
 	};
@@ -144,9 +148,12 @@ class Profile extends Component {
 	render() {
 		return (
 			<div className='profile'>
-				<Navbar handleTabChange={this.handleTabChange} />
-				<button onClick={this.props.logout}>Logout</button>
-				{this.tabSwitch()}
+				<Navbar
+					tab={this.state.tab}
+					handleTabChange={this.handleTabChange}
+					logout={this.props.logout}
+				/>
+				<div className='profile-container'>{this.tabSwitch()}</div>
 			</div>
 		);
 	}

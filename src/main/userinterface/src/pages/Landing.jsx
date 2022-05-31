@@ -1,80 +1,82 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
 import '../style/landing.scss';
-import { API_BASE_URL } from '../constants';
+import Icon from '../images/icon.svg';
+import Registration from '../components/Registration';
+import Login from '../components/Login';
+import NavbarLanding from '../components/NavbarLanding';
 
-function Landing(props) {
-	const [email, setEmail] = useState('');
+function Landing({ testConnection, login, connected }) {
+	const [page, setPage] = useState('home');
 
-	const [password, setPassword] = useState('');
+	const GetPage = () => {
+		switch (page) {
+			case 'home':
+				return (
+					<div className='landing-home'>
+						<img src={Icon} alt='N911' />
+						<h2>Protect those you care for.</h2>
+						<button
+							className={'button-main'}
+							onClick={() => setPage('register')}
+						>
+							Register Now
+						</button>
+					</div>
+				);
+			case 'about':
+				return (
+					<div className='landing-home'>
+						<img src={Icon} alt='N911' />
+						<p>
+							This is a website where users can voluntarily share
+							personal information so that it may be used to help
+							them in case of an emergency.
+						</p>
+						<button
+							className='button-main'
+							onClick={() => setPage('register')}
+						>
+							Register Now
+						</button>
+					</div>
+				);
 
-	const attemptLogin = (e) => {
-		e.preventDefault();
+			case 'register':
+				return (
+					<div className='landing-register'>
+						<img src={Icon} alt='N911' />
+						<Registration setPage={setPage} />
+					</div>
+				);
+			case 'login':
+				return (
+					<div className='landing-login'>
+						<img src={Icon} alt='N911' />
+						<Login
+							setPage={setPage}
+							login={login}
+							testConnection={testConnection}
+						/>
+					</div>
+				);
 
-		if (email === '') {
-			return;
+			default:
+				setPage('home');
 		}
-
-		if (password === '') {
-			return;
-		}
-
-		const loginInfo = {
-			email: email,
-			password: password,
-		};
-
-		axios
-			.post(`${API_BASE_URL}/api/user/v1/login`, loginInfo)
-			.then((res) => {
-				console.log(res.data);
-				console.log(typeof res.data);
-				if (res.data !== '') {
-					props.login(res.data);
-				}
-			})
-			.catch((e) => {
-				console.log('failed');
-				props.testConnection();
-			});
 	};
 
 	return (
 		<div className='landing'>
-			<h1>VCPDR</h1>
-			{props.connected ? (
-				<>
-					<form onSubmit={attemptLogin}>
-						<label>
-							email
-							<input
-								type='text'
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
-							/>
-						</label>
-						<label>
-							password
-							<input
-								type='password'
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-							/>
-						</label>
-						<input type='submit' />
-					</form>
-					<Link to='/registration'>
-						<button>Register!</button>
-					</Link>
-					<Link to='/about'>
-						<button>About!</button>
-					</Link>
-				</>
+			<NavbarLanding setPage={setPage} page={page} />
+
+			{connected ? (
+				<div className='landing-container'>
+					<GetPage />
+				</div>
 			) : (
 				<>
 					<p>Connection Failed</p>
-					<button onClick={props.testConnection}>Retry?</button>
+					<button onClick={testConnection}>Retry?</button>
 				</>
 			)}
 		</div>

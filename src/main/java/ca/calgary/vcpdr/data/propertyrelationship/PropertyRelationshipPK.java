@@ -1,4 +1,4 @@
-package ca.calgary.vcpdr.data.relationships.propertyrelationship;
+package ca.calgary.vcpdr.data.propertyrelationship;
 
 import javax.persistence.Column;
 import javax.persistence.Id;

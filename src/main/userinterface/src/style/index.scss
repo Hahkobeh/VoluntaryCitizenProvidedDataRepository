@@ -1,9 +1,143 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 @import 'Variables';
 
-body{
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-  background-color: white;
-  overflow-x: hidden;
+body {
+	font-family: 'Open Sans';
+	margin: 0;
+	background-color: white;
+	overflow-x: hidden;
+}
+
+.input-main {
+	background-color: white;
+	border: solid 3px $blue;
+	padding: 1rem;
+	color: black;
+	font-weight: 400;
+	font-size: 2rem;
+	height: 2rem;
+	font-family: 'Open Sans';
+}
+
+.button-main {
+	background-color: $blue;
+	border: none;
+	border-radius: 0;
+	color: white;
+	font-weight: bold;
+	font-size: 3rem;
+	text-align: center;
+	margin: 2rem 0 0;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	cursor: pointer;
+	transition: 0.3s;
+}
+.button-main:hover {
+	background-color: $darkblue;
+}
+
+.form-main {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	h1 {
+		cursor: default;
+		margin: 2rem 0 0;
+		color: $blue;
+		font-size: 4rem;
+		font-weight: bold;
+	}
+	label {
+		margin: 2rem 0 0;
+		font-weight: 600;
+		font-size: 2rem;
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.select-main {
+	background-color: white;
+	border: solid 3px $blue;
+	color: black;
+	font-weight: 400;
+	font-size: 2rem;
+	font-family: 'Open Sans';
+}
+
+.form-secondary {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	font-size: 1rem;
+
+	label {
+		margin: 1rem 0 0;
+		font-weight: 600;
+		font-size: 1rem;
+		display: flex;
+		flex-direction: row;
+	}
+}
+
+.input-secondary {
+	background-color: white;
+	border: solid 3px $blue;
+	color: black;
+	font-weight: 400;
+	font-size: 1rem;
+	height: 1rem;
+	font-family: 'Open Sans';
+	position: absolute;
+	right: 0;
+
+	width: 20em;
+}
+
+.button-secondary {
+	background-color: $blue;
+	border: none;
+	border-radius: 0;
+	color: white;
+	font-weight: bold;
+	font-size: 3rem;
+	text-align: center;
+	margin: 2rem 0 0;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.date {
+	background-color: white;
+	border: solid 3px $blue;
+	color: black;
+	font-weight: 400;
+	font-size: 1rem;
+	height: 1.3rem;
+	font-family: 'Open Sans';
+	position: absolute;
+	right: 0;
+
+	width: 20.2em;
+}
+
+.select-secondary {
+	background-color: white;
+	border: solid 3px $blue;
+	color: black;
+	font-weight: 400;
+	font-size: 1rem;
+	height: 1.6rem;
+	font-family: 'Open Sans';
+	position: absolute;
+	right: 0;
+
+	width: 20.6em;
+}
+
+.button-secondary:hover {
+	background-color: $darkblue;
 }

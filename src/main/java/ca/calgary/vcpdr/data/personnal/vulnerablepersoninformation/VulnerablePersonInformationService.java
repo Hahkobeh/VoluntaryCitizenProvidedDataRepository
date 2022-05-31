@@ -23,4 +23,8 @@ public class VulnerablePersonInformationService {
         }
         return false;
     }
+
+    public VulnerablePersonInformation getVPI(int personId) {
+        return vulnerablePersonInformationRepository.findById(personId).orElse(null);
+    }
 }

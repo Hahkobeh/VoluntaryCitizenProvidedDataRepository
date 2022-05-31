@@ -17,6 +17,8 @@ public class MedicalConditionPK implements Serializable {
         this.medicalCondition = medicalCondition;
     }
 
+    public MedicalConditionPK(){}
+
     public int getPersonId() {
         return personId;
     }

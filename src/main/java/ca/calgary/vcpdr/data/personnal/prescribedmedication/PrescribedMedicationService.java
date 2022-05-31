@@ -3,6 +3,8 @@ package ca.calgary.vcpdr.data.personnal.prescribedmedication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PrescribedMedicationService {
     @Autowired
@@ -19,5 +21,9 @@ public class PrescribedMedicationService {
             return true;
         }
         return false;
+    }
+
+    public List<PrescribedMedication> getPrescribedMedications(int personId) {
+        return prescribedMedicationRepository.findAllByPersonId(personId);
     }
 }

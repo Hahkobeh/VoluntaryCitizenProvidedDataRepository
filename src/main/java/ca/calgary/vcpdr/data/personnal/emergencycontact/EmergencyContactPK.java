@@ -17,6 +17,8 @@ public class EmergencyContactPK implements Serializable {
         this.telephoneNumber = telephoneNumber;
     }
 
+    public EmergencyContactPK(){}
+
     public int getPersonId() {
         return personId;
     }

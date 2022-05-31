@@ -1,83 +1,166 @@
 @import 'Variables';
 
-.profile{
-  width: 100%;
-  padding-top: 5em;
+.profile {
+	width: 100%;
+	padding-top: 6em;
 }
 
-.nav{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 5em;
-  justify-content: space-between;
-  
-  background: $blue;
+.profile-navbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 6rem;
+	display: flex;
+	z-index: 1;
 
-  img{
-    width: 100px;
-    height: 100px;
-  }
-
-
-  .nav-options{
-    color: white;
-    position: absolute;
-    top: 0;
-    right: 0em;
-    width: 60%;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    
-    h2{
-      font-size: 2rem;
-      margin: auto;
-    }
-    // h2:hover{
-    //   color: $red;
-    // }
-  }
+	img {
+		position: relative;
+		height: 80%;
+		margin: auto 0 auto 2em;
+		cursor: pointer;
+	}
 }
 
-.person{
-  position: relative;
-  display: flex;
-  margin: 2em auto;
-  flex-direction: column;
-  background-color: $blue;
-  width: 40em;
-  height: 6em;
-  text-align: center;
-  color: black;
-
-  border-radius: 40px;
-
-  transition: 1s, background-color 1s, border-radius 0.4s;
-  transition-timing-function: linear;
-
-  flex-direction: row;
-  
-  
-  
-  .delete{
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-width: 0;
-    width: 6em;
-    height: 6em;
-    background: none;
-    color: white;
-  }
-
+.profile-list {
+	list-style: none;
+	position: absolute;
+	top: 0;
+	right: 5em;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+	width: 50%;
+	margin: auto;
+	padding: 0;
 }
 
-.person:hover{
-  background-color: black;
-  color: white;
-  border-radius: 10px;
-  padding-left: 2em;
-  // color: white;
+.profile-list-item {
+	font-weight: bold;
+	font-size: 2rem;
+	width: auto;
+	margin: 0;
+	padding-top: 0.45em;
+	cursor: pointer;
+}
+
+.profile-list-item:hover {
+	color: $darkblue;
+}
+
+.selected {
+	color: black !important;
+	text-decoration: underline;
+}
+
+.profile-container {
+	position: relative;
+	width: 90%;
+	margin: auto;
+}
+
+.profile-form {
+	position: fixed;
+	top: 6rem;
+	right: 10%;
+}
+
+.list {
+	position: absolute;
+	display: flex;
+	padding: 0;
+	margin: 2em auto 2em;
+	flex-direction: column;
+	width: 50%;
+	text-align: center;
+	color: black;
+	list-style: none;
+	background-color: $blue;
+	gap: 3px;
+}
+
+.list-item {
+	display: flex;
+	flex-direction: row;
+
+	justify-content: space-between;
+	background-color: white;
+	transition: 1s;
+	h1 {
+		margin-left: 1em;
+		span {
+			font-weight: 400;
+		}
+	}
+
+	.delete {
+		width: 50px;
+		margin-right: 1em;
+	}
+}
+
+.list-item:hover {
+	background-image: linear-gradient(to left, $grey, $grey 20%, white 120%);
+}
+
+.menu-list {
+	position: absolute;
+	left: 0;
+	width: 45%;
+	margin: 0 auto;
+
+	padding: 0;
+	list-style: none;
+	display: grid;
+	gap: 1em;
+
+	grid-template-columns: 1fr 1fr 1fr;
+	background-color: white;
+}
+
+.menu-item {
+	background-color: $blue;
+	aspect-ratio: 1;
+
+	h2 {
+		color: white;
+	}
+	display: flex;
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.menu-item:hover {
+	border: solid 5px black;
+	.current {
+		border: none;
+	}
+}
+.current:hover {
+	border: none;
+}
+
+.return {
+	img {
+		color: white;
+	}
+	background-color: black;
+	color: white;
+}
+
+.menu-name {
+	color: black;
+	text-align: center;
+
+	width: 45%;
+	font-size: 3rem;
+}
+.current {
+	background-color: $darkblue;
+	h2 {
+		text-decoration: underline;
+	}
 }

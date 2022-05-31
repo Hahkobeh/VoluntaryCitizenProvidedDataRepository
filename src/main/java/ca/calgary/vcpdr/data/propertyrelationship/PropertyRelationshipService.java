@@ -1,4 +1,4 @@
-package ca.calgary.vcpdr.data.relationships.propertyrelationship;
+package ca.calgary.vcpdr.data.propertyrelationship;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

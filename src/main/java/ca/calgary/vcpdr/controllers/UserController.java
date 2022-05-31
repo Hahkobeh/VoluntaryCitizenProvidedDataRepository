@@ -17,7 +17,7 @@ import ca.calgary.vcpdr.data.personnal.person.PersonService;
 import ca.calgary.vcpdr.data.personnal.prescribedmedication.PrescribedMedicationService;
 import ca.calgary.vcpdr.data.property.PropertyService;
 import ca.calgary.vcpdr.data.personnal.telephone.TelephoneService;
-import ca.calgary.vcpdr.data.relationships.propertyrelationship.PropertyRelationshipService;
+import ca.calgary.vcpdr.data.propertyrelationship.PropertyRelationshipService;
 import ca.calgary.vcpdr.data.user.User;
 import ca.calgary.vcpdr.data.user.UserService;
 import ca.calgary.vcpdr.data.vehicle.Vehicle;
@@ -194,6 +194,8 @@ public class UserController{
         return medicalInformationService.createMedicalInformation(medicalInformation);
     }
 
+	
+
     @DeleteMapping("/medical-information/delete")
     @ResponseBody
     public boolean deleteMedicalInformation(@RequestBody MedicalInformation medicalInformation){
@@ -220,6 +222,12 @@ public class UserController{
         return prescribedMedicationService.deletePrescibedMedication(prescribedMedication);
     }
 
+    @GetMapping("/prescribed-medication/{personId}")
+    @ResponseBody
+    public List<PrescribedMedication> getPrescribedMedication(@PathVariable int personId){
+        return prescribedMedicationService.getPrescribedMedications(personId);
+    }
+
     //Medical Condition
 
     @PostMapping("/medical-condition/create")
@@ -234,6 +242,12 @@ public class UserController{
         return medicalConditionService.deleteMedicalCondition(medicalCondition);
     }
 
+    @GetMapping("/medical-condition/{personId}")
+    @ResponseBody
+    public List<MedicalCondition> getMedicalCondition(@PathVariable int personId){
+        return medicalConditionService.getMedicalConditions(personId);
+    }
+
     //Vulnerable Person Information
 
     @PostMapping("/vpi/create")
@@ -246,6 +260,12 @@ public class UserController{
     @ResponseBody
     public boolean deleteVPI(@RequestBody VulnerablePersonInformation vulnerablePersonInformation){
         return vulnerablePersonInformationService.deleteVPI(vulnerablePersonInformation);
+    }
+
+    @GetMapping("/vpi/{personId}")
+    @ResponseBody
+    public VulnerablePersonInformation getVPI(@PathVariable int personId){
+        return vulnerablePersonInformationService.getVPI(personId);
     }
 
     //Property

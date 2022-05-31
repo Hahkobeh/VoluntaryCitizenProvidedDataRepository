@@ -19,6 +19,8 @@ public class PrescribedMedicationPK implements Serializable {
         this.medicationGenericProductIdentification = medicationGenericProductIdentification;
     }
 
+    public PrescribedMedicationPK(){}
+
     public int getPersonId() {
         return personId;
     }

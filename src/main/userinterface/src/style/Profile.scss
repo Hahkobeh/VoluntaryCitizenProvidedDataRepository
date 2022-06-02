@@ -164,3 +164,15 @@
 		text-decoration: underline;
 	}
 }
+
+.smaller {
+	label {
+		font-size: 1.3rem;
+		margin: 0.4rem 0;
+		input {
+			height: 1.3rem;
+			font-size: 1.3rem;
+			padding: 0.4rem;
+		}
+	}
+}

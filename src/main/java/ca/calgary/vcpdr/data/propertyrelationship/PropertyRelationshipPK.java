@@ -12,6 +12,15 @@ public class PropertyRelationshipPK implements Serializable {
     @Id
     private int personId;
 
+
+    public PropertyRelationshipPK(int propertyId, int personId) {
+        this.propertyId = propertyId;
+        this.personId = personId;
+    }
+
+    public PropertyRelationshipPK() {
+    }
+
     public int getPropertyId() {
         return propertyId;
     }

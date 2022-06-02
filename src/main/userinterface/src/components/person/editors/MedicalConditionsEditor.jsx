@@ -55,8 +55,8 @@ const MedicalConditionsEditor = ({ personId }) => {
 				{medicalConditions.map((medicalCondition) => (
 					<li key={medicalCondition.medicalCondition}>
 						<div>
-							{medicalCondition.medicalCondition}, risk:{' '}
-							{medicalCondition.severity}
+							{medicalCondition.medicalCondition}
+							<br /> Severity: {medicalCondition.severity}
 							<br />
 							{medicalCondition.additionalInformation}
 						</div>

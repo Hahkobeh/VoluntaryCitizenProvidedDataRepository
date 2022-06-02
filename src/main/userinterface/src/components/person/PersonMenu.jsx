@@ -12,15 +12,6 @@ import '../../style/editor.scss';
 const PersonMenu = ({ selectedPerson, onSelect, reloadPersons }) => {
 	const [selected, setSelected] = useState('person');
 
-	const [emergencyContacts, setEmergencyContacts] = useState([]);
-
-	const [VPI, setVPI] = useState(null);
-	const [medicalInformation, setMedicalInformation] = useState(null);
-	const [medicalConditions, setMedicalConditions] = useState([]);
-	const [prescribedMedications, setPrescribedMedications] = useState([]);
-
-	useEffect(() => () => console.log('unmount'), []);
-
 	const navigate = () => {
 		switch (selected) {
 			case 'person':

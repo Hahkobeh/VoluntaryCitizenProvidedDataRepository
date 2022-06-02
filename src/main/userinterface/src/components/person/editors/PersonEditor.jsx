@@ -24,9 +24,9 @@ const PersonEditor = ({
 	const [person, setPerson] = useState(selectedPerson);
 	const [updated, setUpdated] = useState(false);
 
-	useState(console.log(person), function test() {
-		console.log('unmount' + JSON.stringify(person));
-	});
+	// useState(console.log(person), function test() {
+	// 	console.log('unmount' + JSON.stringify(person));
+	// });
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -43,8 +43,7 @@ const PersonEditor = ({
 		e.preventDefault();
 		axios
 			.post(`${API_BASE_URL}/api/user/v1/person/update`, person)
-			.then((res) => {
-				console.log(res);
+			.then(() => {
 				setUpdated(false);
 				reloadPersons();
 			});

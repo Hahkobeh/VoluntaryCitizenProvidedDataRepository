@@ -51,6 +51,32 @@ public class Property {
     @Column(name = "waterProvider", nullable = true, length = 255)
     private String waterProvider;
 
+
+
+    public Property() {
+    }
+
+    @Override
+    public String toString() {
+        return "Property{" +
+                "userId=" + userId +
+                ", propertyId=" + propertyId +
+                ", a1='" + a1 + '\'' +
+                ", a3='" + a3 + '\'' +
+                ", rd='" + rd + '\'' +
+                ", sts='" + sts + '\'' +
+                ", hno='" + hno + '\'' +
+                ", hns='" + hns + '\'' +
+                ", pod='" + pod + '\'' +
+                ", pc='" + pc + '\'' +
+                ", propertyType='" + propertyType + '\'' +
+                ", gasShutOffLocation='" + gasShutOffLocation + '\'' +
+                ", electricityProvider='" + electricityProvider + '\'' +
+                ", gasProvider='" + gasProvider + '\'' +
+                ", waterProvider='" + waterProvider + '\'' +
+                '}';
+    }
+
     public int getUserId() {
         return userId;
     }

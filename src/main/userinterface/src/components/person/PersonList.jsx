@@ -8,7 +8,7 @@ const PersonList = ({ persons, reloadPersons, onSelect }) => {
 		e.stopPropagation();
 		axios
 			.delete(`${API_BASE_URL}/api/user/v1/person/delete/${personId}`)
-			.then((r) => {
+			.then(() => {
 				reloadPersons();
 			});
 	};

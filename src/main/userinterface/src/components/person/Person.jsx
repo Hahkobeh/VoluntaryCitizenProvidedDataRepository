@@ -1,5 +1,6 @@
 import React from 'react';
 import Delete from '../../images/delete.svg';
+
 const Person = ({
 	person,
 	person: { personId, personRelationship, personSurName, personGivenName },

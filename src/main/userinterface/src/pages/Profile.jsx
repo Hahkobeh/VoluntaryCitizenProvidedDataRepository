@@ -10,6 +10,10 @@ import { API_BASE_URL } from '../constants';
 import PersonForm from '../components/person/PersonForm';
 import PersonMenu from '../components/person/PersonMenu';
 import User from '../components/User';
+import PropertyMenu from '../components/property/PropertyMenu';
+import PropertyForm from '../components/property/PropertyForm';
+import VehicleForm from '../components/vehicle/VehiclesForm';
+import VehicleMenu from '../components/vehicle/VehicleMenu';
 
 class Profile extends Component {
 	constructor(props) {
@@ -41,7 +45,7 @@ class Profile extends Component {
 				axios.spread((...res) => {
 					this.setState({
 						persons: res[0].data,
-						properies: res[1].data,
+						properties: res[1].data,
 						vehicles: res[2].data,
 					});
 				})
@@ -87,6 +91,36 @@ class Profile extends Component {
 			});
 	};
 
+	reloadProperties = () => {
+		axios
+			.get(
+				`${API_BASE_URL}/api/user/v1/property/${this.props.user.userId}`
+			)
+			.then((res) => {
+				this.setState({
+					properties: res.data,
+				});
+			})
+			.catch((e) => {
+				this.props.testConnection();
+			});
+	};
+
+	reloadVehicles = () => {
+		axios
+			.get(
+				`${API_BASE_URL}/api/user/v1/vehicle/${this.props.user.userId}`
+			)
+			.then((res) => {
+				this.setState({
+					vehicles: res.data,
+				});
+			})
+			.catch((e) => {
+				this.props.testConnection();
+			});
+	};
+
 	tabSwitch = () => {
 		switch (this.state.tab) {
 			case 'person': {
@@ -107,35 +141,72 @@ class Profile extends Component {
 					);
 				} else {
 					return (
-						<>
-							<PersonMenu
-								selectedPerson={this.state.persons.find(
-									(person) =>
-										person.personId ===
-										this.state.selectedPerson
-								)}
-								onSelect={this.onSelect}
-								reloadPersons={this.reloadPersons}
-							/>
-						</>
+						<PersonMenu
+							selectedPerson={this.state.persons.find(
+								(person) =>
+									person.personId ===
+									this.state.selectedPerson
+							)}
+							onSelect={this.onSelect}
+							reloadPersons={this.reloadPersons}
+						/>
 					);
 				}
 			}
 
 			case 'property':
-				return (
-					<PropertyList
-						properties={this.state.properties}
-						onSelect={this.onSelect}
-					/>
-				);
+				if (this.state.selectedProperty === null) {
+					return (
+						<>
+							<PropertyList
+								properties={this.state.properties}
+								reloadProperties={this.reloadProperties}
+								onSelect={this.onSelect}
+							/>
+							<PropertyForm
+								userId={this.props.user.userId}
+								reloadProperties={this.reloadProperties}
+							/>
+						</>
+					);
+				} else {
+					return (
+						<PropertyMenu
+							selectedProperty={this.state.properties.find(
+								(property) =>
+									property.propertyId ===
+									this.state.selectedProperty
+							)}
+							onSelect={this.onSelect}
+							reloadProperties={this.reloadProperties}
+							persons={this.state.persons}
+						/>
+					);
+				}
 			case 'vehicle':
-				return (
-					<VehicleList
-						vehicles={this.state.vehicles}
-						onSelect={this.onSelect}
-					/>
-				);
+				if (this.state.selectedVehicle === null) {
+					return (
+						<>
+							<VehicleList
+								vehicles={this.state.vehicles}
+								onSelect={this.onSelect}
+								reloadVehicles={this.reloadVehicles}
+							/>
+							<VehicleForm
+								userId={this.props.user.userId}
+								reloadVehicles={this.reloadVehicles}
+							/>
+						</>
+					);
+				} else {
+					return (
+						<VehicleMenu
+							selectedVehicle={this.state.selectedVehicle}
+							onSelect={this.onSelect}
+							reloadVehicles={this.reloadVehicles}
+						/>
+					);
+				}
 			case 'user':
 				return <User />;
 			default:

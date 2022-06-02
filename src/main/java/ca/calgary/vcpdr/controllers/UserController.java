@@ -1,6 +1,7 @@
 package ca.calgary.vcpdr.controllers;
 
 
+import ca.calgary.vcpdr.data.hazardousmaterial.HazardousMaterial;
 import ca.calgary.vcpdr.data.personnal.emergencycontact.EmergencyContact;
 import ca.calgary.vcpdr.data.personnal.medicalcondition.MedicalCondition;
 import ca.calgary.vcpdr.data.personnal.medicalinformation.MedicalInformation;
@@ -17,6 +18,7 @@ import ca.calgary.vcpdr.data.personnal.person.PersonService;
 import ca.calgary.vcpdr.data.personnal.prescribedmedication.PrescribedMedicationService;
 import ca.calgary.vcpdr.data.property.PropertyService;
 import ca.calgary.vcpdr.data.personnal.telephone.TelephoneService;
+import ca.calgary.vcpdr.data.propertyrelationship.PropertyRelationship;
 import ca.calgary.vcpdr.data.propertyrelationship.PropertyRelationshipService;
 import ca.calgary.vcpdr.data.user.User;
 import ca.calgary.vcpdr.data.user.UserService;
@@ -216,6 +218,8 @@ public class UserController{
         return prescribedMedicationService.createPrescribedMedication(prescribedMedication);
     }
 
+
+
     @DeleteMapping("/prescribed-medication/delete")
     @ResponseBody
     public boolean deletePrescribedMedication(@RequestBody PrescribedMedication prescribedMedication){
@@ -276,10 +280,16 @@ public class UserController{
         return propertiesService.createProperty(property);
     }
 
-    @PostMapping("/property/delete")
+    @PostMapping("/property/update")
     @ResponseBody
-    public boolean deleteProperty(@RequestBody Property property){
-        return propertiesService.deleteProperty(property);
+    public Property updateProperty(@RequestBody Property property){
+        return propertiesService.updateProperty(property);
+    }
+
+    @DeleteMapping("/property/delete/{propertyId}")
+    @ResponseBody
+    public boolean deleteProperty(@PathVariable int propertyId){
+        return propertiesService.deleteProperty(propertyId);
     }
 
     @GetMapping("/property/{userId}")
@@ -290,19 +300,72 @@ public class UserController{
 
     //Property Relationship
 
+    @GetMapping("/property-relationship/{propertyId}")
+    @ResponseBody
+    public List<PropertyRelationship> getPropertyRelationship(@PathVariable int propertyId){
+        return propertyRelationshipService.getPropertyRelationships(propertyId);
+    }
 
+
+    @PostMapping("/property-relationship/create")
+    @ResponseBody
+    public PropertyRelationship createPropertyRelationship(@RequestBody PropertyRelationship propertyRelationship){
+        return propertyRelationshipService.createPropertyRelationship(propertyRelationship);
+    }
+
+    @DeleteMapping("/property-relationship/delete")
+    @ResponseBody
+    public boolean deletePropertyRelationship(@RequestBody PropertyRelationship propertyRelationship){
+        return propertyRelationshipService.deletePropertyRelationship(propertyRelationship);
+    }
 
 
     //Hazardous material
 
+
+    @PostMapping("/hazardous-material/create")
+    @ResponseBody
+    public HazardousMaterial createHazardousMaterial(@RequestBody HazardousMaterial hazardousMaterial){
+        return hazardousMaterialsService.createHazardousMaterial(hazardousMaterial);
+    }
+
+    @DeleteMapping("/hazardous-material/delete/{hazardousMaterialId}")
+    @ResponseBody
+    public boolean deleteHazardousMaterial(@PathVariable int hazardousMaterialId){
+        return hazardousMaterialsService.deleteHazardousMaterial(hazardousMaterialId);
+    }
+
+    @GetMapping("/hazardous-material/{propertyId}")
+    @ResponseBody
+    public List<HazardousMaterial> getHazardousMaterials(@PathVariable int propertyId){
+        return hazardousMaterialsService.getHazardousMaterials(propertyId);
+    }
 
     //Vehicle
 
     @GetMapping("/vehicle/{userId}")
     @ResponseBody
     public List<Vehicle> getVehicles(@PathVariable int userId){
-        return null;
+        return vehicleService.getVehicles(userId);
     }
 
+    @DeleteMapping("/vehicle/delete")
+    @ResponseBody
+    public boolean deleteVehicle(@RequestBody Vehicle vehicle){
+        return vehicleService.deleteVehicle(vehicle);
+    }
+
+    @PostMapping("/vehicle/create")
+    @ResponseBody
+    public Vehicle createVehicle(@RequestBody Vehicle vehicle){
+        return vehicleService.createVehicle(vehicle);
+    }
+
+
+    @PostMapping("/vehicle/update")
+    @ResponseBody
+    public Vehicle updateVehicle(@RequestBody Vehicle vehicle){
+        return vehicleService.updateVehicle(vehicle);
+    }
 
 }

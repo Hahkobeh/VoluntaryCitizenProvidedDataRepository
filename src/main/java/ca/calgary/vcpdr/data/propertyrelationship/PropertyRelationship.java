@@ -18,6 +18,8 @@ public class PropertyRelationship {
     @Column(name = "relationshipType", nullable = true, length = 40)
     private String relationshipType;
 
+    public PropertyRelationship(){}
+
     public int getPropertyId() {
         return propertyId;
     }

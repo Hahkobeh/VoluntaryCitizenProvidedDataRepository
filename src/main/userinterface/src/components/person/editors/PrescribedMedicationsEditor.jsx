@@ -23,7 +23,7 @@ const PrescribedMedicationsEditor = ({ personId }) => {
 					data: prescribedMedication,
 				}
 			)
-			.then((res) => {
+			.then(() => {
 				getPrescribedMedcations();
 			});
 	};

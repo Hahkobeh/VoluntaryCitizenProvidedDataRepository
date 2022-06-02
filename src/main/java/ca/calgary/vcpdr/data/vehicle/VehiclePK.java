@@ -14,6 +14,14 @@ public class VehiclePK implements Serializable {
     @Id
     private String registrationPlateIdentification;
 
+    public VehiclePK(int userId, String registrationPlateIdentification) {
+        this.userId = userId;
+        this.registrationPlateIdentification = registrationPlateIdentification;
+    }
+
+    public VehiclePK() {
+    }
+
     public int getUserId() {
         return userId;
     }

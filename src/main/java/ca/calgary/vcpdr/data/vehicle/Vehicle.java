@@ -27,6 +27,9 @@ public class Vehicle {
     @Column(name = "year", nullable = true)
     private Integer year;
 
+    public Vehicle() {
+    }
+
     public int getUserId() {
         return userId;
     }

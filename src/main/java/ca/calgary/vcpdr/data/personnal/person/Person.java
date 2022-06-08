@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -33,7 +34,7 @@ public class Person {
     private String personMiddleName;
     @Basic
     @Column(name = "personBirthDate", nullable = true)
-    private Date personBirthDate;
+    private LocalDate personBirthDate;
     @Basic
     @Column(name = "personSexCode", nullable = true, length = 1)
     private String personSexCode;

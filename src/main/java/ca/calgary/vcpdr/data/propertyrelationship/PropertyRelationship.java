@@ -14,9 +14,7 @@ public class PropertyRelationship {
     @Basic
     @Column(name = "keyholder", nullable = false)
     private byte keyholder;
-    @Basic
-    @Column(name = "relationshipType", nullable = true, length = 40)
-    private String relationshipType;
+
 
     public PropertyRelationship(){}
 
@@ -44,36 +42,5 @@ public class PropertyRelationship {
         this.keyholder = keyholder;
     }
 
-    public String getRelationshipType() {
-        return relationshipType;
-    }
 
-    public void setRelationshipType(String relationshipType) {
-        this.relationshipType = relationshipType;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        PropertyRelationship that = (PropertyRelationship) o;
-
-        if (propertyId != that.propertyId) return false;
-        if (personId != that.personId) return false;
-        if (keyholder != that.keyholder) return false;
-        if (relationshipType != null ? !relationshipType.equals(that.relationshipType) : that.relationshipType != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = propertyId;
-        result = 31 * result + personId;
-        result = 31 * result + (int) keyholder;
-        result = 31 * result + (relationshipType != null ? relationshipType.hashCode() : 0);
-        return result;
-    }
 }

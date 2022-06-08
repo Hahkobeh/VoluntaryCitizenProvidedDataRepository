@@ -1,33 +1,36 @@
-import React, { useState } from 'react';
-import './styles/app.scss';
-import Search from './components/search/Search';
-import Results from './components/Results';
-import Bar from './components/Bar';
-import { Permissions } from './components/Types';
+import React, { useEffect, useState } from 'react';
+import Landing from './pages/Landing';
+import Interface from './pages/Interface';
+import { UserInfo } from './interfaces';
 
+type Props = {};
 
 const App = () => {
-	const [displaySearch, setDisplaySearch] = useState<boolean>(false);
+	const [loggedIn, setLoggedIn] = useState(false);
 
-	const [perms, setPerms] = useState<Permissions>({
-		fire: false,
-		police: false,
-		ems: false,
-	});
+	useEffect(() => {
+		if (sessionStorage.getItem('user') !== null) {
+			setLoggedIn(true);
+		}
+	}, []);
 
-	const [searchInfo, setSearchInfo] = useState<string>('hi');
+	const login = (userInfo: UserInfo) => {
+		sessionStorage.setItem('user', JSON.stringify(userInfo));
+		setLoggedIn(true);
+	};
 
-	return (
-		<div className='app'>
-			<Bar
-				displaySearch={displaySearch}
-				toggleSearch={() => {
-					setDisplaySearch((prev) => !prev);
-				}}
-			/>
-			{displaySearch && <Search temp='hello' />}
-			<Results />
-		</div>
+	const logout = () => {
+		sessionStorage.removeItem('user');
+		setLoggedIn(false);
+	};
+
+	return loggedIn && sessionStorage.getItem('user') !== null ? (
+		<Interface
+			logout={logout}
+			userInfo={JSON.parse(sessionStorage.getItem('user') || '{}')}
+		/>
+	) : (
+		<Landing login={login} />
 	);
 };
 

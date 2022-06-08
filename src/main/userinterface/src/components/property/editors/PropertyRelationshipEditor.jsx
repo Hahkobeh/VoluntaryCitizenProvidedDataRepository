@@ -11,7 +11,6 @@ const PropertyRelationshipEditor = ({ propertyId, persons }) => {
 		propertyId: propertyId,
 		personId: 0,
 		keyholder: false,
-		relationshipType: '',
 	});
 
 	useEffect(() => {
@@ -33,7 +32,6 @@ const PropertyRelationshipEditor = ({ propertyId, persons }) => {
 					propertyId: propertyId,
 					personId: 0,
 					keyholder: false,
-					relationshipType: '',
 				});
 				getRelationships();
 			});
@@ -122,19 +120,6 @@ const PropertyRelationshipEditor = ({ propertyId, persons }) => {
 								<option value={1}>Yes</option>
 								<option value={0}>No</option>
 							</select>
-						</label>
-						<label>
-							Relationship
-							<input
-								type='text'
-								onChange={(data) =>
-									setNewRelationship({
-										...newRelationship,
-										relationshipType: data.target.value,
-									})
-								}
-								value={newRelationship.relationshipType}
-							/>
 						</label>
 						<input type='submit' />
 					</form>

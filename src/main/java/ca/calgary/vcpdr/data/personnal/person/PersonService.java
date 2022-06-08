@@ -33,5 +33,20 @@ public class PersonService {
         personRepository.deleteById(personId);
         return true;
     }
+
+    public List<Person> findPerson(String givenName, String surName) {
+        return personRepository.findAllByPersonGivenNameAndPersonSurName(givenName,surName);
+    }
+    public List<Person> findPerson(String name) {
+        return personRepository.findAllByPersonGivenNameOrPersonSurName(name,name);
+    }
+
+    public List<Person> findPerson(String givenName, String middleName, String surName) {
+        return personRepository.findAllByPersonGivenNameAndPersonMiddleNameAndPersonSurName(givenName,middleName,surName);
+    }
+
+    public List<Person> getAll() {
+        return (List<Person>) personRepository.findAll();
+    }
 }
 

@@ -2,12 +2,12 @@
   <g id="Group_51" data-name="Group 51" transform="translate(-1126.743 -456)">
     <g id="Group_42" data-name="Group 42" transform="translate(-69.393 -203.246)">
       <g id="Group_7" data-name="Group 7" transform="translate(1196.135 659.247)">
-        <path id="Path_3" data-name="Path 3" d="M-454-963.284l87.136-17.143,77.355,17.146-77.355,25.64Z" transform="translate(454 1025)" fill="#315ee2"/>
-        <path id="Path_2" data-name="Path 2" d="M-454-706.417v-98.771l82.123,16.828,82.392-16.828v107.419L-371.877-676.9Z" transform="translate(454 866.904)" fill="#4f76e8"/>
+        <path id="Path_3" data-name="Path 3" d="M-454-963.284l87.136-17.143,77.355,17.146-77.355,25.64Z" transform="translate(454 1025)" fill="#513082"/>
+        <path id="Path_2" data-name="Path 2" d="M-454-706.417v-98.771l82.123,16.828,82.392-16.828v107.419L-371.877-676.9Z" transform="translate(454 866.904)" fill="#6f40b5"/>
         <g id="Group_1" data-name="Group 1" transform="translate(22)">
-          <path id="Subtraction_4" data-name="Subtraction 4" d="M30,60H0A60.016,60.016,0,0,1,115.285,36.644,59.631,59.631,0,0,1,120,60H90a30,30,0,0,0-60,0Z" transform="translate(0)" fill="#4f76e8"/>
-          <ellipse id="Ellipse_5" data-name="Ellipse 5" cx="15" cy="6" rx="15" ry="6" transform="translate(90 54)" fill="#4f76e8"/>
-          <ellipse id="Ellipse_6" data-name="Ellipse 6" cx="15" cy="6" rx="15" ry="6" transform="translate(0 54)" fill="#4f76e8"/>
+          <path id="Subtraction_4" data-name="Subtraction 4" d="M30,60H0A60.016,60.016,0,0,1,115.285,36.644,59.631,59.631,0,0,1,120,60H90a30,30,0,0,0-60,0Z" transform="translate(0)" fill="#6f40b5"/>
+          <ellipse id="Ellipse_5" data-name="Ellipse 5" cx="15" cy="6" rx="15" ry="6" transform="translate(90 54)" fill="#6f40b5"/>
+          <ellipse id="Ellipse_6" data-name="Ellipse 6" cx="15" cy="6" rx="15" ry="6" transform="translate(0 54)" fill="#6f40b5"/>
         </g>
       </g>
       <path id="Path_4" data-name="Path 4" d="M602.826-672.67l16.721,4.212,35.983,75.76-.073-68.387,12.8,2.831.03,84.485L649.627-580.5l-35.312-72.41v59.981l-9.917-3.494C604.6-597.049,602.826-672.67,602.826-672.67Z" transform="translate(601.135 1406.246)" fill="#fff"/>

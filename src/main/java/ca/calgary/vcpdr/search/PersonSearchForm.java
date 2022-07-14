@@ -17,7 +17,7 @@ public class PersonSearchForm {
     private LocalDate personBirthDate;
     private String personSexCode;
     private PSAPUser psapUser;
-
+    private RequestedDataObjects requestedDataObjects;
 
     public PersonSearchForm() {
     }

@@ -9,7 +9,7 @@ const TelephoneEditor = ({ personId }) => {
 	const [newTelephone, setNewTelephone] = useState({
 		personId: personId,
 		telephoneNumber: '',
-		telephoneType: '',
+		telephoneType: 'Residential Landline',
 	});
 
 	useEffect(() => {
@@ -48,7 +48,7 @@ const TelephoneEditor = ({ personId }) => {
 				setNewTelephone({
 					personId: personId,
 					telephoneNumber: '',
-					telephoneType: '',
+					telephoneType: 'Residential Landline',
 				});
 				getTelephones();
 			});
@@ -108,7 +108,20 @@ const TelephoneEditor = ({ personId }) => {
 						</label>
 						<label>
 							Type
-							<input
+							<select
+								onChange={(e) =>
+									setNewTelephone({
+										...newTelephone,
+										telephoneType: e.target.value,
+									})
+								}
+								value={newTelephone.telephoneType}
+							>
+								<option>Residential Landline</option>
+								<option>Business Landline</option>
+								<option>Mobile</option>
+							</select>
+							{/* <input
 								type='text'
 								name='telephoneType'
 								onChange={(data) =>
@@ -118,9 +131,9 @@ const TelephoneEditor = ({ personId }) => {
 									})
 								}
 								value={newTelephone.telephoneType}
-							/>
+							/>*/}
 						</label>
-						<input type='submit' />
+						<input type='submit' className='editor-submit' />
 					</form>
 				</li>
 			</ul>

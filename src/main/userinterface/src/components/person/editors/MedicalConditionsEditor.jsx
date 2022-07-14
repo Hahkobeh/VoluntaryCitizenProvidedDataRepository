@@ -56,7 +56,6 @@ const MedicalConditionsEditor = ({ personId }) => {
 					<li key={medicalCondition.medicalCondition}>
 						<div>
 							{medicalCondition.medicalCondition}
-							<br /> Severity: {medicalCondition.severity}
 							<br />
 							{medicalCondition.additionalInformation}
 						</div>
@@ -86,24 +85,6 @@ const MedicalConditionsEditor = ({ personId }) => {
 							/>
 						</label>
 						<label>
-							Severity
-							<select
-								name=''
-								onChange={(data) =>
-									setNewMedicalCondition({
-										...newMedicalCondition,
-										severity: data.target.value,
-									})
-								}
-								value={newMedicalCondition.severity}
-							>
-								<option value=''> </option>
-								<option value='Low'>Low</option>
-								<option value='Medium'>Medium</option>
-								<option value='High'>High</option>
-							</select>
-						</label>
-						<label>
 							Additional Info
 							<input
 								type='text'
@@ -120,7 +101,7 @@ const MedicalConditionsEditor = ({ personId }) => {
 								}
 							/>
 						</label>
-						<input type='submit' />
+						<input type='submit' className='editor-submit'/>
 					</form>
 				</li>
 			</ul>

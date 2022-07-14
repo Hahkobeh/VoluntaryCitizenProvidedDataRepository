@@ -1,4 +1,4 @@
-@import 'Variables';
+@import 'variables';
 
 .editor {
 	position: absolute;
@@ -70,4 +70,16 @@
 	span {
 		text-decoration: underline;
 	}
+}
+
+.editor-submit {
+	background-color: white;
+	color: $blue;
+	padding: 0.5em 2em;
+	font-size: 1.2em;
+	font-weight: bold;
+	border: none;
+}
+.editor-submit:hover {
+	color: $darkblue;
 }

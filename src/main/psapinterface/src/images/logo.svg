@@ -2,13 +2,13 @@
   <g id="Group_41" data-name="Group 41" transform="translate(-954.66 -126)">
     <g id="Group_39" data-name="Group 39" transform="translate(1110 -28)">
       <g id="Group_6" data-name="Group 6" transform="translate(135 154)">
-        <path id="Path_3" data-name="Path 3" d="M-454-963.284l87.136-17.143L-289.5-963.3l-77.364,25.656Z" transform="translate(454 1025)" fill="#315ee2"/>
+        <path id="Path_3" data-name="Path 3" d="M-454-963.284l87.136-17.143L-289.5-963.3l-77.364,25.656Z" transform="translate(454 1025)" fill="#513082"/>
         <g id="Group_5" data-name="Group 5">
-          <path id="Path_2" data-name="Path 2" d="M-454-706.417v-98.771l82.123,16.828,82.392-16.828v107.419L-371.877-676.9Z" transform="translate(454 866.904)" fill="#4f76e8"/>
+          <path id="Path_2" data-name="Path 2" d="M-454-706.417v-98.771l82.123,16.828,82.392-16.828v107.419L-371.877-676.9Z" transform="translate(454 866.904)" fill="#6f40b5"/>
           <g id="Group_1" data-name="Group 1" transform="translate(22)">
-            <path id="Subtraction_4" data-name="Subtraction 4" d="M30,60H0A60.016,60.016,0,0,1,115.285,36.644,59.629,59.629,0,0,1,120,60H90a30,30,0,0,0-60,0Z" transform="translate(0 0)" fill="#4f76e8"/>
-            <ellipse id="Ellipse_5" data-name="Ellipse 5" cx="15" cy="6" rx="15" ry="6" transform="translate(90 54)" fill="#4f76e8"/>
-            <ellipse id="Ellipse_6" data-name="Ellipse 6" cx="15" cy="6" rx="15" ry="6" transform="translate(0 54)" fill="#4f76e8"/>
+            <path id="Subtraction_4" data-name="Subtraction 4" d="M30,60H0A60.016,60.016,0,0,1,115.285,36.644,59.629,59.629,0,0,1,120,60H90a30,30,0,0,0-60,0Z" transform="translate(0 0)" fill="#6f40b5"/>
+            <ellipse id="Ellipse_5" data-name="Ellipse 5" cx="15" cy="6" rx="15" ry="6" transform="translate(90 54)" fill="#6f40b5"/>
+            <ellipse id="Ellipse_6" data-name="Ellipse 6" cx="15" cy="6" rx="15" ry="6" transform="translate(0 54)" fill="#6f40b5"/>
           </g>
         </g>
       </g>

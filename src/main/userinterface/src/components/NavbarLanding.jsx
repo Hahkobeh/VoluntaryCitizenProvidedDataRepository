@@ -27,7 +27,7 @@ const NavbarLanding = ({page, setPage }) => {
 					}
 					onClick={() => setPage('register')}
 				>
-					Register
+					Join
 				</li>
 				<li
 					className={

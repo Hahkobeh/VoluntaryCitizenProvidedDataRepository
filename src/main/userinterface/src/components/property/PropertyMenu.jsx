@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../../style/editor.scss';
 import PropertyEditor from './editors/PropertyEditor';
 import HazardousMaterialEditor from './editors/HazardousMaterialEditor';
-import PropertyRelationshipEditor from './editors/PropertyRelationshipEditor';
+import KeyholderEditor from './editors/KeyholderEditor';
 
 const PropertyMenu = ({
 	selectedProperty,
@@ -27,12 +27,9 @@ const PropertyMenu = ({
 						propertyId={selectedProperty.propertyId}
 					/>
 				);
-			case 'relationship':
+			case 'keyholder':
 				return (
-					<PropertyRelationshipEditor
-						propertyId={selectedProperty.propertyId}
-						persons={persons}
-					/>
+					<KeyholderEditor propertyId={selectedProperty.propertyId} />
 				);
 			default:
 				setSelected('property');
@@ -67,11 +64,11 @@ const PropertyMenu = ({
 				<li
 					className={
 						'menu-item' +
-						(selected === 'relationship' ? ' current' : '')
+						(selected === 'keyholder' ? ' current' : '')
 					}
-					onClick={() => setSelected('relationship')}
+					onClick={() => setSelected('keyholder')}
 				>
-					<h2>Relevant People</h2>
+					<h2>Keyholders</h2>
 				</li>
 				<li
 					className='menu-item return'

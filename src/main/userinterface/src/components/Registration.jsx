@@ -1,7 +1,77 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import Select from 'react-select';
 import { API_BASE_URL } from '../constants';
+
+const telephoneOptions = [
+	{
+		value: 'Residential Landline',
+		label: 'Residential Landline',
+	},
+	{
+		value: 'Business Landline',
+		label: 'Business Landline',
+	},
+	{
+		value: 'Mobile',
+		label: 'Mobile',
+	},
+];
+
+const selectStyle = {
+	container: (provided) => ({
+		...provided,
+
+		width: '100%',
+		marginTop: '0.5rem',
+		fontWeight: 'normal',
+	}),
+	control: (provided, state) => ({
+		...provided,
+		border: 'solid 3px #4f76e8',
+		borderRadius: 'none',
+		boxShadow: 'none',
+		height: '70px',
+		'&:hover': {
+			borderColor: '#4f76e8',
+		},
+	}),
+	menu: (provided) => ({
+		...provided,
+		borderRadius: 'none',
+	}),
+	option: (provided, state) => ({
+		...provided,
+		borderRadius: 'none',
+		backgroundColor: state.isSelected ? '#4f76e8' : 'white',
+		textAlign: 'left',
+		'&:hover': {
+			backgroundColor: '#e1e1e1',
+		},
+	}),
+	valueContainer: (provided, state) => ({
+		...provided,
+		overflow: 'hidden',
+		padding: 'none',
+		justifyContent: 'left',
+		color: 'black',
+	}),
+	singleValue: (provided) => ({
+		...provided,
+		color: 'black',
+		paddingLeft: '15px',
+	}),
+	placeholder: (provided) => ({
+		...provided,
+		paddingLeft: '15px',
+	}),
+	input: (provided) => ({
+		...provided,
+		color: 'black',
+		paddingLeft: '15px',
+	}),
+};
 
 class Registration extends Component {
 	constructor(props) {
@@ -33,14 +103,13 @@ class Registration extends Component {
 	};
 
 	onSubmitFirst = async () => {
-		console.log(this.state);
 		const {
 			info: { email, password },
 			passwordCheck,
 		} = this.state;
-		console.log(password, passwordCheck);
+
 		if (email === '' || password === '' || passwordCheck === '') {
-			console.log('here');
+			console.log('here123');
 			this.setState({
 				error: true,
 				errorMessage: 'Unfilled information.',
@@ -126,6 +195,7 @@ class Registration extends Component {
 			});
 			return;
 		}
+		console.log(this.state);
 
 		this.setState((prevState) => ({
 			info: {
@@ -145,10 +215,14 @@ class Registration extends Component {
 
 	onSubmitThird = (e) => {
 		e.preventDefault();
+		if (this.state.page !== 3) {
+			return;
+		}
 		const {
 			info: { telephoneNumber, telephoneType },
 		} = this.state;
 		if (telephoneNumber === '' || telephoneType === '') {
+			console.log('caught');
 			this.setState({
 				error: true,
 				errorMessage: 'Unfilled information.',
@@ -157,6 +231,7 @@ class Registration extends Component {
 		}
 
 		if (!this.telephoneValid(telephoneNumber)) {
+			console.log('hello here somehow?');
 			this.setState({
 				error: true,
 				errorMessage: 'Telephone number invalid.',
@@ -171,6 +246,7 @@ class Registration extends Component {
 		axios
 			.post(`${API_BASE_URL}/api/user/v1/register`, this.state.info)
 			.then((res) => {
+				console.log(this.state.info);
 				console.log(res.data);
 				if (res.data === null) {
 					this.setState({
@@ -269,7 +345,7 @@ class Registration extends Component {
 							/>
 						</label>
 						<label className='label-main'>
-							Sur Name
+							Surname
 							<input
 								type='text'
 								className='input-main'
@@ -302,12 +378,30 @@ class Registration extends Component {
 						</label>
 						<label className='label-main'>
 							Telephone Type
-							<input
+							{/* <input
 								type='text'
 								className='input-main'
 								name='telephoneType'
 								onChange={this.handleChange}
 								value={this.state.info.telephoneType}
+							/> */}
+							<Select
+								options={telephoneOptions}
+								value={telephoneOptions.filter(
+									(option) =>
+										option.value ===
+										this.state.info.telephoneType
+								)}
+								onChange={(item) =>
+									this.setState((prevState) => ({
+										info: {
+											...prevState.info,
+											telephoneType: item.value,
+										},
+									}))
+								}
+								styles={selectStyle}
+								isSearchable={false}
 							/>
 							{/* TODO make dropdown */}
 						</label>
@@ -315,7 +409,7 @@ class Registration extends Component {
 						<input
 							className='button-main'
 							type='submit'
-							value='Register!'
+							value='Join!'
 						/>
 					</>
 				);
@@ -329,7 +423,7 @@ class Registration extends Component {
 		return (
 			<>
 				<form className='form-main' onSubmit={this.onSubmitThird}>
-					<h1>Register</h1>
+					<h1>Join</h1>
 					<this.pageNum />
 					{this.state.error ? (
 						<p className='error'>{this.state.errorMessage}</p>

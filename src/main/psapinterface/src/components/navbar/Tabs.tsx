@@ -1,16 +1,42 @@
 import React from 'react';
+import { Tab, TabsObject } from '../../interfaces';
+import Delete from '../../images/delete.svg';
 
-type Props = {};
+type Props = {
+	tabsObject: TabsObject;
+};
 
-const Tabs = (props: Props) => {
+const Tabs = ({
+	tabsObject: { tabs, setTabs, currentTab, setCurrentTab, handleDeleteTab },
+}: Props) => {
 	return (
 		<div className='navbar-second'>
-			<ul className='tabs'>
-				<li className='tab'></li>
-				<li className='tab'></li>
-				<li className='tab'></li>
-				<li className='tab'></li>
-				<li className='tab'></li>
+			<ul className='navbar-tabs'>
+				{tabs.length !== 0 ? (
+					tabs.map((tab: Tab, index: number) => (
+						<li
+							className={
+								'navbar-tab ' +
+								(currentTab === tab.id ? ' selected-tab' : '')
+							}
+							key={index}
+							onClick={() => setCurrentTab(tab.id)}
+						>
+							<div>{tab.title}</div>
+							{currentTab !== tab.id ? (
+								<img
+									src={Delete}
+									alt='delete tab'
+									onClick={(e) => handleDeleteTab(index, e)}
+								/>
+							) : (
+								<></>
+							)}
+						</li>
+					))
+				) : (
+					<li className='navbar-tab selected-tab'>No tabs</li>
+				)}
 			</ul>
 		</div>
 	);

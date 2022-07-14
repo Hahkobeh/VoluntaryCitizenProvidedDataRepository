@@ -111,7 +111,7 @@ const PrescribedMedicationsEditor = ({ personId }) => {
 								}
 							/>
 						</label>
-						<input type='submit' />
+						<input type='submit' className='editor-submit'/>
 					</form>
 				</li>
 			</ul>

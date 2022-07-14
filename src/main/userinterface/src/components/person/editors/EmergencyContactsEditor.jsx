@@ -30,7 +30,6 @@ const EmergencyContactsEditor = ({ personId }) => {
 
 	const handleAdd = (e) => {
 		e.preventDefault();
-		console.log(newEmergencyContact);
 		axios
 			.post(
 				`${API_BASE_URL}/api/user/v1/emergency-contact/create`,
@@ -50,7 +49,6 @@ const EmergencyContactsEditor = ({ personId }) => {
 		axios
 			.get(`${API_BASE_URL}/api/user/v1/emergency-contact/${personId}`)
 			.then((res) => {
-				console.log(res.data);
 				setEmergencyContacts(res.data);
 			});
 	};
@@ -90,6 +88,7 @@ const EmergencyContactsEditor = ({ personId }) => {
 										personFullName: data.target.value,
 									})
 								}
+								value={newEmergencyContact.personFullName}
 							/>
 						</label>
 						<label>
@@ -103,9 +102,10 @@ const EmergencyContactsEditor = ({ personId }) => {
 										telephoneNumber: data.target.value,
 									})
 								}
+								value={newEmergencyContact.telephoneNumber}
 							/>
 						</label>
-						<input type='submit' />
+						<input type='submit' className='editor-submit'/>
 					</form>
 				</li>
 			</ul>

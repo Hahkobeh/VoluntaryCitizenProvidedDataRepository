@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { UserInfo } from '../interfaces';
+import { PSAPUser } from '../interfaces';
 
 type Props = {
 	handleRegister: (
 		event: React.FormEvent<HTMLFormElement>,
-		userInfo: UserInfo
+		userInfo: PSAPUser
 	) => void;
 	handlePageChange: (num: number) => void;
 };
 
 const Register = ({ handleRegister, handlePageChange }: Props) => {
-	const [newUserInfo, setNewUserInfo] = useState<UserInfo>({
+	const [newUserInfo, setNewUserInfo] = useState<PSAPUser>({
 		username: '',
 		password: '',
 		fire: false,

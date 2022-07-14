@@ -1,13 +1,84 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import Select from 'react-select';
 import { API_BASE_URL } from '../../constants';
+
+const relationshipOptions = [
+	{
+		value: 'Child',
+		label: 'Child',
+	},
+	{
+		value: 'Dependant',
+		label: 'Dependant',
+	},
+	{
+		value: 'Spouse/Partner',
+		label: 'Spouse/Partner',
+	},
+];
+
+const customStyle = {
+	container: (provided) => ({
+		...provided,
+		width: '100%',
+		marginTop: '0.5rem',
+		fontWeight: 'normal',
+	}),
+	control: (provided, state) => ({
+		...provided,
+		border: 'solid 3px #4f76e8',
+		borderRadius: 'none',
+		boxShadow: 'none',
+		height: '70px',
+		'&:hover': {
+			borderColor: '#4f76e8',
+		},
+	}),
+	menu: (provided) => ({
+		...provided,
+		borderRadius: 'none',
+	}),
+	option: (provided, state) => ({
+		...provided,
+		borderRadius: 'none',
+		backgroundColor: state.isSelected ? '#4f76e8' : 'white',
+		textAlign: 'left',
+		'&:hover': {
+			backgroundColor: '#e1e1e1',
+		},
+	}),
+	valueContainer: (provided, state) => ({
+		...provided,
+		overflow: 'hidden',
+		padding: 'none',
+		justifyContent: 'left',
+		color: 'black',
+	}),
+	singleValue: (provided) => ({
+		...provided,
+		color: 'black',
+		paddingLeft: '15px',
+	}),
+	placeholder: (provided) => ({
+		...provided,
+		paddingLeft: '15px',
+	}),
+	input: (provided) => ({
+		...provided,
+		color: 'black',
+		paddingLeft: '15px',
+	}),
+};
+
+const styleSelect = {};
 
 const PersonForm = ({ userId, reloadPersons }) => {
 	const [data, setData] = useState({
 		userId: userId,
 		personGivenName: '',
 		personSurName: '',
-		personRelationship: 'Parent',
+		personRelationship: null,
 	});
 
 	const handleChange = (e) => {
@@ -18,9 +89,25 @@ const PersonForm = ({ userId, reloadPersons }) => {
 		});
 	};
 
+	const handleChangeSelect = (item) => {
+		if (item === null) {
+			setData({ ...data, personRelationship: null });
+			return;
+		}
+		const { value } = item;
+		setData({
+			...data,
+			personRelationship: value,
+		});
+	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (data.personGivenName !== '' && data.personSurName !== '') {
+		if (
+			data.personGivenName !== '' &&
+			data.personSurName !== '' &&
+			data.personRelationship !== null
+		) {
 			axios
 				.post(`${API_BASE_URL}/api/user/v1/person/create`, {
 					userId: data.userId,
@@ -38,7 +125,7 @@ const PersonForm = ({ userId, reloadPersons }) => {
 							...data,
 							personGivenName: '',
 							personSurName: '',
-							personRelationship: 'Parent',
+							personRelationship: null,
 						});
 
 						reloadPersons();
@@ -72,19 +159,35 @@ const PersonForm = ({ userId, reloadPersons }) => {
 			</label>
 			<label className='label-main'>
 				Relationship
-				<select
+				<Select
+					options={relationshipOptions}
+					//className='select-main'
+					isClearable={true}
+					onChange={(item) => {
+						console.log(item);
+						handleChangeSelect(item);
+					}}
+					isSearchable={false}
+					styles={customStyle}
+					value={
+						data.personRelationship
+							? {
+									value: data.personRelationship,
+									label: data.personRelationship,
+							  }
+							: null
+					}
+				/>
+				{/* <select
 					onChange={handleChange}
 					value={data.personRelationship}
 					name='personRelationship'
 					className='select-main'
 				>
-					<option value='Parent'>Parent</option>
-					<option value='Child'>Child</option>
-					<option value='Sibling'>Sibling</option>
+					<option value='Child'>Child (18 or younger)</option>
 					<option value='Dependant'>Dependant</option>
-					<option value='Grandparent'>Grandparent</option>
-					<option value='Other'>Other</option>
-				</select>
+					<option value='Spouse/Partner'>Spouse/Partner</option>
+				</select> */}
 			</label>
 			<button type='submit' className='button-main'>
 				Add!

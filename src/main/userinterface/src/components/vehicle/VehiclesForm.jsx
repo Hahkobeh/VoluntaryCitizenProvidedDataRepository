@@ -1,6 +1,76 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { API_BASE_URL } from '../../constants';
+import { API_BASE_URL, colours, provincesList } from '../../constants';
+import Select from 'react-select';
+
+const customStyle = {
+	container: (provided) => ({
+		...provided,
+		width: '100%',
+		fontWeight: 'normal',
+	}),
+	control: (provided, state) => ({
+		...provided,
+		border: 'solid 3px #4f76e8',
+		borderRadius: 'none',
+		boxShadow: 'none',
+		fontSize: '2rem',
+		height: '70px',
+		'&:hover': {
+			borderColor: '#4f76e8',
+		},
+	}),
+	menu: (provided) => ({
+		...provided,
+		borderRadius: 'none',
+	}),
+	option: (provided, state) => ({
+		...provided,
+		borderRadius: 'none',
+		backgroundColor: state.isSelected ? '#4f76e8' : 'white',
+		textAlign: 'left',
+		fontSize: '2rem',
+		'&:hover': {
+			backgroundColor: '#e1e1e1',
+		},
+	}),
+	valueContainer: (provided, state) => ({
+		...provided,
+		overflow: 'hidden',
+		padding: 'none',
+		justifyContent: 'left',
+		color: 'black',
+	}),
+	singleValue: (provided) => ({
+		...provided,
+		color: 'black',
+		paddingLeft: '15px',
+	}),
+	placeholder: (provided) => ({
+		...provided,
+		paddingLeft: '15px',
+	}),
+	input: (provided) => ({
+		...provided,
+		color: 'black',
+		paddingLeft: '15px',
+	}),
+};
+
+const provinceOptions = provincesList.map((province) => ({
+	value: province.code,
+	label: province.name,
+}));
+
+const colourOptions = colours.map((colour) => ({
+	value: colour,
+	label: colour,
+}));
+
+const yearOptions = Array.from({ length: 123 }, (e, i) => ({
+	value: JSON.stringify(i + 1900),
+	label: JSON.stringify(i + 1900),
+}));
 
 const VehiclesForm = ({ userId, reloadVehicles }) => {
 	const [data, setData] = useState({
@@ -13,6 +83,7 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 		year: '',
 	});
 
+	console.log(yearOptions);
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setData({
@@ -68,25 +139,30 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 				/>
 			</label>
 			<label className='label-main'>
-				Province Code
-				<input
+				Province
+				{/* <input
 					type='text'
 					className='input-main'
 					name='provinceCode'
 					onChange={handleChange}
 					value={data.provinceCode}
+				/> */}
+				<Select
+					options={provinceOptions}
+					isClearable={true}
+					value={provinceOptions.filter(
+						(option) => option.value === data.provinceCode
+					)}
+					onChange={(item) =>
+						setData({
+							...data,
+							provinceCode: item ? item.value : null,
+						})
+					}
+					styles={customStyle}
 				/>
 			</label>
-			<label className='label-main'>
-				Colour
-				<input
-					type='text'
-					className='input-main'
-					name='vehicleExteriorColour'
-					onChange={handleChange}
-					value={data.vehicleExteriorColour}
-				/>
-			</label>
+
 			<label className='label-main'>
 				Make
 				<input
@@ -108,13 +184,53 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 				/>
 			</label>
 			<label className='label-main'>
+				Colour
+				{/* <input
+					type='text'
+					className='input-main'
+					name='vehicleExteriorColour'
+					onChange={handleChange}
+					value={data.vehicleExteriorColour}
+				/> */}
+				<Select
+					options={colourOptions}
+					isClearable={true}
+					value={colourOptions.filter(
+						(option) => option.value === data.vehicleExteriorColour
+					)}
+					onChange={(item) =>
+						setData({
+							...data,
+							vehicleExteriorColour: item ? item.value : null,
+						})
+					}
+					styles={customStyle}
+					menuPlacement='top'
+				/>
+			</label>
+			<label className='label-main'>
 				Year
-				<input
+				{/* <input
 					type='text'
 					className='input-main'
 					name='year'
 					onChange={handleChange}
 					value={data.year}
+				/> */}
+				<Select
+					options={yearOptions}
+					isClearable={true}
+					value={yearOptions.filter(
+						(option) => option.value === data.vehicleExteriorColour
+					)}
+					onChange={(item) =>
+						setData({
+							...data,
+							vehicleExteriorColour: item ? item.value : null,
+						})
+					}
+					styles={customStyle}
+					menuPlacement='top'
 				/>
 			</label>
 			<button type='submit' className='button-main'>

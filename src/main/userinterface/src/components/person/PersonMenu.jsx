@@ -8,6 +8,7 @@ import TelephoneEditor from './editors/TelephoneEditor';
 import PrescribedMedicationsEditor from './editors/PrescribedMedicationsEditor';
 import Return from '../../images/return.png';
 import '../../style/editor.scss';
+import VulnerablePersonInformation from './editors/VulnerablePersonInformation';
 
 const PersonMenu = ({ selectedPerson, onSelect, reloadPersons }) => {
 	const [selected, setSelected] = useState('person');
@@ -44,6 +45,12 @@ const PersonMenu = ({ selectedPerson, onSelect, reloadPersons }) => {
 			case 'prescribed-medications':
 				return (
 					<PrescribedMedicationsEditor
+						personId={selectedPerson.personId}
+					/>
+				);
+			case 'vpi':
+				return (
+					<VulnerablePersonInformation
 						personId={selectedPerson.personId}
 					/>
 				);
@@ -117,6 +124,17 @@ const PersonMenu = ({ selectedPerson, onSelect, reloadPersons }) => {
 					onClick={() => setSelected('prescribed-medications')}
 				>
 					<h2>Prescribed Medications</h2>
+				</li>
+				<li
+					className={
+						'menu-item' +
+						(selected === 'vpi'
+							? ' current'
+							: '')
+					}
+					onClick={() => setSelected('vpi')}
+				>
+					<h2>Vulnerable Person</h2>
 				</li>
 				<li
 					className='menu-item return'

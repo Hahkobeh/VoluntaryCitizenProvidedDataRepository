@@ -1,4 +1,4 @@
-@import 'Variables';
+@import 'variables';
 
 .profile {
 	width: 100%;
@@ -83,12 +83,16 @@
 .list-item {
 	display: flex;
 	flex-direction: row;
+	cursor: pointer;
 
 	justify-content: space-between;
 	background-color: white;
 	transition: 1s;
 	h1 {
 		margin-left: 1em;
+
+		text-align: center;
+		width: 70%;
 		span {
 			font-weight: 400;
 		}
@@ -134,7 +138,7 @@
 }
 
 .menu-item:hover {
-	border: solid 5px black;
+	outline: solid 5px black;
 	.current {
 		border: none;
 	}
@@ -168,8 +172,10 @@
 .smaller {
 	label {
 		font-size: 1.3rem;
-		margin: 0.4rem 0;
-		input {
+		margin: 0.2rem 0;
+
+		.input {
+			margin-top: 0.5rem;
 			height: 1.3rem;
 			font-size: 1.3rem;
 			padding: 0.4rem;

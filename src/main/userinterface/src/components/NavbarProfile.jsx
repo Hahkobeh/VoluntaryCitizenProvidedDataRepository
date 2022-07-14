@@ -40,11 +40,11 @@ const Navbar = ({ tab, handleTabChange, logout }) => {
 				<li
 					className={
 						'profile-list-item' +
-						(tab === 'user' ? ' selected' : '')
+						(tab === 'account' ? ' selected' : '')
 					}
-					onClick={() => handleTabChange('user')}
+					onClick={() => handleTabChange('account')}
 				>
-					User
+					Account
 				</li>
 				<li
 					className={'profile-list-item logout'}

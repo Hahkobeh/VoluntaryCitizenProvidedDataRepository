@@ -9,7 +9,7 @@ import VehicleList from '../components/vehicle/VehicleList';
 import { API_BASE_URL } from '../constants';
 import PersonForm from '../components/person/PersonForm';
 import PersonMenu from '../components/person/PersonMenu';
-import User from '../components/User';
+import Account from '../components/Account';
 import PropertyMenu from '../components/property/PropertyMenu';
 import PropertyForm from '../components/property/PropertyForm';
 import VehicleForm from '../components/vehicle/VehiclesForm';
@@ -207,8 +207,8 @@ class Profile extends Component {
 						/>
 					);
 				}
-			case 'user':
-				return <User />;
+			case 'account':
+				return <Account />;
 			default:
 				this.setState({
 					tab: 'person',

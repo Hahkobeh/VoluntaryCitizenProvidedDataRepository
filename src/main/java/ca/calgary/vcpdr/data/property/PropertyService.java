@@ -33,6 +33,33 @@ public class PropertyService {
         }
         return null;
     }
+    public List<Property> getPropertiesByProvince(String provinceCode){
+        return propertyRepository.findAllByA1(provinceCode);
+    }
+
+    public List<Property> getAllProperties(){
+        return (List<Property>) propertyRepository.findAll();
+    }
+
+    public Property getProperty(int propertyId){
+        return propertyRepository.findById(propertyId).orElse(null);
+    }
+
+    public List<Property> getPropertiesByPostalCode(String pc){
+        return propertyRepository.findAllByPc(pc);
+    }
+
+
+    public List<Property> getPropertiesByA1(String a1){
+        return propertyRepository.findAllByA1(a1);
+    }
+    public List<Property> getPropertiesByA3(String a3){
+        return propertyRepository.findAllByA3(a3);
+    }
+
+    public List<Property> getPropertiesByA1AndA3(String a1, String a3){
+        return propertyRepository.findAllByA1AndA3(a1, a3);
+    }
 
     public List<Property> getProperties(int userId) {
         return propertyRepository.findAllByUserId(userId);

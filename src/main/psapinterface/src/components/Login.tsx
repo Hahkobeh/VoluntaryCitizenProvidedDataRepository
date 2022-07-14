@@ -37,7 +37,7 @@ const Login = ({ handleLogin, handlePageChange }: Props) => {
 				<input type='submit' className='button submit' value='Login' />
 			</form>
 			<button className='button' onClick={() => handlePageChange(1)}>
-				Register
+				Register now!
 			</button>
 		</>
 	);

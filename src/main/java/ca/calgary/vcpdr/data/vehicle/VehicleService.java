@@ -26,4 +26,12 @@ public class VehicleService {
     public Vehicle updateVehicle(Vehicle vehicle) {
         return vehicleRepository.save(vehicle);
     }
+
+    public List<Vehicle> getVehicleByLicensePlate(String plate){
+        return vehicleRepository.findAllByRegistrationPlateIdentification(plate);
+    }
+
+    public List<Vehicle> getAllVehicles(){
+        return (List<Vehicle>) vehicleRepository.findAll();
+    }
 }

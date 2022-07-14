@@ -1,155 +1,209 @@
 DROP DATABASE IF EXISTS VCPDR;
 CREATE DATABASE VCPDR;
 USE VCPDR;
+create table psapuser
+(
+    username varchar(255) NOT NULL UNIQUE,
+    fire     tinyint(1) default 0 not null,
+    police   tinyint(1) default 0 not null,
+    medical  tinyint(1) default 0 not null,
+    password varchar(255)         not null,
+    PRIMARY KEY (username),
+    index (username)
 
-/*REQUIRED LOG IN INFORMATION*/
-CREATE TABLE User(
-	userID INT NOT NULL UNIQUE AUTO_INCREMENT,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    emailVerified BOOL NOT NULL DEFAULT false,
-    password VARCHAR(255) NOT NULL,
-    lastLogin DATE NOT NULL,
-    PRIMARY KEY(userID)
 );
 
-
-CREATE TABLE Person(
-	userID INT NOT NULL,
-	personID INT NOT NULL UNIQUE AUTO_INCREMENT,
-    personGivenName VARCHAR(255) NOT NULL,
-    personSurName VARCHAR(255) NOT NULL,
-    personMaidenName VARCHAR(255),
-    personMiddleName VARCHAR(255),
-    personBirthDate DATE,
-    personSexCode VARCHAR(1),
-    personPrimaryLanguage VARCHAR(255),
-    personSecondaryLanguage VARCHAR(255),
-    wheelchair BOOL,
-    licenseNumber VARCHAR(255),
-    licenseProvince VARCHAR(2),
-    PRIMARY KEY(personID),
-    FOREIGN KEY(userID) REFERENCES User(userID) ON DELETE CASCADE
+create table user
+(
+    userID        int auto_increment
+        primary key unique,
+    email         varchar(255)         not null unique ,
+    emailVerified tinyint(1) default 0 not null,
+    password      varchar(255)         not null,
+    lastLogin     date                 not null,
+    constraint email
+        unique (email),
+    constraint userID
+        unique (userID)
 );
 
+create table person
+(
+    userID                  int          not null,
+    personID                int auto_increment
+        primary key,
+    personRelationship      varchar(255) not null,
+    personGivenName         varchar(255) not null,
+    personSurName           varchar(255) not null,
+    personMaidenName        varchar(255) null,
+    personMiddleName        varchar(255) null,
+    personBirthDate         date         null,
+    personSexCode           varchar(1)   null,
+    personPrimaryLanguage   varchar(255) null,
+    personSecondaryLanguage varchar(255) null,
+    wheelchair              tinyint(1)   null,
+    licenseNumber           varchar(255) null,
+    licenseProvince         varchar(2)   null,
+    constraint personID
+        unique (personID),
+    constraint person_ibfk_1
+        foreign key (userID) references user (userID)
+            on delete cascade
+)
+    auto_increment = 52;
 
-CREATE TABLE AccountCreator(
-    userID INT NOT NULL UNIQUE,
-    personID INT NOT NULL UNIQUE,
-    PRIMARY KEY (userID, personID),
-    FOREIGN KEY (userID) REFERENCES User(userID) ON DELETE CASCADE ,
-    FOREIGN KEY (personID) REFERENCES Person(personID) ON DELETE RESTRICT
+create table emergencycontact
+(
+    personID        int          not null,
+    personFullName  varchar(255) not null,
+    telephoneNumber varchar(10)  not null,
+    primary key (personID, telephoneNumber),
+    constraint emergencycontact_ibfk_1
+        foreign key (personID) references person (personID)
+            on delete cascade
 );
 
-CREATE TABLE Telephone(
-   personID INT NOT NULL,
-   telephoneNumber VARCHAR(10) NOT NULL,
-   telephoneType VARCHAR(20) NOT NULL,
-   verified BOOLEAN NOT NULL DEFAULT false,
-   PRIMARY KEY(personID, telephoneNumber),
-   FOREIGN KEY(personID) REFERENCES Person(personID) ON DELETE CASCADE
+create table medicalcondition
+(
+    personID              int          not null,
+    medicalCondition      varchar(255) not null,
+    severity              varchar(255) null,
+    additionalInformation varchar(500) null,
+    primary key (personID, medicalCondition),
+    constraint medicalcondition_ibfk_1
+        foreign key (personID) references person (personID)
+            on delete cascade
 );
 
-
-CREATE TABLE EmergencyContact(
-	personID INT NOT NULL,
-    personFullName VARCHAR(255) NOT NULL,
-    telephoneNumber VARCHAR(10) NOT NULL,
-    PRIMARY KEY(personID, telephoneNumber),
-    FOREIGN KEY(personID) REFERENCES Person(personID) ON DELETE CASCADE
+create table medicalinformation
+(
+    personID            int         not null
+        primary key,
+    healthCareNumber    varchar(20) null,
+    provinceCode        varchar(2)  null,
+    personBloodTypeCode varchar(2)  null,
+    personRhType        tinyint(1)  null,
+    isPregnant          tinyint(1)  null,
+    constraint personID
+        unique (personID),
+    constraint medicalinformation_ibfk_1
+        foreign key (personID) references person (personID)
+            on delete cascade
 );
 
+create index userID
+    on person (userID);
 
-CREATE TABLE Property(
-	userID INT NOT NULL,
-    addressID INT NOT NULL AUTO_INCREMENT UNIQUE,
-    A1 VARCHAR(2) NOT NULL, /*PROVINCE*/
-    A3 VARCHAR(30) NOT NULL, /*CITY*/
-    RD VARCHAR(30) NOT NULL, /*ROAD OR STREET NAME*/
-    STS VARCHAR(10) NOT NULL, /*STREET SUFFIX: AVE, STREET*/
-    HNO VARCHAR(10) NOT NULL, /*HOUSE NUMBER*/
-    HNS VARCHAR(10), /*HOUSE NUMBER SUFFIX*/
-    POD VARCHAR(2), /*TRAILING STREET SUFFIX */
-    PC varchar(6), /*POSTAL CODE*/
-    propertyType VARCHAR(255),
-    gasShutOffLocation VARCHAR(255),
-    electricityProvider VARCHAR(255),
-    gasProvider VARCHAR(255),
-    waterProvider VARCHAR(255),
-	PRIMARY KEY(addressID),
-    FOREIGN KEY(userID) REFERENCES User(userID) ON DELETE CASCADE
+create table prescribedmedication
+(
+    personID                               int          not null,
+    medicationGenericProductIdentification varchar(255) not null,
+    medicationDoseMeasure                  varchar(255) not null,
+    primary key (personID, medicationGenericProductIdentification),
+    constraint prescribedmedication_ibfk_1
+        foreign key (personID) references person (personID)
+            on delete cascade
 );
 
+create table property
+(
+    userID              int          not null,
+    propertyID          int auto_increment
+        primary key,
+    A1                  varchar(2)   not null,
+    A3                  varchar(30)  not null,
+    RD                  varchar(30)  not null,
+    STS                 varchar(10)  not null,
+    HNO                 varchar(10)  not null,
+    HNS                 varchar(10)  null,
+    POD                 varchar(2)   null,
+    PC                  varchar(6)   null,
+    propertyType        varchar(255) null,
+    gasShutOffLocation  varchar(255) null,
+    electricityProvider varchar(255) null,
+    gasProvider         varchar(255) null,
+    waterProvider       varchar(255) null,
+    constraint propertyID
+        unique (propertyID),
+    constraint property_ibfk_1
+        foreign key (userID) references user (userID)
+            on delete cascade
+)
+    auto_increment = 9;
 
-CREATE TABLE KeyHolder(
-    addressID INT NOT NULL,
-    personFullName VARCHAR(255) NOT NULL,
-    telephoneNumber VARCHAR(10) NOT NULL,
-    PRIMARY KEY (addressID, personFullName),
-    FOREIGN KEY (addressID) REFERENCES Property(addressID) ON DELETE CASCADE
+create table hazardousmaterial
+(
+    propertyID          int          not null,
+    hazardousMaterialID int auto_increment
+        primary key,
+    commonName          varchar(255) not null,
+    substanceCategory   varchar(255) null,
+    substanceContainer  varchar(255) null,
+    UNHazmatCode        int          null,
+    location            varchar(255) null,
+    quantity            varchar(255) null,
+    constraint hazardousMaterialID
+        unique (hazardousMaterialID),
+    constraint hazardousmaterial_ibfk_1
+        foreign key (propertyID) references property (propertyID)
+            on delete cascade
+)
+    auto_increment = 4;
+
+create index propertyID
+    on hazardousmaterial (propertyID);
+
+create table keyholder
+(
+    propertyID      int          not null,
+    personFullName  varchar(255) not null,
+    telephoneNumber varchar(10)  not null,
+    primary key (propertyID, telephoneNumber),
+    constraint keyholder_ibfk_1
+        foreign key (propertyID) references property (propertyID)
+            on delete cascade
 );
 
+create index userID
+    on property (userID);
 
-CREATE TABLE HazardousMaterial(
-    addressID INT NOT NULL,
-    commonName VARCHAR(255) NOT NULL,
-    substanceCategory VARCHAR(255),
-    substanceContainer VARCHAR(255),
-    UNHazmatCode INT,
-    location VARCHAR(255),
-    quantity VARCHAR(255),
-    PRIMARY KEY (addressID, commonName),
-    FOREIGN KEY (addressID) REFERENCES Property(addressID) ON DELETE CASCADE
+create table telephone
+(
+    personID        int                  not null,
+    telephoneNumber varchar(10)          not null,
+    telephoneType   varchar(20)          not null,
+    verified        tinyint(1) default 0 not null,
+    primary key (personID, telephoneNumber),
+    constraint telephone_ibfk_1
+        foreign key (personID) references person (personID)
+            on delete cascade
 );
 
-
-CREATE TABLE Vehicle(
-    personID INT NOT NULL,
-    registrationPlateIdentification VARCHAR(10) NOT NULL, /*PLATE NUMBER*/
-    provinceCode VARCHAR(2), /*PROVINCE PLATE ISSUED FROM*/
-    vehicleExteriorColour VARCHAR(20),
-    vehicleMake VARCHAR(50),
-    vehicleModel VARCHAR(50),
-    year int,
-    PRIMARY KEY (personID, registrationPlateIdentification),
-    FOREIGN KEY (personID) REFERENCES Person(personID) ON DELETE CASCADE
+create table vehicle
+(
+    userID                          int         not null,
+    registrationPlateIdentification varchar(10) not null,
+    provinceCode                    varchar(2)  null,
+    vehicleExteriorColour           varchar(20) null,
+    vehicleMake                     varchar(50) null,
+    vehicleModel                    varchar(50) null,
+    year                            int         null,
+    primary key (userID, registrationPlateIdentification),
+    constraint vehicle_ibfk_1
+        foreign key (userID) references user (userID)
+            on delete cascade
 );
 
-
-CREATE TABLE MedicalInformation(
-    personID INT NOT NULL UNIQUE,
-    healthCareNumber VARCHAR(20),
-    provinceCode VARCHAR(2),
-    personBloodTypeCode VARCHAR(2),
-    personRhType BOOL, /*1 is positive, 0 negative*/
-    isPregnant BOOL,
-    PRIMARY KEY (personID),
-    FOREIGN KEY (personID) REFERENCES Person(personID) ON DELETE CASCADE
+create table vulnerablepersoninformation
+(
+    personID                    int          not null
+        primary key,
+    vulnerablePersonDescription varchar(500) not null,
+    specialRequests             varchar(500) null,
+    constraint personID
+        unique (personID),
+    constraint vulnerablepersoninformation_ibfk_1
+        foreign key (personID) references person (personID)
+            on delete cascade
 );
 
-
-CREATE TABLE MedicalCondition(
-    personID INT NOT NULL,
-    medicalCondition VARCHAR(255) NOT NULL,
-    severity VARCHAR(255),
-    additionalInformation VARCHAR(500),
-    PRIMARY KEY (personID, medicalCondition),
-    FOREIGN KEY (personID) REFERENCES Person(personID) ON DELETE CASCADE
-);
-
-
-CREATE TABLE PrescribedMedication(
-    personID INT NOT NULL,
-    medicationGenericProductIdentification VARCHAR(255) NOT NULL,
-    medicationDoseMeasure VARCHAR(255) NOT NULL,
-    PRIMARY KEY (personID, medicationGenericProductIdentification),
-    FOREIGN KEY (personID) REFERENCES Person(personID) ON DELETE CASCADE
-);
-
-
-CREATE TABLE VulnerablePersonInformation(
-    personID INT NOT NULL UNIQUE,
-    vulnerablePersonDescription VARCHAR(500) NOT NULL,
-    specialRequests VARCHAR(500),
-    PRIMARY KEY (personID),
-    FOREIGN KEY (personID) REFERENCES User(userID) ON DELETE CASCADE
-);

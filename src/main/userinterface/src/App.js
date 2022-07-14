@@ -56,6 +56,7 @@ function App() {
 					testConnection={testConnection}
 				/>
 			)}
+			<p className='red'>THIS WEBSITE IS A PROOF OF CONCEPT, DO NOT INPUT SENSITIVE INFORMATION</p>
 		</>
 	);
 }

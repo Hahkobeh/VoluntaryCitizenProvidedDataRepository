@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
@@ -25,9 +26,15 @@ public class PersonService {
         return null;
     }
 
+    public Person getMainUser(int userId) {
+        System.out.println(personRepository.findAllByUserId(userId).stream().filter(person -> Objects.equals(person.getPersonRelationship(), "user")).collect(Collectors.toList()));
+        return personRepository.findAllByUserId(userId).stream().filter(person -> Objects.equals(person.getPersonRelationship(), "user")).collect(Collectors.toList()).get(0);
+    }
+
     public List<Person> getPersons(int userId) {
         return personRepository.findAllByUserId(userId);
     }
+
 
     public boolean deletePerson(int personId) {
         personRepository.deleteById(personId);
@@ -47,6 +54,10 @@ public class PersonService {
 
     public List<Person> getAll() {
         return (List<Person>) personRepository.findAll();
+    }
+
+    public Person getPerson(int personId) {
+        return personRepository.findById(personId).orElse(null);
     }
 }
 

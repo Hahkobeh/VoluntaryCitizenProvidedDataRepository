@@ -13,11 +13,7 @@ import java.util.Date;
 @EnableTransactionManagement
 public class VCPDR implements CommandLineRunner {
 
-
-    /*@Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PersonRepository personRepository;*/
+    //boom
 
     public static void main(String[] args) {
         SpringApplication.run(VCPDR.class, args);

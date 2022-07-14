@@ -43,7 +43,6 @@ const MedicalInformationEditor = ({ personId }) => {
 		axios
 			.get(`${API_BASE_URL}/api/user/v1/medical-information/${personId}`)
 			.then((res) => {
-				console.log(res.data);
 				if (res.data === '') {
 				} else {
 					setMedicalInformation(res.data);

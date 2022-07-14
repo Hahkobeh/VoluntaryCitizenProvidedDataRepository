@@ -42,7 +42,11 @@ const PersonEditor = ({
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		axios
-			.post(`${API_BASE_URL}/api/user/v1/person/update`, person)
+			.post(`${API_BASE_URL}/api/user/v1/person/update`, {
+				...person,
+				personMaidenName: person.personMaidenName,
+				personMiddleName: person.personMiddleName,
+			})
 			.then(() => {
 				setUpdated(false);
 				reloadPersons();

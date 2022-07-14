@@ -2,7 +2,7 @@
 @import 'variables';
 
 body {
-	font-family: 'Open Sans';
+	font-family: 'Open Sans', serif;
 	margin: 0;
 	overflow-x: hidden;
 }
@@ -10,7 +10,6 @@ body {
 form {
 	display: flex;
 	flex-direction: column;
-	padding: 2rem;
 	label {
 		margin-top: 1rem;
 		display: flex;
@@ -30,11 +29,22 @@ form {
 }
 
 .button {
-	background-color: $blue;
+	background-color: $c1;
 	color: white;
 	border: none;
 	cursor: pointer;
 	padding: 1rem;
 	font-size: 1.4rem;
 	font-weight: 600;
+}
+
+.button:hover {
+	background-color: $c2;
+}
+
+ul {
+	display: flex;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }

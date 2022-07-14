@@ -74,7 +74,7 @@ const LoginForm = ({ setPage, login, testConnection }) => {
 				<p>
 					New?{' '}
 					<span onClick={() => setPage('register')}>
-						Register now!
+						Join now!
 					</span>
 				</p>
 			</form>

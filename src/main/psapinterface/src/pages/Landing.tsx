@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { loginAPI, registerAPI } from '../API';
-import { UserInfo } from '../interfaces';
+import { PSAPUser } from '../interfaces';
 import Login from '../components/Login';
 import Register from '../components/Register';
 import '../styles/landing.scss';
 
 type Props = {
-	login: (userInfo: UserInfo) => void;
+	login: (userInfo: PSAPUser) => void;
 };
 
 const Landing = ({ login }: Props) => {
@@ -21,6 +21,9 @@ const Landing = ({ login }: Props) => {
 		loginAPI({
 			username: username,
 			password: password,
+			fire: false,
+			police: false,
+			medical: false,
 		}).then((res) => {
 			if (res.data === '') return;
 			login(res.data);
@@ -29,7 +32,7 @@ const Landing = ({ login }: Props) => {
 
 	const handleRegister = (
 		event: React.FormEvent<HTMLFormElement>,
-		userInfo: UserInfo
+		userInfo: PSAPUser
 	) => {
 		event.preventDefault();
 		registerAPI(userInfo).then((res) => {

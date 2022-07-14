@@ -1,35 +1,48 @@
 import React, { useState } from 'react';
 import Logo from '../../images/logo.svg';
-import { SearchInfo } from '../../interfaces';
+import {
+	SearchInfo,
+	SearchObjects,
+	TabsObject,
+	RequestedDataObjects,
+} from '../../interfaces';
 import Search from './Search';
 import Tabs from './Tabs';
 import '../../styles/navbar.scss';
 
 type Props = {
 	logout: () => void;
-	setSearch: (info: SearchInfo) => void;
-	handleSearch: (e: React.FormEvent<HTMLFormElement>) => void;
+	searchObjects: SearchObjects;
+	tabsObject: TabsObject;
+	open: string;
+	handleOpenClick: (search: string) => void;
+	requestedDataObjects: RequestedDataObjects;
+	setRequestedDataObjects: React.Dispatch<
+		React.SetStateAction<RequestedDataObjects>
+	>;
 };
 
-const Navbar = ({ logout, setSearch, handleSearch }: Props) => {
-	const [open, setOpen] = useState('none');
-
-	const handleClick = (value: string) => {
-		if (value === open) {
-			setOpen('none');
-		} else {
-			setOpen(value);
-		}
-	};
-
+const Navbar = ({
+	logout,
+	searchObjects,
+	tabsObject,
+	open,
+	handleOpenClick,
+	requestedDataObjects,
+	setRequestedDataObjects,
+}: Props) => {
 	const loadOpen = () => {
 		switch (open) {
 			case 'search':
 				return (
-					<Search setSearch={setSearch} handleSearch={handleSearch} />
+					<Search
+						searchObjects={searchObjects}
+						requestedDataObjects={requestedDataObjects}
+						setRequestedDataObjects={setRequestedDataObjects}
+					/>
 				);
 			case 'tabs':
-				return <Tabs />;
+				return <Tabs tabsObject={tabsObject} />;
 			default:
 				return <></>;
 		}
@@ -44,7 +57,7 @@ const Navbar = ({ logout, setSearch, handleSearch }: Props) => {
 						className={
 							'nav-item' + (open === 'search' ? ' selected' : '')
 						}
-						onClick={() => handleClick('search')}
+						onClick={() => handleOpenClick('search')}
 					>
 						Search
 					</li>
@@ -52,7 +65,7 @@ const Navbar = ({ logout, setSearch, handleSearch }: Props) => {
 						className={
 							'nav-item' + (open === 'tabs' ? ' selected' : '')
 						}
-						onClick={() => handleClick('tabs')}
+						onClick={() => handleOpenClick('tabs')}
 					>
 						Tabs
 					</li>

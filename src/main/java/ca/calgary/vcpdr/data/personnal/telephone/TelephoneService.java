@@ -34,4 +34,8 @@ public class TelephoneService {
     public List<Telephone> getTelephones(int personId) {
         return telephoneRepository.findAllByPersonId(personId);
     }
+
+    public List<Telephone> getTelephones(String telephoneNumber) {
+        return telephoneRepository.findAllByTelephoneNumber(telephoneNumber);
+    }
 }

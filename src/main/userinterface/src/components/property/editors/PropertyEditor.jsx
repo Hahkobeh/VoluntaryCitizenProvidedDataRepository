@@ -23,7 +23,7 @@ const PropertyEditor = ({ selectedProperty, reloadProperties }) => {
 		axios
 			.post(`${API_BASE_URL}/api/user/v1/property/update`, {
 				...property,
-				pc: property.pc.replace(/\s/g, ''),
+				pc: property.pc ? property.pc.replace(/\s/g, '') : '',
 			})
 			.then(() => {
 				setUpdated(false);

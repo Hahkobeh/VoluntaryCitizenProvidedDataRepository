@@ -14,12 +14,12 @@ function Landing({ testConnection, login, connected }) {
 				return (
 					<div className='landing-home'>
 						<img src={Icon} alt='N911' />
-						<h2>Protect those you care for.</h2>
+						<h2>Save Minutes, Save Lives.</h2>
 						<button
 							className={'button-main'}
 							onClick={() => setPage('register')}
 						>
-							Register Now
+							Join Now
 						</button>
 					</div>
 				);
@@ -36,7 +36,7 @@ function Landing({ testConnection, login, connected }) {
 							className='button-main'
 							onClick={() => setPage('register')}
 						>
-							Register Now
+							Join Now
 						</button>
 					</div>
 				);

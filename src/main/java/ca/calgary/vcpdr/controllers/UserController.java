@@ -18,8 +18,8 @@ import ca.calgary.vcpdr.data.personnal.person.PersonService;
 import ca.calgary.vcpdr.data.personnal.prescribedmedication.PrescribedMedicationService;
 import ca.calgary.vcpdr.data.property.PropertyService;
 import ca.calgary.vcpdr.data.personnal.telephone.TelephoneService;
-import ca.calgary.vcpdr.data.propertyrelationship.PropertyRelationship;
-import ca.calgary.vcpdr.data.propertyrelationship.PropertyRelationshipService;
+import ca.calgary.vcpdr.data.keyholder.Keyholder;
+import ca.calgary.vcpdr.data.keyholder.KeyholderService;
 import ca.calgary.vcpdr.data.user.User;
 import ca.calgary.vcpdr.data.user.UserService;
 import ca.calgary.vcpdr.data.vehicle.Vehicle;
@@ -37,7 +37,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(path = "api/user/v1")
-@CrossOrigin(origins = {"http://localhost:3000"})
+@CrossOrigin(origins = {"*"})
 public class UserController{
 
 
@@ -52,9 +52,9 @@ public class UserController{
     private final TelephoneService telephoneService;
     private final VehicleService vehicleService;
     private final VulnerablePersonInformationService vulnerablePersonInformationService;
-    private final PropertyRelationshipService propertyRelationshipService;
+    private final KeyholderService keyholderService;
     @Autowired
-    public UserController(UserService userService, HazardousMaterialService hazardousMaterialsService, PropertyService propertiesService, MedicalInformationService medicalInformationService, MedicalConditionService medicalConditionService, PrescribedMedicationService prescribedMedicationService, PersonService personService, EmergencyContactService emergencyContactService, TelephoneService telephoneService, VehicleService vehicleService, VulnerablePersonInformationService vulnerablePersonInformationService, PropertyRelationshipService propertyRelationshipService) {
+    public UserController(UserService userService, HazardousMaterialService hazardousMaterialsService, PropertyService propertiesService, MedicalInformationService medicalInformationService, MedicalConditionService medicalConditionService, PrescribedMedicationService prescribedMedicationService, PersonService personService, EmergencyContactService emergencyContactService, TelephoneService telephoneService, VehicleService vehicleService, VulnerablePersonInformationService vulnerablePersonInformationService, KeyholderService keyholderService) {
         this.userService = userService;
         this.hazardousMaterialsService = hazardousMaterialsService;
         this.propertiesService = propertiesService;
@@ -66,7 +66,7 @@ public class UserController{
         this.telephoneService = telephoneService;
         this.vehicleService = vehicleService;
         this.vulnerablePersonInformationService = vulnerablePersonInformationService;
-        this.propertyRelationshipService = propertyRelationshipService;
+        this.keyholderService = keyholderService;
     }
 
     @GetMapping("/test")
@@ -298,25 +298,25 @@ public class UserController{
         return propertiesService.getProperties(userId);
     }
 
-    //Property Relationship
+    //keyholder
 
-    @GetMapping("/property-relationship/{propertyId}")
+    @GetMapping("/keyholder/{propertyId}")
     @ResponseBody
-    public List<PropertyRelationship> getPropertyRelationship(@PathVariable int propertyId){
-        return propertyRelationshipService.getPropertyRelationships(propertyId);
+    public List<Keyholder> getKeyholders(@PathVariable int propertyId){
+        return keyholderService.getKeyholders(propertyId);
     }
 
 
-    @PostMapping("/property-relationship/create")
+    @PostMapping("/keyholder/create")
     @ResponseBody
-    public PropertyRelationship createPropertyRelationship(@RequestBody PropertyRelationship propertyRelationship){
-        return propertyRelationshipService.createPropertyRelationship(propertyRelationship);
+    public Keyholder createKeyholder(@RequestBody Keyholder keyholder){
+        return keyholderService.createKeyholder(keyholder);
     }
 
-    @DeleteMapping("/property-relationship/delete")
+    @DeleteMapping("/keyholder/delete")
     @ResponseBody
-    public boolean deletePropertyRelationship(@RequestBody PropertyRelationship propertyRelationship){
-        return propertyRelationshipService.deletePropertyRelationship(propertyRelationship);
+    public boolean deleteKeyholder(@RequestBody Keyholder keyholder){
+        return keyholderService.deleteKeyholder(keyholder);
     }
 
 

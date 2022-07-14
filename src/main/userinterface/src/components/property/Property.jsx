@@ -2,7 +2,7 @@ import React from 'react';
 import Delete from '../../images/delete.svg';
 
 const Property = ({
-	property: { propertyId, a1, a3, rd, sts, hno },
+	property: { propertyId, a1, a3, rd, sts, hno, pod, hns },
 	deleteProperty,
 	onSelect,
 }) => {
@@ -12,7 +12,7 @@ const Property = ({
 			onClick={() => onSelect(propertyId, 'property')}
 		>
 			<h1>
-				{hno} {rd} {sts}
+				{hno} {hns ? `${hns} ` : ''}{rd} {sts} {pod ? pod : ''}
 				<br />
 				<span>
 					{a3}, {a1}

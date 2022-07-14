@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface VehicleRepository extends CrudRepository<Vehicle, VehiclePK> {
     List<Vehicle> findAllByUserId(int userId);
+
+    List<Vehicle> findAllByRegistrationPlateIdentification(String plate);
 }

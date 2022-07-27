@@ -35,6 +35,15 @@ public class Property {
     @Basic
     @Column(name = "PC", nullable = true, length = 6)
     private String pc;
+
+    @Basic
+    @Column(name = "lat", nullable = true)
+    private double lat;
+
+    @Basic
+    @Column(name = "lng", nullable = true)
+    private double lng;
+
     @Basic
     @Column(name = "propertyType", nullable = true, length = 255)
     private String propertyType;
@@ -195,6 +204,26 @@ public class Property {
 
     public void setWaterProvider(String waterProvider) {
         this.waterProvider = waterProvider;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public boolean hasCoords(){
+        return !(lng == 0 && lat == 0);
     }
 
     @Override

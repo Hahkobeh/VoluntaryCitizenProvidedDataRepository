@@ -36,12 +36,20 @@ export interface PersonSearchInfo extends SearchInfo {
 }
 
 export interface PropertySearchInfo extends SearchInfo {
+	address?: string;
 	rd: string;
 	sts: string;
-	hnos: string;
+	hno: string;
+	hns: string;
 	a1: string;
 	a3: string;
 	pod: string;
+}
+
+export interface ProximitySearchInfo extends SearchInfo {
+	lat: number;
+	lng: number;
+	radius: number;
 }
 
 export interface VehicleSearchInfo extends SearchInfo {
@@ -95,6 +103,8 @@ export interface Property {
 	pod: string;
 	pc: string;
 	propertyType: string;
+	lat: number;
+	lng: number;
 }
 
 export interface PropertyInfo {

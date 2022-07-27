@@ -108,6 +108,14 @@ export const getProperName = (key: string): string => {
 			return 'Hazardous Materials';
 		case 'keyholders':
 			return 'Keyholders';
+		case 'personName':
+			return 'Name';
+		case 'lat':
+			return 'Latitude';
+		case 'lng':
+			return 'Longitude';
+		case 'radius':
+			return 'Radius';
 		default:
 			return key;
 	}

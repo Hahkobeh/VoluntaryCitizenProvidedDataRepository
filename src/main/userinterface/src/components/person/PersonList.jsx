@@ -14,7 +14,8 @@ const PersonList = ({ persons, reloadPersons, onSelect }) => {
 	};
 
 	return (
-		<>
+		<div className='list-container'>
+			<h2 className='title'>Person</h2>
 			<ul className='list'>
 				{persons.map((person) => (
 					<Person
@@ -25,7 +26,7 @@ const PersonList = ({ persons, reloadPersons, onSelect }) => {
 					/>
 				))}
 			</ul>
-		</>
+		</div>
 	);
 };
 export default PersonList;

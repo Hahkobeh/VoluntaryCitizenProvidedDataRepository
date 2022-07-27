@@ -105,6 +105,8 @@
 		align-items: center;
 		flex-direction: column;
 		justify-content: center;
+		box-sizing: border-box;
+		border: solid white 3px;
 		img {
 			color: white;
 		}
@@ -127,7 +129,7 @@
 	display: flex;
 	justify-content: space-between;
 	height: 90%;
-	border: white solid 2px;
+	//border: white solid 2px;
 	padding: 7px;
 	box-sizing: border-box;
 
@@ -136,12 +138,15 @@
 		flex-direction: column;
 		justify-content: center;
 		height: 70%;
-		width: 95%;
+		width: 98.5%;
 		margin: 0 auto;
+		box-sizing: border-box;
 		label {
 			color: white;
 			margin: 0.4em 0;
-			font-size: 1.4rem;
+			font-size: 1.2rem;
+			border-bottom: solid white 2px;
+			padding-bottom: 5px;
 
 			* {
 				box-sizing: border-box;
@@ -161,7 +166,7 @@
 	}
 
 	.submit-search {
-		margin: 0 auto;
+		margin: 10px auto 0 auto;
 		width: 10em;
 		background-color: $c2;
 		color: white;
@@ -180,7 +185,7 @@
 	justify-content: space-between;
 	background-color: white;
 	height: calc(90% - 4px);
-	border: $c1 solid 4px;
+	//border: $c1 solid 7px;
 	outline: white solid 2px;
 	padding: 7px;
 	box-sizing: border-box;

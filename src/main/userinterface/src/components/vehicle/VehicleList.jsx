@@ -16,16 +16,19 @@ function VehicleList({ vehicles, reloadVehicles, onSelect }) {
 			});
 	};
 	return (
-		<ul className='list'>
-			{vehicles.map((vehicle) => (
-				<Vehicle
-					vehicle={vehicle}
-					key={vehicle.registrationPlateIdentification}
-					deleteVehicle={deleteVehicle}
-					onSelect={onSelect}
-				/>
-			))}
-		</ul>
+		<div className='list-container'>
+			<h2 className='title'>Properties</h2>
+			<ul className='list'>
+				{vehicles.map((vehicle) => (
+					<Vehicle
+						vehicle={vehicle}
+						key={vehicle.registrationPlateIdentification}
+						deleteVehicle={deleteVehicle}
+						onSelect={onSelect}
+					/>
+				))}
+			</ul>
+		</div>
 	);
 }
 

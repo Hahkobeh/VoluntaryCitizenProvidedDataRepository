@@ -20,6 +20,7 @@ type Props = {
 	setRequestedDataObjects: React.Dispatch<
 		React.SetStateAction<RequestedDataObjects>
 	>;
+	proximity: boolean;
 };
 
 const Navbar = ({
@@ -30,6 +31,7 @@ const Navbar = ({
 	handleOpenClick,
 	requestedDataObjects,
 	setRequestedDataObjects,
+	proximity
 }: Props) => {
 	const loadOpen = () => {
 		switch (open) {
@@ -53,6 +55,15 @@ const Navbar = ({
 			<div className='navbar-main'>
 				<img src={Logo} alt='' />
 				<ul className='nav-list'>
+					<li
+						className={
+							'nav-item' +
+							(proximity === true ? ' selected' : '')
+						}
+						onClick={() => handleOpenClick('proximity')}
+					>
+						Proximity
+					</li>
 					<li
 						className={
 							'nav-item' + (open === 'search' ? ' selected' : '')

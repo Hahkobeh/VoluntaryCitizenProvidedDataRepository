@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../style/profile.scss';
-import '../style/person.scss';
 import Navbar from '../components/NavbarProfile';
 import axios from 'axios';
 import PersonList from '../components/person/PersonList';

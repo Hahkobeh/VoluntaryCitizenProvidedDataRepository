@@ -14,16 +14,19 @@ const PropertyList = ({ properties, reloadProperties, onSelect }) => {
 	};
 
 	return (
-		<ul className='list'>
-			{properties.map((property) => (
-				<Property
-					property={property}
-					key={property.propertyId}
-					deleteProperty={deleteProperty}
-					onSelect={onSelect}
-				/>
-			))}
-		</ul>
+		<div className='list-container'>
+			<h2 className='title'>Properties</h2>
+			<ul className='list'>
+				{properties.map((property) => (
+					<Property
+						property={property}
+						key={property.propertyId}
+						deleteProperty={deleteProperty}
+						onSelect={onSelect}
+					/>
+				))}
+			</ul>
+		</div>
 	);
 };
 

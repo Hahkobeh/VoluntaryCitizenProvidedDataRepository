@@ -17,6 +17,8 @@ import org.springframework.data.util.Pair;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.lang.Math.*;
+
 @Data
 public class Search {
     private final PersonService personService;
@@ -111,6 +113,7 @@ public class Search {
 
 
     public List<Property> search(PropertySearchForm propertySearchForm) {
+        System.out.println(propertySearchForm);
         List<Property> properties = null;
         if(propertySearchForm.getA1().equals("") && propertySearchForm.getA3().equals("")){
             properties = propertyService.getAllProperties();
@@ -122,18 +125,10 @@ public class Search {
             properties = propertyService.getPropertiesByA1AndA3(propertySearchForm.getA1(), propertySearchForm.getA3());
         }
 
-        if (!propertySearchForm.getHnos().equals("")) {
-            String [] addressInfo = propertySearchForm.getHnos().trim().split("\\s+");
-            switch (addressInfo.length){
-                case 2:
-                    properties = properties.stream().filter(property -> (Objects.equals(property.getHno(), addressInfo[0]) && Objects.equals(property.getHns(), addressInfo[1]))).collect(Collectors.toList());
-                    break;
-                case 1:
-                    properties = properties.stream().filter(property -> (Objects.equals(property.getHno(), addressInfo[0]))).collect(Collectors.toList());
-                    break;
-                default:
-                    break;
-            }
+        if (!propertySearchForm.getHno().equals("")) {
+            properties = properties.stream().filter(property -> (Objects.equals(property.getHno(), propertySearchForm.getHno()))).collect(Collectors.toList());
+
+
         }
 
         if(!propertySearchForm.getRd().equals("")){
@@ -147,7 +142,7 @@ public class Search {
 
         if(!propertySearchForm.getPod().equals("")){
             properties = properties.stream().filter(property -> (
-                    property.getPod() != null &&
+                    property.getPod() == null ||
                             Objects.equals(property.getPod(),propertySearchForm.getPod())
                     )).collect(Collectors.toList());
         }
@@ -188,6 +183,21 @@ public class Search {
         return vehicles;
     }
 
+
+    public List<Property> proximitySearch(double lat, double lng, int radius){
+        return propertyService.getAllProperties().stream().filter(property -> property.hasCoords() && checkProximity(lat,lng,property.getLat(), property.getLng(), radius)).collect(Collectors.toList());
+
+    }
+
+
+
+    private boolean checkProximity(double lat1, double lng1, double lat2, double lng2, double radius){
+        double latDiff = abs(lat1 - lat2) * 111319;
+        double lngDiff = abs(lng1 - lng2) * 111111 * cos((lat1 + lat2) /2);
+        if(latDiff > radius || lngDiff > radius) return false;
+        return ((latDiff * latDiff) + (lngDiff * lngDiff)) <  radius * radius;
+
+    }
 
 }
 

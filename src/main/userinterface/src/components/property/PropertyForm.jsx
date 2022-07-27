@@ -9,6 +9,11 @@ import {
 	citiesList,
 	quandrants,
 } from '../../constants';
+import GooglePlacesAutocomplete, {
+	geocodeByAddress,
+	getLatLng,
+} from 'react-google-places-autocomplete';
+import { useJsApiLoader } from '@react-google-maps/api';
 
 const selectStyle = {
 	container: (provided) => ({
@@ -75,12 +80,21 @@ const quadrantOptions = quandrants.map((quad) => ({
 	label: quad,
 }));
 
-const suffixOptions = [...streetSuffixes.map((suffix) => ({
-	value: suffix.at(0) + suffix.slice(1).toLowerCase(),
-	label: suffix.at(0) + suffix.slice(1).toLowerCase(),
-})), {value: 'St', label: 'Street'}];
+const libraries = ['places', 'geometry'];
+
+const suffixOptions = [
+	...streetSuffixes.map((suffix) => ({
+		value: suffix.at(0) + suffix.slice(1).toLowerCase(),
+		label: suffix.at(0) + suffix.slice(1).toLowerCase(),
+	})),
+	{ value: 'St', label: 'Street' },
+];
 
 const PropertyForm = ({ userId, reloadProperties }) => {
+	const { isLoaded, loadError } = useJsApiLoader({
+		googleMapsApiKey: 'AIzaSyDcNZ1f3Z5Y76GbG9-j4kZeROO5Zn9hmjc',
+		libraries,
+	});
 	const [data, setData] = useState({
 		userId: userId,
 		a1: null,
@@ -90,6 +104,9 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 		hno: '',
 		hns: '',
 		pod: null,
+		pc: '',
+		lat: 0,
+		lng: 0,
 	});
 
 	const [cityOptions, setCityOptions] = useState([]);
@@ -135,25 +152,90 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 			data.sts !== null &&
 			data.hno !== ''
 		) {
-			console.log(data);
-			axios
-				.post(`${API_BASE_URL}/api/user/v1/property/create`, data)
-				.then((r) => {
-					if (r !== null) {
-						setData({
-							userId: userId,
-							a1: null,
-							a3: null,
-							rd: '',
-							sts: null,
-							hno: '',
-							hns: '',
-							pod: null,
-						});
-
-						reloadProperties();
+			console.log(1);
+			if (isLoaded) {
+				geocodeByAddress(
+					data.hno +
+						' ' +
+						data.rd +
+						' ' +
+						data.sts +
+						', ' +
+						data.a3 +
+						', ' +
+						data.a1
+				).then((res) => {
+					console.log(res);
+					let pc = '';
+					if (
+						res[0].address_components.at(6).types.at(0) ===
+						'postal_code'
+					) {
+						pc = res[0].address_components.at(6).long_name;
 					}
+					getLatLng(res[0]).then(({ lat, lng }, res) => {
+						console.log(res);
+						// setData({
+						// 	...data,
+						// 	lat: lat,
+						// 	lng: lng,
+						// });
+						axios
+							.post(
+								`${API_BASE_URL}/api/user/v1/property/create`,
+								{
+									...data,
+									lat: lat,
+									lng: lng,
+									pc: pc ? pc.replace(/\s/g, ''): '',
+								}
+							)
+							.then((r) => {
+								console.log(r);
+								if (r !== null) {
+									setData({
+										userId: userId,
+										a1: null,
+										a3: null,
+										rd: '',
+										sts: null,
+										hno: '',
+										hns: '',
+										pod: null,
+										lat: 0,
+										lng: 0,
+										pc: '',
+									});
+
+									reloadProperties();
+								}
+							});
+					});
 				});
+			}
+			console.log(3);
+			console.log(data);
+			// axios
+			// 	.post(`${API_BASE_URL}/api/user/v1/property/create`, data)
+			// 	.then((r) => {
+			// 		console.log(data);
+			// 		if (r !== null) {
+			// 			setData({
+			// 				userId: userId,
+			// 				a1: null,
+			// 				a3: null,
+			// 				rd: '',
+			// 				sts: null,
+			// 				hno: '',
+			// 				hns: '',
+			// 				pod: null,
+			// 				lat: 0,
+			// 				lng: 0,
+			// 			});
+
+			// 			reloadProperties();
+			// 		}
+			// 	});
 		}
 	};
 

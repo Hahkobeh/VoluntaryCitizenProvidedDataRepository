@@ -219,4 +219,10 @@ public class PSAPController {
     }
 
 
+    @GetMapping("/proximity/{lat}/{lng}/{radius}")
+    @ResponseBody
+    public List<Property> proximitySearch(@PathVariable double lat, @PathVariable double lng, @PathVariable int radius){
+        System.out.println(lat + " : " + lng + " : " + radius);
+        return search.proximitySearch(lat, lng, radius);
+    }
 }

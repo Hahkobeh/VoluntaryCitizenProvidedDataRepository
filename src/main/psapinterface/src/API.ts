@@ -1,7 +1,10 @@
 import axios from 'axios';
-import { VehicleSearchInfo, RequestedDataObjects } from './interfaces';
+import Proximity from './components/proximity/Proximity';
+
 import {
 	PersonSearchInfo,
+	VehicleSearchInfo,
+	RequestedDataObjects,
 	PropertySearchInfo,
 	PSAPUser,
 	TelephoneSearchInfo,
@@ -28,6 +31,23 @@ export const personSearchAPI = async (personSearchInfo: PersonSearchInfo) => {
 export const propertySearchAPI = async (
 	propertySearchInfo: PropertySearchInfo
 ) => {
+	if (propertySearchInfo.address) {
+		const address = propertySearchInfo.address.split(/\W+/);
+		console.log(address);
+		if (address.length < 3 || address.length > 4) return;
+		propertySearchInfo = {
+			psapUser: propertySearchInfo.psapUser,
+			hno: address[0],
+			sts: address[2],
+			rd: address[1],
+			hns: '',
+			a1: propertySearchInfo.a1,
+			a3: propertySearchInfo.a3,
+			pod: address[3] ? address[3] : '',
+		};
+	}
+	console.log(propertySearchInfo);
+
 	return await axios.post(
 		`${URL}/api/psap/v1/property-search`,
 		propertySearchInfo
@@ -75,5 +95,17 @@ export const getPropertyInfoAPI = async (
 export const getPersonNameAPI = async (personId: number) =>
 	await axios.get(`${URL}/api/psap/v1/get-main-person-name/${personId}`);
 
-export const getPersonInfoByUserIdAPI = async (userId: number, requestedDataObjects:RequestedDataObjects) =>
-	await axios.post(`${URL}/api/psap/v1/get-person/${userId}`, requestedDataObjects);
+export const getPersonInfoByUserIdAPI = async (
+	userId: number,
+	requestedDataObjects: RequestedDataObjects
+) =>
+	await axios.post(
+		`${URL}/api/psap/v1/get-person/${userId}`,
+		requestedDataObjects
+	);
+
+export const ProximityCheckAPI = async (
+	lat: number,
+	lng: number,
+	radius: number
+) => await axios.get(`${URL}/api/psap/v1/proximity/${lat}/${lng}/${radius}`);

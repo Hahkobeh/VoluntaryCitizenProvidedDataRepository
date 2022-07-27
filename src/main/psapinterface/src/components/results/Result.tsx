@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import {Property, TelephoneInfo, Person, Vehicle, Telephone} from '../../interfaces';
+import {
+	Property,
+	TelephoneInfo,
+	Person,
+	Vehicle,
+	Telephone,
+} from '../../interfaces';
 import { getPersonNameAPI } from '../../API';
 
 type Props = {
@@ -26,7 +32,7 @@ const Result = ({ result, setSelected }: Props) => {
 			getPersonNameAPI((result as any).userId).then((res) => {
 				setName(res.data);
 			});
-		}else if((result as any).second !== undefined){
+		} else if ((result as any).second !== undefined) {
 			getPersonNameAPI((result as any).second.userId).then((res) => {
 				setName(res.data);
 			});
@@ -54,7 +60,7 @@ const Result = ({ result, setSelected }: Props) => {
 				<p>{value}</p>
 			</li>
 		);
-	}
+	};
 	const fillItem = (key: string, index: number) => {
 		switch (key) {
 			case 'first':
@@ -146,7 +152,10 @@ const Result = ({ result, setSelected }: Props) => {
 							(result as Property).rd +
 							' ' +
 							(result as Property).sts +
-							' '}
+							' ' +
+							((result as Property).pod
+								? (result as Property).pod + ' '
+								: '')}
 					</h3>
 					{name ? (
 						<p
@@ -172,18 +181,21 @@ const Result = ({ result, setSelected }: Props) => {
 						{result.first.telephoneNumber +
 							' ' +
 							result.second.personGivenName +
-							', ' +
+							' ' +
 							result.second.personSurName}
 					</h3>
-					{name &&
-					result.second.personRelationship !== 'user' ? (
+					{name && result.second.personRelationship !== 'user' ? (
 						<div>
 							{result.second.personRelationship + ' of '}
 							<br />
 							<div
 								className='person-name'
 								onClick={(e) =>
-									setSelected('person-user', result.second.userId, e)
+									setSelected(
+										'person-user',
+										result.second.userId,
+										e
+									)
 								}
 							>
 								{name}

@@ -3,7 +3,6 @@ import Navbar from '../components/navbar/Navbar';
 import '../styles/interface.scss';
 import {
 	PersonSearchInfo,
-	PropertySearchInfo,
 	SearchInfo,
 	SearchObjects,
 	Tab,
@@ -13,6 +12,7 @@ import {
 	RequestedDataObjects,
 	TelephoneSearchInfo,
 	VehicleSearchInfo,
+	Property,
 } from '../interfaces';
 import {
 	personSearchAPI,
@@ -23,6 +23,8 @@ import {
 import Search from '../components/navbar/Search';
 import Results from '../components/results/Results';
 import { tab } from '@testing-library/user-event/dist/tab';
+import Proximity from '../components/proximity/Proximity';
+import { ProximitySearchInfo, PropertySearchInfo } from '../interfaces';
 
 type Props = {
 	logout: () => void;
@@ -30,6 +32,8 @@ type Props = {
 };
 
 const Interface = ({ logout, psapUser }: Props) => {
+	const [proximity, setProximity] = useState(false);
+
 	const [currentTab, setCurrentTab] = useState<number>(-1);
 
 	const [tabNumber, setTabNumber] = useState(1);
@@ -57,9 +61,11 @@ const Interface = ({ logout, psapUser }: Props) => {
 
 	const [propertySearch, setPropertySearch] = useState<PropertySearchInfo>({
 		psapUser: psapUser,
+		address: '',
 		rd: '',
 		sts: '',
-		hnos: '',
+		hno: '',
+		hns: '',
 		a1: '',
 		a3: '',
 		pod: '',
@@ -85,6 +91,18 @@ const Interface = ({ logout, psapUser }: Props) => {
 	useEffect(() => {}, [tabs.length]);
 
 	const handleOpenClick = (value: string) => {
+		if (value === 'proximity') {
+			if (proximity === true) {
+				setProximity(false);
+				setOpen('none');
+				return;
+			}
+			setProximity(true);
+			setOpen('none');
+			return;
+		}
+		setProximity(false);
+
 		if (value === open) {
 			setOpen('none');
 		} else {
@@ -150,14 +168,13 @@ const Interface = ({ logout, psapUser }: Props) => {
 			...propertySearch,
 			requestedDataObjects: requestedDataObjects,
 		}).then((res) => {
-			console.log(res.data);
 			setTabs([
 				...tabs,
 				{
 					id: getTabNumber(),
 					title: 'Property Search ' + getTabNumber(),
 					searchInfo: propertySearch,
-					results: res.data,
+					results: res!.data,
 					selected: null,
 				},
 			]);
@@ -183,6 +200,34 @@ const Interface = ({ logout, psapUser }: Props) => {
 				},
 			]);
 		});
+	};
+
+	const handleProximitySearch = (
+		properties: Property[],
+		lat: number,
+		lng: number,
+		radius: number
+	) => {
+		const proximitySearchInfo: ProximitySearchInfo = {
+			psapUser: psapUser,
+			lat: lat,
+			lng: lng,
+			radius: radius,
+		};
+
+		handleOpenClick('tabs');
+
+		console.log(properties);
+		setTabs([
+			...tabs,
+			{
+				id: getTabNumber(),
+				title: 'Proximity Search ' + getTabNumber(),
+				searchInfo: proximitySearchInfo,
+				results: properties,
+				selected: null,
+			},
+		]);
 	};
 
 	const handleDeleteTab = (
@@ -238,28 +283,47 @@ const Interface = ({ logout, psapUser }: Props) => {
 		setTabs(editedTabs);
 	};
 
-	return (
-		<div className={open === 'none' ? 'spacer-one' : 'spacer-two'}>
-			<Navbar
-				logout={logout}
-				searchObjects={searchObjects}
-				tabsObject={tabsObject}
-				open={open}
-				handleOpenClick={handleOpenClick}
-				requestedDataObjects={requestedDataObjects}
-				setRequestedDataObjects={setRequestedDataObjects}
-			/>
-			{currentTab !== -1 ? (
-				<Results
-					tab={tabs.find((tab) => currentTab == tab.id)!}
-					editSelected={editSelected}
+	if (!proximity) {
+		return (
+			<div className={open === 'none' ? 'spacer-one' : 'spacer-two'}>
+				<Navbar
+					logout={logout}
+					searchObjects={searchObjects}
+					tabsObject={tabsObject}
+					open={open}
+					handleOpenClick={handleOpenClick}
 					requestedDataObjects={requestedDataObjects}
+					setRequestedDataObjects={setRequestedDataObjects}
+					proximity={proximity}
 				/>
-			) : (
-				<h1 className='no-tab'>No tab selected</h1>
-			)}
-		</div>
-	);
+				{currentTab !== -1 ? (
+					<Results
+						tab={tabs.find((tab) => currentTab == tab.id)!}
+						editSelected={editSelected}
+						requestedDataObjects={requestedDataObjects}
+					/>
+				) : (
+					<h1 className='no-tab'>No tab selected</h1>
+				)}
+			</div>
+		);
+	} else {
+		return (
+			<div className='spacer-one'>
+				<Navbar
+					logout={logout}
+					searchObjects={searchObjects}
+					tabsObject={tabsObject}
+					open={open}
+					handleOpenClick={handleOpenClick}
+					requestedDataObjects={requestedDataObjects}
+					setRequestedDataObjects={setRequestedDataObjects}
+					proximity={proximity}
+				/>
+				<Proximity handleProximitySearch={handleProximitySearch} />
+			</div>
+		);
+	}
 };
 
 export default Interface;

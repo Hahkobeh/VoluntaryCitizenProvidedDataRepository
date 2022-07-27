@@ -13,6 +13,7 @@
 	height: 6rem;
 	display: flex;
 	z-index: 1;
+	background-color: white;
 
 	img {
 		position: relative;
@@ -58,21 +59,35 @@
 	position: relative;
 	width: 90%;
 	margin: auto;
+	height: 100%;
 }
 
 .profile-form {
 	position: fixed;
-	top: 6rem;
+	top: 7rem;
 	right: 10%;
+	h1 {
+		margin: 0;
+	}
+}
+
+.list-container {
+	width: 60%;
+	h2 {
+		width: 100%;
+		text-align: center;
+		font-weight: 700;
+		font-size: 5rem;
+		margin: 1rem;
+	}
 }
 
 .list {
-	position: absolute;
 	display: flex;
 	padding: 0;
 	margin: 2em auto 2em;
 	flex-direction: column;
-	width: 50%;
+	width: 100%;
 	text-align: center;
 	color: black;
 	list-style: none;
@@ -91,7 +106,7 @@
 	h1 {
 		margin-left: 1em;
 
-		text-align: center;
+		text-align: left;
 		width: 70%;
 		span {
 			font-weight: 400;

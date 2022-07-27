@@ -25,13 +25,22 @@ function Landing({ testConnection, login, connected }) {
 				);
 			case 'about':
 				return (
-					<div className='landing-home'>
-						<img src={Icon} alt='N911' />
-						<p>
-							This is a website where users can voluntarily share
-							personal information so that it may be used to help
-							them in case of an emergency.
-						</p>
+					<div className='landing-about'>
+						<div>
+							<p>
+								<span>About</span>
+								<br />
+								<br />
+								Provide your information to 9-1-1 Call takers.
+								Enter information now, save minutes in an
+								emergency.
+								<br />
+								<br />
+								Proof of concept created by Calgary 9-1-1.
+							</p>
+
+							<img src={Icon} alt='N911' />
+						</div>
 						<button
 							className='button-main'
 							onClick={() => setPage('register')}

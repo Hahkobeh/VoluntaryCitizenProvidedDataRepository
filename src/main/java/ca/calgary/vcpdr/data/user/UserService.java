@@ -23,4 +23,13 @@ public class UserService {
     public boolean userIdExists(int userId) {
         return userRepository.findById(userId).isPresent();
     }
+
+    public boolean changePassword(int userId, String newPassword) {
+        User user = userRepository.findById(userId).orElse(null);
+        if(user == null) return false;
+        user.setPassword(newPassword);
+        userRepository.save(user);
+        return true;
+
+    }
 }

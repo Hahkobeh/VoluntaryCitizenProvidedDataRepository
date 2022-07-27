@@ -112,6 +112,12 @@ public class UserController{
     }
 
 
+    @GetMapping("/change-password/{userId}/{newPassword}")
+    @ResponseBody
+    public boolean changePassword(@PathVariable int userId, @PathVariable String newPassword){
+        return userService.changePassword(userId, newPassword);
+    }
+
     //Person
 
 

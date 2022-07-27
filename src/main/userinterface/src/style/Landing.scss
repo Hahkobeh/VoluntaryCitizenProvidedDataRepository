@@ -82,6 +82,44 @@
 	}
 }
 
+.landing-about {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	width: 100%;
+	margin: 0 auto;
+	div {
+		display: flex;
+		flex-direction: row;
+		text-align: center;
+		margin-bottom: 6em;
+		width: 100%;
+
+		img {
+			margin: 2em auto 0;
+			width: 30vw;
+		}
+
+		p {
+			span {
+				font-size: 5rem;
+				font-weight: 700;
+				color: $blue;
+			}
+			width: 40%;
+			margin: auto 4em;
+			align-items: center;
+			text-align: center;
+			font-size: 1.5rem;
+			font-weight: 600;
+		}
+	}
+	button {
+		margin: 2rem auto;
+		width: 8em;
+	}
+}
+
 .landing-login {
 	display: flex;
 	flex-direction: row;

@@ -1,0 +1,74 @@
+@import 'variables';
+
+.account-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	h1 {
+		font-size: 5rem;
+		margin: 0.2em;
+	}
+	form {
+		display: flex;
+		flex-direction: column;
+
+		justify-content: center;
+		align-items: center;
+		gap: 1em;
+		margin-bottom: 3em;
+		label {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 0.2em;
+		}
+		h2 {
+			margin: 0;
+		}
+		.error {
+			color: red;
+			margin: 0;
+		}
+	}
+
+	.button {
+		padding: 0.5em;
+		font-size: 2rem;
+		font-weight: 600;
+		background-color: $blue;
+		border: none;
+		color: white;
+	}
+	.button:hover {
+		background-color: $darkblue;
+	}
+	.verified {
+		opacity: 0.5;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		h2 {
+			font-size: 4rem;
+			margin: 0;
+		}
+		p {
+			position: absolute;
+			opacity: 1;
+			color: red;
+			font-size: 3rem;
+			margin: 0;
+		}
+		div {
+			display: flex;
+			gap: 2em;
+		}
+		h3 {
+			font-size: 2rem;
+			padding: 0.5em;
+			background-color: $blue;
+		}
+	}
+}

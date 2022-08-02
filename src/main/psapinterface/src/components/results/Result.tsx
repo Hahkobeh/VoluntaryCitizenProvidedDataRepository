@@ -178,7 +178,12 @@ const Result = ({ result, setSelected }: Props) => {
 			) : result.first !== undefined ? (
 				<li>
 					<h3>
-						{result.first.telephoneNumber +
+						{'(' +
+							result.first.telephoneNumber.slice(0, 3) +
+							') ' +
+							result.first.telephoneNumber.slice(3, 6) +
+							'-' +
+							result.first.telephoneNumber.slice(6, 10) +
 							' ' +
 							result.second.personGivenName +
 							' ' +
@@ -223,16 +228,6 @@ const Result = ({ result, setSelected }: Props) => {
 					</p>
 				</li>
 			)}
-
-			{/* {keys.map((key: string, index: number) => {
-				if (
-					result[key] === null ||
-					result[key] === undefined ||
-					result[key] === ''
-				)
-					return <></>;
-				return <>{fillItem(key, index)}</>;
-			})} */}
 		</ul>
 	);
 };

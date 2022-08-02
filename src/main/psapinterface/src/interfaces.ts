@@ -107,10 +107,12 @@ export interface Property {
 	lng: number;
 }
 
+
+
 export interface PropertyInfo {
 	property: Property;
 	hazardousMaterials: Object[];
-	keyholders: Object[];
+	keyholders?: Object[];
 }
 
 export interface Vehicle {

@@ -14,4 +14,10 @@ public class PropertyResponse {
     private List<Keyholder> keyholders;
 
     public PropertyResponse(){}
+
+
+    public PropertyResponse(Property property, List<HazardousMaterial> hazardousMaterials) {
+        this.property = property;
+        this.hazardousMaterials = hazardousMaterials;
+    }
 }

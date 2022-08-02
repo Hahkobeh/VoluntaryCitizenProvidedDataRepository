@@ -6,9 +6,9 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
-import { Property } from '../../interfaces';
+import { Property, PropertyInfo } from '../../interfaces';
 
-import { GoogleMap, Marker, Circle } from '@react-google-maps/api';
+import { GoogleMap, Marker, Circle, InfoWindow } from '@react-google-maps/api';
 import Search from './Search';
 
 const containerStyle = {
@@ -37,17 +37,15 @@ const style = {
 type Props = {
 	mapRef: MutableRefObject<google.maps.Map | undefined>;
 	map: google.maps.Map | null;
-	markers: Property[];
+	markers: PropertyInfo[];
 	setMap: React.Dispatch<SetStateAction<google.maps.Map | null>>;
 	setSelected: React.Dispatch<SetStateAction<google.maps.LatLngLiteral>>;
 	selected: google.maps.LatLngLiteral;
 	isLoaded: boolean;
 	radius: number;
 	setRadius: React.Dispatch<SetStateAction<number>>;
-
-	// circleRef: MutableRefObject<google.maps.Circle | undefined>;
-	// circle: google.maps.Circle | null;
-	// setCircle: React.Dispatch<SetStateAction<google.maps.Circle | null>>;
+	selectedMarker: number;
+	setSelectedMarker: React.Dispatch<SetStateAction<number>>;
 };
 
 const Map = ({
@@ -60,6 +58,8 @@ const Map = ({
 	isLoaded,
 	radius,
 	setRadius,
+	selectedMarker,
+	setSelectedMarker,
 }: Props) => {
 	// const onMapClick = useCallback((e: any) => {
 	// 	setMarkers((current) => [
@@ -97,26 +97,50 @@ const Map = ({
 	}, []);
 
 	useEffect(() => {
-		//panTo(selected);
-	}, [selected]);
-	// useEffect(() => {
-	// 	console.log(circleRef.current);
-	// 	if (circleRef.current) {
-	// 		circleRef.current.setCenter(selected);
-	// 	}
-	// 	console.log(selected);
-	// }, [selected]);
+		if (
+			!markers.find(
+				(marker) => marker.property.propertyId === selectedMarker
+			)
+		) {
+			setSelectedMarker(-1);
+		}
+	}, [markers]);
 
-	// useEffect(() => {
-	// 	if (circleRef.current) {
-	// 		circleRef.current.setRadius(radius);
-	// 	}
-	// }, [radius]);
-
-	// const panTo = useCallback(({ lat, lng }) => {
-	// 	mapRef.current.panTo({ lat, lng });
-	// 	mapRef.current.setZoom(14);
-	// }, []);
+	const getInfoWindow = () => {
+		console.log('here');
+		const info = markers.find(
+			(marker) => marker.property.propertyId === selectedMarker
+		);
+		if (!info) return;
+		if (info.hazardousMaterials.length === 0) return;
+		return (
+			<InfoWindow
+				position={{
+					lat: info.property.lat,
+					lng: info.property.lng,
+				}}
+				onCloseClick={() => setSelectedMarker(-1)}
+			>
+				<div>
+					<ul style={{ display: 'flex', flexDirection: 'column' }}>
+						{info.hazardousMaterials?.map((mat: any, i) => (
+							<li key={i}>
+								{mat.commonName +
+									' ' +
+									mat.substanceCategory +
+									' ' +
+									mat.substanceContainer +
+									' ' +
+									mat.location +
+									' ' +
+									mat.quantity}
+							</li>
+						))}
+					</ul>
+				</div>
+			</InfoWindow>
+		);
+	};
 
 	return isLoaded ? (
 		<>
@@ -151,9 +175,41 @@ const Map = ({
 				{markers.map((marker, i) => (
 					<Marker
 						key={i}
-						position={{ lat: marker.lat, lng: marker.lng }}
+						position={{
+							lat: marker.property.lat,
+							lng: marker.property.lng,
+						}}
+						icon={{
+							url:
+								marker.property.propertyId === selectedMarker
+									? 'http://maps.google.com/mapfiles/marker_orange.png'
+									: marker.hazardousMaterials.length
+									? 'http://maps.google.com/mapfiles/dd-end.png'
+									: 'http://maps.google.com/mapfiles/marker_yellow.png',
+						}}
+						onClick={() => {
+							console.log(marker.property.propertyId);
+							setSelectedMarker(marker.property.propertyId);
+						}}
 					/>
 				))}
+				{selectedMarker !== -1 && getInfoWindow()}
+				{/* {selectedMarker !== -1 && (
+					<InfoWindow
+						position={{
+							lat: selectedMarker.property.lat,
+							lng: selectedMarker.property.lng,
+						}}
+					>
+						<div>
+							<ul>
+								{selectedMarker.hazardousMaterials?.map((mat) =>
+									JSON.stringify(mat)
+								)}
+							</ul>
+						</div>
+					</InfoWindow>
+				)} */}
 			</GoogleMap>
 		</>
 	) : (

@@ -13,6 +13,7 @@ import {
 	TelephoneSearchInfo,
 	VehicleSearchInfo,
 	Property,
+	PropertyInfo,
 } from '../interfaces';
 import {
 	personSearchAPI,
@@ -206,7 +207,8 @@ const Interface = ({ logout, psapUser }: Props) => {
 		properties: Property[],
 		lat: number,
 		lng: number,
-		radius: number
+		radius: number,
+		selected: PropertyInfo | null | undefined
 	) => {
 		const proximitySearchInfo: ProximitySearchInfo = {
 			psapUser: psapUser,
@@ -225,7 +227,7 @@ const Interface = ({ logout, psapUser }: Props) => {
 				title: 'Proximity Search ' + getTabNumber(),
 				searchInfo: proximitySearchInfo,
 				results: properties,
-				selected: null,
+				selected: selected ? selected : null,
 			},
 		]);
 	};

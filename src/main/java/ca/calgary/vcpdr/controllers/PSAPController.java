@@ -1,5 +1,6 @@
 package ca.calgary.vcpdr.controllers;
 
+import ca.calgary.vcpdr.data.hazardousmaterial.HazardousMaterial;
 import ca.calgary.vcpdr.data.hazardousmaterial.HazardousMaterialService;
 import ca.calgary.vcpdr.data.personnal.emergencycontact.EmergencyContactService;
 import ca.calgary.vcpdr.data.personnal.medicalcondition.MedicalConditionService;
@@ -66,7 +67,7 @@ public class PSAPController {
         this.vulnerablePersonInformationService = vulnerablePersonInformationService;
         this.keyholderService = keyholderService;
         this.psapUserService = psapUserService;
-        this.search = new Search(this.personService, this.telephoneService, this.vehicleService, this.propertiesService);
+        this.search = new Search(this.personService, this.telephoneService, this.vehicleService, this.propertiesService, this.hazardousMaterialsService);
     }
 
 
@@ -221,7 +222,7 @@ public class PSAPController {
 
     @GetMapping("/proximity/{lat}/{lng}/{radius}")
     @ResponseBody
-    public List<Property> proximitySearch(@PathVariable double lat, @PathVariable double lng, @PathVariable int radius){
+    public List<PropertyResponse> proximitySearchHazard(@PathVariable double lat, @PathVariable double lng, @PathVariable int radius){
         System.out.println(lat + " : " + lng + " : " + radius);
         return search.proximitySearch(lat, lng, radius);
     }

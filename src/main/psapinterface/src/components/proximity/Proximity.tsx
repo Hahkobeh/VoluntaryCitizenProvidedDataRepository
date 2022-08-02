@@ -3,7 +3,7 @@ import List from './List';
 import Map from './Map';
 import '../../styles/proximity.scss';
 import { useRef, useState } from 'react';
-import { Property } from '../../interfaces';
+import { Property, PropertyInfo } from '../../interfaces';
 import Search from './Search';
 import { useJsApiLoader } from '@react-google-maps/api';
 import { ProximityCheckAPI } from '../../API';
@@ -36,7 +36,7 @@ const Proximity = ({ handleProximitySearch }: Props) => {
 
 	const [map, setMap] = useState<google.maps.Map | null>(null);
 
-	const [markers, setMarkers] = useState<Property[]>([]);
+	const [markers, setMarkers] = useState<PropertyInfo[]>([]);
 
 	const [radius, setRadius] = useState(1000);
 
@@ -45,17 +45,17 @@ const Proximity = ({ handleProximitySearch }: Props) => {
 		lng: 0,
 	});
 
+	const [selectedMarker, setSelectedMarker] = useState<number>(-1);
+
 	useEffect(() => {
 		if (map) setShow(true);
 	}, [map]);
 
 	useEffect(() => {
 		if (selected.lat === 0 && selected.lng === 0) return;
-		console.log(selected);
-		console.log(markers);
 		ProximityCheckAPI(selected.lat, selected.lng, radius).then((res) => {
 			console.log(res.data);
-			setMarkers(res.data as Property[]);
+			setMarkers(res.data);
 		});
 	}, [selected, radius]);
 
@@ -93,6 +93,8 @@ const Proximity = ({ handleProximitySearch }: Props) => {
 				isLoaded={isLoaded}
 				radius={radius}
 				setRadius={setRadius}
+				selectedMarker={selectedMarker}
+				setSelectedMarker={setSelectedMarker}
 			/>
 			<div className='p-search'>
 				{isLoaded && show && (
@@ -124,6 +126,8 @@ const Proximity = ({ handleProximitySearch }: Props) => {
 				selected={selected}
 				radius={radius}
 				handleProximitySearch={handleProximitySearch}
+				selectedMarker={selectedMarker}
+				setSelectedMarker={setSelectedMarker}
 			/>
 		</div>
 	);

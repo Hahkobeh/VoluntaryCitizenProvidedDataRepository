@@ -153,12 +153,13 @@
 }
 
 .menu-item:hover {
-	outline: solid 5px black;
+	outline: solid 3px $blue;
 	.current {
 		border: none;
 	}
 }
 .current:hover {
+	outline: none;
 	border: none;
 }
 
@@ -168,6 +169,13 @@
 	}
 	background-color: black;
 	color: white;
+}
+
+.return:hover {
+	outline: solid 3px black;
+	.current {
+		border: none;
+	}
 }
 
 .menu-name {

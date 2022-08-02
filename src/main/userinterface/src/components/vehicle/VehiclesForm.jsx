@@ -221,12 +221,12 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 					options={yearOptions}
 					isClearable={true}
 					value={yearOptions.filter(
-						(option) => option.value === data.vehicleExteriorColour
+						(option) => option.value === data.year
 					)}
 					onChange={(item) =>
 						setData({
 							...data,
-							vehicleExteriorColour: item ? item.value : null,
+							year: item ? item.value : null,
 						})
 					}
 					styles={customStyle}

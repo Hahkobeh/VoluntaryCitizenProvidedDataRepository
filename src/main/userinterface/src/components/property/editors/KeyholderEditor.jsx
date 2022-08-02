@@ -59,7 +59,12 @@ const KeyholderEditor = ({ propertyId }) => {
 				{keyholders.map((keyholder, index) => (
 					<li key={index}>
 						{keyholder.personFullName} <br />
-						{keyholder.telephoneNumber}
+						{'(' +
+							keyholder.telephoneNumber.slice(0, 3) +
+							') ' +
+							keyholder.telephoneNumber.slice(3, 6) +
+							'-' +
+							keyholder.telephoneNumber.slice(6, 10)}
 						<img
 							src={Delete}
 							alt='delete relationship'
@@ -96,7 +101,7 @@ const KeyholderEditor = ({ propertyId }) => {
 								value={newKeyholder.telephoneNumber}
 							/>
 						</label>
-						<input type='submit' className='editor-submit'/>
+						<input type='submit' className='editor-submit' />
 					</form>
 				</li>
 			</ul>

@@ -1,6 +1,6 @@
 import React, { MutableRefObject, SetStateAction } from 'react';
 import { useEffect } from 'react';
-import { Property } from '../../interfaces';
+import { Property, PropertyInfo } from '../../interfaces';
 import searchIcon from '../../images/search.png';
 
 type Props = {
@@ -8,8 +8,11 @@ type Props = {
 
 	radius: number;
 	selected: google.maps.LatLngLiteral;
-	markers: Property[];
+	markers: PropertyInfo[];
 	handleProximitySearch: any;
+
+	selectedMarker: number;
+	setSelectedMarker: React.Dispatch<SetStateAction<number>>;
 };
 
 const List = ({
@@ -18,6 +21,8 @@ const List = ({
 	selected,
 	radius,
 	handleProximitySearch,
+	selectedMarker,
+	setSelectedMarker,
 }: Props) => {
 	return (
 		<div className='p-list'>
@@ -30,10 +35,17 @@ const List = ({
 					onClick={() => {
 						if (markers.length > 0)
 							handleProximitySearch(
-								markers,
+								markers.map((marker) => marker.property),
 								selected.lat,
 								selected.lng,
-								radius
+								radius,
+								selectedMarker
+									? markers.find(
+											(marker) =>
+												marker.property.propertyId ===
+												selectedMarker
+									  )
+									: null
 							);
 					}}
 				/>
@@ -48,16 +60,35 @@ const List = ({
 					markers.map((marker) => (
 						<li
 							key={
-								marker.hno + ' ' + marker.rd + ' ' + marker.sts
+								marker.property.hno +
+								' ' +
+								marker.property.rd +
+								' ' +
+								marker.property.sts
 							}
-							onClick={() =>
+							className={
+								marker.property.propertyId === selectedMarker
+									? 'selected'
+									: ''
+							}
+							style={
+								marker.hazardousMaterials.length > 0
+									? { textDecoration: 'underline' }
+									: {}
+							}
+							onClick={() => {
 								mapRef.current!.panTo({
-									lat: marker.lat,
-									lng: marker.lng,
-								})
-							}
+									lat: marker.property.lat,
+									lng: marker.property.lng,
+								});
+								setSelectedMarker(marker.property.propertyId);
+							}}
 						>
-							{marker.hno + ' ' + marker.rd + ' ' + marker.sts}
+							{marker.property.hno +
+								' ' +
+								marker.property.rd +
+								' ' +
+								marker.property.sts}
 						</li>
 					))
 				)}

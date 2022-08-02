@@ -56,6 +56,11 @@
 			text-align: center;
 			cursor: pointer;
 		}
+
+		.selected {
+			color: white;
+			background-color: $c2;
+		}
 		.disabled {
 			background-color: $c1;
 			color: white;

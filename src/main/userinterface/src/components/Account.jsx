@@ -60,28 +60,31 @@ const Account = () => {
 	return (
 		<div className='account-container'>
 			<h1>Account</h1>
-			<form onSubmit={handleSubmitNewPassword}>
+			<form onSubmit={handleSubmitNewPassword} className='smaller'>
 				<h2>New Password</h2>
-				<label>
+				<label className='label-main'>
 					Old password
 					<input
 						type='password'
+						className='input-main input'
 						onChange={(e) => setOldPassword(e.target.value)}
 						value={oldPassword}
 					/>
 				</label>
-				<label>
+				<label className='label-main'>
 					New password
 					<input
 						type='password'
+						className='input-main input'
 						onChange={(e) => setNewPassword(e.target.value)}
 						value={newPassword}
 					/>
 				</label>
-				<label>
+				<label className='label-main'>
 					Confirm password
 					<input
 						type='password'
+						className='input-main input'
 						onChange={(e) => setNewPasswordCheck(e.target.value)}
 						value={newPasswordCheck}
 					/>

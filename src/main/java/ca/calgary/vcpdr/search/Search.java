@@ -1,5 +1,7 @@
 package ca.calgary.vcpdr.search;
 
+import ca.calgary.vcpdr.data.hazardousmaterial.HazardousMaterial;
+import ca.calgary.vcpdr.data.hazardousmaterial.HazardousMaterialService;
 import ca.calgary.vcpdr.data.personnal.person.Person;
 import ca.calgary.vcpdr.data.personnal.person.PersonService;
 import ca.calgary.vcpdr.data.personnal.telephone.Telephone;
@@ -27,11 +29,14 @@ public class Search {
     private final VehicleService vehicleService;
     private final PropertyService propertyService;
 
-    public Search(PersonService personService, TelephoneService telephoneService, VehicleService vehicleService, PropertyService propertyService) {
+    private final HazardousMaterialService hazardousMaterialService;
+
+    public Search(PersonService personService, TelephoneService telephoneService, VehicleService vehicleService, PropertyService propertyService, HazardousMaterialService hazardousMaterialService) {
         this.personService = personService;
         this.telephoneService = telephoneService;
         this.vehicleService = vehicleService;
         this.propertyService = propertyService;
+        this.hazardousMaterialService = hazardousMaterialService;
     }
 
     public List<Pair<Telephone, Person>> search(TelephoneSearchForm telephoneSearchForm){
@@ -184,11 +189,6 @@ public class Search {
     }
 
 
-    public List<Property> proximitySearch(double lat, double lng, int radius){
-        return propertyService.getAllProperties().stream().filter(property -> property.hasCoords() && checkProximity(lat,lng,property.getLat(), property.getLng(), radius)).collect(Collectors.toList());
-
-    }
-
 
 
     private boolean checkProximity(double lat1, double lng1, double lat2, double lng2, double radius){
@@ -199,5 +199,14 @@ public class Search {
 
     }
 
+
+    public List<PropertyResponse> proximitySearch(double lat, double lng, int radius) {
+        List<PropertyResponse> props = new ArrayList<>();
+        for (Property property:propertyService.getAllProperties().stream().filter(property -> property.hasCoords() && checkProximity(lat,lng,property.getLat(), property.getLng(), radius)).collect(Collectors.toList())) {
+
+            props.add(new PropertyResponse(property, hazardousMaterialService.getHazardousMaterials(property.getPropertyId())));
+        }
+        return props;
+    }
 }
 

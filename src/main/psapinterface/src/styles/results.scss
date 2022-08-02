@@ -65,8 +65,13 @@
 		}
 	}
 }
+
 .selectable:hover {
 	background-image: linear-gradient(to left, $grey, $grey 20%, white 120%);
+}
+
+.selectable {
+	cursor: pointer;
 }
 
 .result-object {

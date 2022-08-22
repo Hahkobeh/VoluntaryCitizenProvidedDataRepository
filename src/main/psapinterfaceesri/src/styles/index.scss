@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import 'variables';
+
+@import url('https://js.arcgis.com/4.24/@arcgis/core/assets/esri/themes/light/main.css');
+
+body {
+	font-family: 'Open Sans', serif;
+	margin: 0;
+	overflow-x: hidden;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	label {
+		margin-top: 1rem;
+		display: flex;
+		justify-content: space-between;
+		input {
+			width: 50%;
+		}
+	}
+	.submit {
+		margin-top: 1em;
+	}
+}
+
+.form-header {
+	color: black;
+	margin: 2rem 0 0;
+}
+
+.button {
+	background-color: $c1;
+	color: white;
+	border: none;
+	cursor: pointer;
+	padding: 1rem;
+	font-size: 1.4rem;
+	font-weight: 600;
+}
+
+.button:hover {
+	background-color: $c2;
+}
+
+ul {
+	display: flex;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}

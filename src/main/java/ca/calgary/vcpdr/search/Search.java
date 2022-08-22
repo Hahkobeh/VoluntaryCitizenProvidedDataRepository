@@ -208,5 +208,14 @@ public class Search {
         }
         return props;
     }
+
+    public List<PropertyResponse> proximityGetAll() {
+        List<PropertyResponse> props = new ArrayList<>();
+        for (Property property:propertyService.getAllProperties().stream().filter(Property::hasCoords).collect(Collectors.toList())) {
+
+            props.add(new PropertyResponse(property, hazardousMaterialService.getHazardousMaterials(property.getPropertyId())));
+        }
+        return props;
+    }
 }
 

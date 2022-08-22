@@ -107,8 +107,6 @@ export interface Property {
 	lng: number;
 }
 
-
-
 export interface PropertyInfo {
 	property: Property;
 	hazardousMaterials: Object[];

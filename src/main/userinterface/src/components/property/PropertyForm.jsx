@@ -1,19 +1,18 @@
+import { useJsApiLoader } from '@react-google-maps/api';
 import axios from 'axios';
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import Select from 'react-select';
-import {
-	API_BASE_URL,
-	streetSuffixes,
-	provincesList,
-	citiesList,
-	quandrants,
-} from '../../constants';
+import React, { useEffect, useState } from 'react';
 import GooglePlacesAutocomplete, {
 	geocodeByAddress,
 	getLatLng,
 } from 'react-google-places-autocomplete';
-import { useJsApiLoader } from '@react-google-maps/api';
+import Select from 'react-select';
+import {
+	API_BASE_URL,
+	citiesList,
+	provincesList,
+	quandrants,
+	streetSuffixes,
+} from '../../constants';
 
 const selectStyle = {
 	container: (provided) => ({
@@ -119,7 +118,6 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 					.map((city) => ({ value: city, label: city })),
 			]);
 		} else {
-			console.log(data.a1);
 			setCityOptions([
 				...citiesList
 					.find((pro) => pro.province === data.a1)
@@ -128,10 +126,6 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 			]);
 		}
 	}, [data.a1]);
-
-	useEffect(() => {
-		console.log(cityOptions);
-	}, [cityOptions]);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -144,7 +138,6 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		console.log(data);
 		if (
 			data.a1 !== null &&
 			data.a3 !== null &&
@@ -152,7 +145,17 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 			data.sts !== null &&
 			data.hno !== ''
 		) {
-			console.log(1);
+			console.log(
+				data.hno +
+					' ' +
+					data.rd +
+					' ' +
+					data.sts +
+					', ' +
+					data.a3 +
+					', ' +
+					data.a1
+			);
 			if (isLoaded) {
 				geocodeByAddress(
 					data.hno +
@@ -165,7 +168,6 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 						', ' +
 						data.a1
 				).then((res) => {
-					console.log(res);
 					let pc = '';
 					if (
 						res[0].address_components.at(6).types.at(0) ===
@@ -174,12 +176,6 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 						pc = res[0].address_components.at(6).long_name;
 					}
 					getLatLng(res[0]).then(({ lat, lng }, res) => {
-						console.log(res);
-						// setData({
-						// 	...data,
-						// 	lat: lat,
-						// 	lng: lng,
-						// });
 						axios
 							.post(
 								`${API_BASE_URL}/api/user/v1/property/create`,
@@ -187,11 +183,10 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 									...data,
 									lat: lat,
 									lng: lng,
-									pc: pc ? pc.replace(/\s/g, ''): '',
+									pc: pc ? pc.replace(/\s/g, '') : '',
 								}
 							)
 							.then((r) => {
-								console.log(r);
 								if (r !== null) {
 									setData({
 										userId: userId,
@@ -213,29 +208,6 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 					});
 				});
 			}
-			console.log(3);
-			console.log(data);
-			// axios
-			// 	.post(`${API_BASE_URL}/api/user/v1/property/create`, data)
-			// 	.then((r) => {
-			// 		console.log(data);
-			// 		if (r !== null) {
-			// 			setData({
-			// 				userId: userId,
-			// 				a1: null,
-			// 				a3: null,
-			// 				rd: '',
-			// 				sts: null,
-			// 				hno: '',
-			// 				hns: '',
-			// 				pod: null,
-			// 				lat: 0,
-			// 				lng: 0,
-			// 			});
-
-			// 			reloadProperties();
-			// 		}
-			// 	});
 		}
 	};
 
@@ -255,7 +227,7 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 					value={data.hno}
 				/>
 			</label>
-			<label className='label-main'>
+			{/*<label className='label-main'>
 				Unit Number (if applicable)
 				<input
 					type='text'
@@ -264,7 +236,7 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 					onChange={handleChange}
 					value={data.hns}
 				/>
-			</label>
+			</label>*/}
 			<label className='label-main'>
 				Road
 				<input

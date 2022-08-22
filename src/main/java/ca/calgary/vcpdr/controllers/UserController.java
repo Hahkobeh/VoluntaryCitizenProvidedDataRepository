@@ -374,4 +374,15 @@ public class UserController{
         return vehicleService.updateVehicle(vehicle);
     }
 
+
+    //Disclaimer
+
+    @GetMapping("/disclaimer-agree/{userId}/{date}")
+    @ResponseBody
+    public boolean disclaimerAgree(@PathVariable int userId, @PathVariable String date){
+
+        return userService.disclaimerAgree(userId, date);
+
+
+    }
 }

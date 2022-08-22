@@ -1,4 +1,9 @@
 export const API_BASE_URL = 'http://localhost:8080';
+export const disclaimer = {
+	date: '08-09-2022',
+	value: 'By accepting this disclaimer you agree that any data provided can be used at the sole discretion of a 9-1-1 call taker in case of an emergency.',
+};
+
 export const streetSuffixes = [
 	'ABBEY',
 	'ACRES',

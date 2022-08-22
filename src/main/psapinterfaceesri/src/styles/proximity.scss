@@ -1,0 +1,159 @@
+@import 'variables';
+
+.p-container {
+	width: 100vw;
+	height: calc(100vh - 80px);
+}
+
+.p-list {
+	position: absolute;
+	width: 25%;
+	height: calc(100vh - 80px);
+	background-color: $c1;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+
+	h1 {
+		color: white;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5em;
+		img {
+			width: 30px;
+			height: 30px;
+			margin: auto 10px;
+			color: white;
+			background-color: white;
+			padding: 5px;
+			cursor: pointer;
+		}
+
+		img:hover {
+			outline: solid 2px white;
+		}
+		.disabled {
+			outline: none;
+			opacity: 0.7;
+		}
+		.disabled:hover {
+			outline: none;
+		}
+	}
+	ul {
+		display: flex;
+		flex-direction: column;
+		overflow: auto;
+		height: calc(100% - 86.213px);
+
+		li {
+			background-color: white;
+			padding: 1em;
+			margin: 0.5em;
+			font-size: 1.4rem;
+			font-weight: 600;
+			text-align: center;
+			cursor: pointer;
+		}
+
+		.selected {
+			color: white;
+			background-color: $c2;
+		}
+		.disabled {
+			background-color: $c1;
+			color: white;
+			cursor: default;
+		}
+	}
+}
+
+// .p-map {
+// 	width: 75%;
+// 	height: 100%;
+// }
+
+.mapDiv {
+	padding: 0;
+	margin: 0;
+	width: 75%;
+	height: 100%;
+}
+
+.p-search {
+	position: absolute;
+	top: 80px;
+	left: 0;
+	z-index: 128388;
+	margin: 2em;
+	background-color: $c1;
+	width: 20em;
+	border: solid 3px $c1;
+	display: flex;
+	flex-direction: column;
+	gap: 0.4em;
+	padding: 0.4em;
+	select {
+		height: 38px;
+		border-radius: 4px;
+		font-size: 1.2rem;
+	}
+}
+
+.radius {
+	position: absolute;
+	top: 6.78em;
+	left: 20em;
+	height: 32px;
+	border: none;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+	font-family: 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	z-index: 2;
+}
+
+.p-option {
+	position: absolute;
+	background-color: white;
+	top: 6.78em;
+	left: 26em;
+	height: 32px;
+	border: none;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+	font-family: 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 5px;
+	z-index: 2;
+}
+
+.p-menu {
+	background-color: $c1;
+	color: white;
+	position: absolute;
+	top: 6.78em;
+	left: 53vw;
+	width: 22em;
+	text-align: center;
+	padding: 1.5em;
+
+	border: none;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+	font-family: 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	z-index: 2;
+	h1 {
+		margin: 0.5em 0;
+	}
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+		text-align: left;
+		word-break: break-all;
+	}
+}

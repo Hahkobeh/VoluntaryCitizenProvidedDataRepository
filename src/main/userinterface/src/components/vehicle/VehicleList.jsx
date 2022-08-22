@@ -17,7 +17,7 @@ function VehicleList({ vehicles, reloadVehicles, onSelect }) {
 	};
 	return (
 		<div className='list-container'>
-			<h2 className='title'>Properties</h2>
+			<h2 className='title'>Vehicles</h2>
 			<ul className='list'>
 				{vehicles.map((vehicle) => (
 					<Vehicle

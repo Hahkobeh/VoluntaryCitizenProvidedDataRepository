@@ -1,0 +1,50 @@
+@import 'variables';
+
+.disclaimer-wrapper {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.disclaimer-background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	opacity: 0.6;
+	z-index: 10;
+}
+
+.disclaimer-container {
+	z-index: 11;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	padding: 0 1rem;
+	width: 15rem;
+	background-color: white;
+	border: solid 10px $blue;
+	box-shadow: 2px;
+
+	h1 {
+		margin: 0.4rem;
+	}
+
+	h3 {
+		margin: 0;
+	}
+
+	input {
+		margin-bottom: 1rem;
+	}
+}
+

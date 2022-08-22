@@ -32,4 +32,12 @@ public class UserService {
         return true;
 
     }
+
+    public boolean disclaimerAgree(int userId, String date) {
+        User user = userRepository.findById(userId).orElse(null);
+        if(user == null) return false;
+        user.setDisclaimerDate(date);
+        userRepository.save(user);
+        return true;
+    }
 }

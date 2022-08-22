@@ -23,6 +23,10 @@ public class User {
     @Column(name = "emailVerified", nullable = false)
     private boolean emailVerified;
 
+    @Basic
+    @Column(name = "disclaimerDate", nullable = true)
+    private String disclaimerDate;
+
     public User() {
     }
 
@@ -30,6 +34,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.lastLogin = new Date(new java.util.Date().getTime());
+        this.disclaimerDate = null;
     }
 
     @Override
@@ -40,6 +45,14 @@ public class User {
                 ", password='" + password + '\'' +
                 ", lastLogin=" + lastLogin +
                 '}';
+    }
+
+    public String getDisclaimerDate() {
+        return disclaimerDate;
+    }
+
+    public void setDisclaimerDate(String disclaimerDate) {
+        this.disclaimerDate = disclaimerDate;
     }
 
     public boolean isEmailVerified() {

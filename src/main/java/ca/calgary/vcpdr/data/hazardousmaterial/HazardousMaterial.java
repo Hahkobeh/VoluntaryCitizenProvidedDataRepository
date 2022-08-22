@@ -21,8 +21,8 @@ public class HazardousMaterial {
     @Column(name = "substanceContainer", nullable = true, length = 255)
     private String substanceContainer;
     @Basic
-    @Column(name = "UNHazmatCode", nullable = true)
-    private Integer unHazmatCode;
+    @Column(name = "UNHazmatCode", nullable = true, length = 6)
+    private String unHazmatCode;
     @Basic
     @Column(name = "location", nullable = true, length = 255)
     private String location;
@@ -70,14 +70,6 @@ public class HazardousMaterial {
         this.substanceContainer = substanceContainer;
     }
 
-    public Integer getUnHazmatCode() {
-        return unHazmatCode;
-    }
-
-    public void setUnHazmatCode(Integer unHazmatCode) {
-        this.unHazmatCode = unHazmatCode;
-    }
-
     public String getLocation() {
         return location;
     }
@@ -94,37 +86,11 @@ public class HazardousMaterial {
         this.quantity = quantity;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        HazardousMaterial that = (HazardousMaterial) o;
-
-        if (propertyId != that.propertyId) return false;
-        if (hazardousMaterialId != that.hazardousMaterialId) return false;
-        if (commonName != null ? !commonName.equals(that.commonName) : that.commonName != null) return false;
-        if (substanceCategory != null ? !substanceCategory.equals(that.substanceCategory) : that.substanceCategory != null)
-            return false;
-        if (substanceContainer != null ? !substanceContainer.equals(that.substanceContainer) : that.substanceContainer != null)
-            return false;
-        if (unHazmatCode != null ? !unHazmatCode.equals(that.unHazmatCode) : that.unHazmatCode != null) return false;
-        if (location != null ? !location.equals(that.location) : that.location != null) return false;
-        if (quantity != null ? !quantity.equals(that.quantity) : that.quantity != null) return false;
-
-        return true;
+    public String getUnHazmatCode() {
+        return unHazmatCode;
     }
 
-    @Override
-    public int hashCode() {
-        int result = propertyId;
-        result = 31 * result + hazardousMaterialId;
-        result = 31 * result + (commonName != null ? commonName.hashCode() : 0);
-        result = 31 * result + (substanceCategory != null ? substanceCategory.hashCode() : 0);
-        result = 31 * result + (substanceContainer != null ? substanceContainer.hashCode() : 0);
-        result = 31 * result + (unHazmatCode != null ? unHazmatCode.hashCode() : 0);
-        result = 31 * result + (location != null ? location.hashCode() : 0);
-        result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
-        return result;
+    public void setUnHazmatCode(String unHazmatCode) {
+        this.unHazmatCode = unHazmatCode;
     }
 }

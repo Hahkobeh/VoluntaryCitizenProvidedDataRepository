@@ -1,16 +1,15 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import Proximity from './components/proximity/Proximity';
-import { AxiosResponse } from 'axios';
 
 import {
 	PersonSearchInfo,
-	VehicleSearchInfo,
-	RequestedDataObjects,
-	PropertySearchInfo,
-	PSAPUser,
-	TelephoneSearchInfo,
 	Property,
 	PropertyInfo,
+	PropertySearchInfo,
+	PSAPUser,
+	RequestedDataObjects,
+	TelephoneSearchInfo,
+	VehicleSearchInfo,
 } from './interfaces';
 
 const URL = 'http://localhost:8080';
@@ -111,4 +110,7 @@ export const ProximityCheckAPI = async (
 	lat: number,
 	lng: number,
 	radius: number
-) => await axios.get<PropertyInfo[]>(`${URL}/api/psap/v1/proximity/${lat}/${lng}/${radius}`);
+) =>
+	await axios.get<PropertyInfo[]>(
+		`${URL}/api/psap/v1/proximity/${lat}/${lng}/${radius}`
+	);

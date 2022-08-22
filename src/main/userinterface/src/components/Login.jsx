@@ -1,6 +1,6 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { API_BASE_URL } from '../constants';
-import axios from 'axios';
 
 const LoginForm = ({ setPage, login, testConnection }) => {
 	const [email, setEmail] = useState('');
@@ -23,8 +23,8 @@ const LoginForm = ({ setPage, login, testConnection }) => {
 		}
 
 		const loginInfo = {
-			email: email.toLowerCase(),
-			password: password,
+			email: email.toLowerCase().trim(),
+			password: password.trim(),
 		};
 
 		axios
@@ -34,8 +34,7 @@ const LoginForm = ({ setPage, login, testConnection }) => {
 				console.log(typeof res.data);
 				if (res.data !== '') {
 					login(res.data);
-				}
-				{
+				} else {
 					setError('Login unsuccessful.');
 				}
 			})
@@ -73,9 +72,7 @@ const LoginForm = ({ setPage, login, testConnection }) => {
 				<input type='submit' className='button-main' value='Login' />
 				<p>
 					New?{' '}
-					<span onClick={() => setPage('register')}>
-						Join now!
-					</span>
+					<span onClick={() => setPage('register')}>Join now!</span>
 				</p>
 			</form>
 		</>

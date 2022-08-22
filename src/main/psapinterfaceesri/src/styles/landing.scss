@@ -1,0 +1,10 @@
+@import 'variables';
+.landing {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	margin: 2em auto;
+	align-items: center;
+	background-color: white;
+	color: black;
+}

@@ -1,0 +1,211 @@
+@import 'variables';
+
+.navbar-main {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 80px;
+	display: flex;
+	justify-content: space-between;
+	background-color: white;
+	z-index: 999;
+	img {
+		position: relative;
+
+		height: 80%;
+		margin: auto 0 auto 2em;
+		cursor: pointer;
+	}
+
+	.nav-list {
+		list-style: none;
+		display: flex;
+		margin: auto 2em auto 0;
+		gap: 2em;
+		font-size: 1.4rem;
+		font-weight: 700;
+
+		.nav-item {
+			cursor: pointer;
+			padding: 0.5em 1em;
+			user-select: none;
+		}
+		:hover {
+			text-decoration: underline;
+		}
+
+		.selected {
+			background-color: $grey;
+		}
+	}
+}
+
+.navbar-second {
+	position: absolute;
+	top: 80px;
+	left: 0;
+	background-color: $c1;
+
+	width: 90%;
+	height: 250px;
+	padding: 0 5%;
+
+	display: flex;
+	justify-content: space-between;
+}
+
+.search-list {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	margin: auto 0;
+	height: 90%;
+	border: white solid 2px;
+	padding: 7px;
+	box-sizing: border-box;
+
+	.search-list-item {
+		text-align: center;
+		font-weight: 600;
+		width: 150px;
+		padding: 0.4em 0;
+		font-size: 1.4rem;
+		color: white;
+		cursor: pointer;
+	}
+	:hover {
+		text-decoration: underline;
+	}
+
+	.selected {
+		background-color: $c2;
+		text-decoration: none;
+	}
+}
+
+.navbar-tabs {
+	display: grid;
+	width: 100%;
+	height: 100%;
+	grid-template-columns: repeat(auto-fit, 100px);
+	overflow: auto;
+
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	gap: 0.5rem;
+	padding: 0 0.5rem;
+	.navbar-tab {
+		width: 90px;
+		height: 90px;
+		color: white;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		box-sizing: border-box;
+		border: solid white 3px;
+		img {
+			color: white;
+		}
+	}
+
+	.navbar-tab:hover {
+		text-decoration: underline;
+	}
+	.selected-tab {
+		background-color: $c2;
+	}
+	.selected-tab:hover {
+		text-decoration: none;
+	}
+}
+
+.search-form {
+	margin: auto 0;
+	width: 40rem;
+	display: flex;
+	justify-content: space-between;
+	height: 90%;
+	//border: white solid 2px;
+	padding: 7px;
+	box-sizing: border-box;
+
+	div {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 70%;
+		width: 98.5%;
+		margin: 0 auto;
+		box-sizing: border-box;
+		label {
+			color: white;
+			margin: 0.4em 0;
+			font-size: 1.2rem;
+			border-bottom: solid white 2px;
+			padding-bottom: 5px;
+
+			* {
+				box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				width: 300px;
+				// padding: 1px 2px;
+				// border: solid white 2px;
+			}
+			// select {
+			// 	width: 50%;
+			// }
+			// input {
+			// 	width: 50%;
+			// }
+		}
+	}
+
+	.submit-search {
+		margin: 10px auto 0 auto;
+		width: 10em;
+		background-color: $c2;
+		color: white;
+	}
+	.submit-search:hover {
+		background-color: white;
+		color: black;
+	}
+}
+
+.search-data-selector {
+	margin: auto 0;
+	color: $c1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background-color: white;
+	height: calc(90% - 4px);
+	//border: $c1 solid 7px;
+	outline: white solid 2px;
+	padding: 7px;
+	box-sizing: border-box;
+
+	li {
+		padding: 0.8em;
+		width: 8em;
+		font-size: 1.4rem;
+		font-weight: 700;
+
+		label {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			cursor: pointer;
+			p {
+				user-select: none;
+				margin: 0;
+			}
+		}
+	}
+}

@@ -28,7 +28,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Controller
@@ -225,5 +224,11 @@ public class PSAPController {
     public List<PropertyResponse> proximitySearchHazard(@PathVariable double lat, @PathVariable double lng, @PathVariable int radius){
         System.out.println(lat + " : " + lng + " : " + radius);
         return search.proximitySearch(lat, lng, radius);
+    }
+
+    @GetMapping("/proximity/get-all")
+    @ResponseBody
+    public  List<PropertyResponse> proximityGetAll(){
+        return search.proximityGetAll();
     }
 }

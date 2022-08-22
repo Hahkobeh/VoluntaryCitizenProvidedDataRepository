@@ -1,14 +1,19 @@
 import axios from 'axios';
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { API_BASE_URL } from '../../../constants';
-import Delete from '../../../images/delete.svg';
+import { UNHAZMATDATA } from '../../../hazmatcodes';
+import Delete from '../../../images/delete-white.svg';
 
 const HazardousMaterialEditor = ({ propertyId }) => {
 	const [hazardousMaterials, setHazardousMaterials] = useState([]);
 	const [newHazardousMaterial, setNewHazardousMaterial] = useState({
 		propertyId: propertyId,
+		commonName: '',
+		substanceCategory: '',
+		substanceContainer: '',
+		unHazmatCode: '',
+		location: '',
+		quantity: '',
 	});
 
 	useEffect(() => {
@@ -18,6 +23,12 @@ const HazardousMaterialEditor = ({ propertyId }) => {
 
 	const handleAdd = (e) => {
 		e.preventDefault();
+		console.log(newHazardousMaterial.substanceCategory);
+		if (
+			newHazardousMaterial.commonName === '' ||
+			newHazardousMaterial.substanceCategory === ''
+		)
+			return;
 		axios
 			.post(
 				`${API_BASE_URL}/api/user/v1/hazardous-material/create`,
@@ -63,10 +74,8 @@ const HazardousMaterialEditor = ({ propertyId }) => {
 					<li key={hazardousMaterial.hazardousMaterialId}>
 						{hazardousMaterial.commonName}
 						<br />
-						{hazardousMaterial.substanceCategory + ' '}
+						{hazardousMaterial.substanceCategory + ', '}
 						{hazardousMaterial.substanceContainer}
-						<br />
-						{'Class ' + hazardousMaterial.unHazmatCode}
 						<br />
 						{hazardousMaterial.location + ', '}
 						{hazardousMaterial.quantity}
@@ -95,16 +104,49 @@ const HazardousMaterialEditor = ({ propertyId }) => {
 						</label>
 						<label>
 							Substance Category
-							<input
-								type='text'
-								onChange={(data) =>
+							<select
+								onChange={(data) => {
+									console.log(data.target.value);
+									const { name, code } = JSON.parse(
+										data.target.value
+									);
+									console.log(name + code);
+									console.log(newHazardousMaterial);
 									setNewHazardousMaterial({
 										...newHazardousMaterial,
-										substanceCategory: data.target.value,
-									})
-								}
-								value={newHazardousMaterial.substanceCategory}
-							/>
+										substanceCategory: name,
+										unHazmatCode: code,
+									});
+								}}
+								style={{ width: '170px' }}
+								value={JSON.stringify({
+									name: newHazardousMaterial.substanceCategory,
+									code: newHazardousMaterial.unHazmatCode,
+								})}
+							>
+								<option
+									value={JSON.stringify({
+										name: '',
+										code: '',
+									})}
+								></option>
+								{UNHAZMATDATA.map((item, i) => (
+									<option
+										value={JSON.stringify(item)}
+										key={i}
+									>
+										{item.name + ' (' + item.code + ')'}
+									</option>
+								))}
+								<option
+									value={JSON.stringify({
+										name: 'Other',
+										code: 'Other',
+									})}
+								>
+									Other
+								</option>
+							</select>
 						</label>
 						<label>
 							Container
@@ -117,19 +159,6 @@ const HazardousMaterialEditor = ({ propertyId }) => {
 									})
 								}
 								value={newHazardousMaterial.substanceContainer}
-							/>
-						</label>
-						<label>
-							UN Hazmat Code
-							<input
-								type='text'
-								onChange={(data) =>
-									setNewHazardousMaterial({
-										...newHazardousMaterial,
-										unHazmatCode: data.target.value,
-									})
-								}
-								value={newHazardousMaterial.unHazmatCode}
 							/>
 						</label>
 						<label>
@@ -159,7 +188,7 @@ const HazardousMaterialEditor = ({ propertyId }) => {
 							/>
 						</label>
 
-						<input type='submit' className='editor-submit'/>
+						<input type='submit' className='editor-submit' />
 					</form>
 				</li>
 			</ul>

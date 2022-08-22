@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import '../style/landing.scss';
-import Icon from '../images/icon.svg';
-import Registration from '../components/Registration';
 import Login from '../components/Login';
 import NavbarLanding from '../components/NavbarLanding';
+import Registration from '../components/Registration';
+import Icon from '../images/icon.svg';
+import '../style/landing.scss';
 
-function Landing({ testConnection, login, connected }) {
+function Landing({ testConnection, login, connected, attemptLogin }) {
 	const [page, setPage] = useState('home');
 
 	const GetPage = () => {
@@ -28,7 +28,7 @@ function Landing({ testConnection, login, connected }) {
 					<div className='landing-about'>
 						<div>
 							<p>
-								<span>About</span>
+								<span className='title'>About</span>
 								<br />
 								<br />
 								Provide your information to 9-1-1 Call takers.
@@ -37,6 +37,34 @@ function Landing({ testConnection, login, connected }) {
 								<br />
 								<br />
 								Proof of concept created by Calgary 9-1-1.
+								<br />
+								Relevant ESWG Contribution: ESCO0703b
+								<br />
+								NG 9-1-1 Team:
+								<br />
+								Lisbeth Garcia
+								<br />
+								Ravichandran Valavandan
+								<br />
+								Kimberley Sauter
+								<br />
+								<br />
+								Fullstack application developed by Jacob Artuso.
+								<br />
+								<br />
+								Feedback and comments can be sent to
+								<br />
+								<span
+									className='link'
+									onClick={(e) => {
+										navigator.clipboard.writeText(
+											'ravi.valavandan@calgary.ca'
+										);
+									}}
+								>
+									ravi.valavandan@calgary.ca <br />
+									(click to copy)
+								</span>
 							</p>
 
 							<img src={Icon} alt='N911' />
@@ -83,10 +111,10 @@ function Landing({ testConnection, login, connected }) {
 					<GetPage />
 				</div>
 			) : (
-				<>
+				<div className='not-connected'>
 					<p>Connection Failed</p>
 					<button onClick={testConnection}>Retry?</button>
-				</>
+				</div>
 			)}
 		</div>
 	);

@@ -120,7 +120,6 @@ const MedicalInformationEditor = ({ personId }) => {
 				</button>
 			)}
 		</form>
-		// TODO!
 	);
 };
 

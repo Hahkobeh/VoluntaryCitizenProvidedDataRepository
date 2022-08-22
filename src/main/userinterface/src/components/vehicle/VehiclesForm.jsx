@@ -1,12 +1,15 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { API_BASE_URL, colours, provincesList } from '../../constants';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
+import { carInfo } from '../../car';
+import { API_BASE_URL, colours, provincesList } from '../../constants';
 
-const customStyle = {
+const selectStyle = {
 	container: (provided) => ({
 		...provided,
+		fontSize: '1.3rem',
 		width: '100%',
+		marginTop: '0.5rem',
 		fontWeight: 'normal',
 	}),
 	control: (provided, state) => ({
@@ -14,8 +17,8 @@ const customStyle = {
 		border: 'solid 3px #4f76e8',
 		borderRadius: 'none',
 		boxShadow: 'none',
-		fontSize: '2rem',
-		height: '70px',
+		fontSize: '1.3rem',
+		height: '40px',
 		'&:hover': {
 			borderColor: '#4f76e8',
 		},
@@ -29,7 +32,6 @@ const customStyle = {
 		borderRadius: 'none',
 		backgroundColor: state.isSelected ? '#4f76e8' : 'white',
 		textAlign: 'left',
-		fontSize: '2rem',
 		'&:hover': {
 			backgroundColor: '#e1e1e1',
 		},
@@ -44,16 +46,16 @@ const customStyle = {
 	singleValue: (provided) => ({
 		...provided,
 		color: 'black',
-		paddingLeft: '15px',
+		paddingLeft: '5px',
 	}),
 	placeholder: (provided) => ({
 		...provided,
-		paddingLeft: '15px',
+		paddingLeft: '5px',
 	}),
 	input: (provided) => ({
 		...provided,
 		color: 'black',
-		paddingLeft: '15px',
+		paddingLeft: '5px',
 	}),
 };
 
@@ -62,14 +64,22 @@ const provinceOptions = provincesList.map((province) => ({
 	label: province.name,
 }));
 
-const colourOptions = colours.map((colour) => ({
-	value: colour,
-	label: colour,
-}));
+const colourOptions = [
+	...colours.map((colour) => ({
+		value: colour,
+		label: colour,
+	})),
+	{ value: 'Other', label: 'Other' },
+];
 
 const yearOptions = Array.from({ length: 123 }, (e, i) => ({
 	value: JSON.stringify(i + 1900),
 	label: JSON.stringify(i + 1900),
+}));
+
+const makeOptions = carInfo.map((item) => ({
+	value: item.title,
+	label: item.title,
 }));
 
 const VehiclesForm = ({ userId, reloadVehicles }) => {
@@ -78,12 +88,35 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 		registrationPlateIdentification: '',
 		provinceCode: '',
 		vehicleExteriorColour: '',
-		vehicleMake: '',
-		vehicleModel: '',
+		vehicleMake: null,
+		vehicleModel: null,
 		year: '',
 	});
 
-	console.log(yearOptions);
+	const [modelOptions, setModelOptions] = useState([]);
+
+	useEffect(() => {
+		if (data.vehicleMake === null) {
+			// setModelOptions([
+			// 	...[].concat(
+			// 		...carInfo.map((info) =>
+			// 			info.models.map((item) => ({ value: item.title }))
+			// 		)
+			// 	),
+			// ]);
+			setModelOptions([]);
+		} else {
+			setModelOptions([
+				...carInfo
+					.find((info) => info.title === data.vehicleMake)
+					.models.map((model) => ({
+						value: model.title,
+						label: model.title,
+					})),
+			]);
+		}
+	}, [data.vehicleMake]);
+
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setData({
@@ -104,7 +137,9 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 				...data,
 				year: parseInt(data.year),
 				registrationPlateIdentification:
-					data.registrationPlateIdentification.replace(/\s/g, ''),
+					data.registrationPlateIdentification
+						.replace(/\s/g, '')
+						.toUpperCase(),
 			})
 			.then((r) => {
 				if (r !== null) {
@@ -113,8 +148,8 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 						registrationPlateIdentification: '',
 						provinceCode: '',
 						vehicleExteriorColour: '',
-						vehicleMake: '',
-						vehicleModel: '',
+						vehicleMake: null,
+						vehicleModel: null,
 						year: '',
 					});
 
@@ -132,7 +167,7 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 				License Plate
 				<input
 					type='text'
-					className='input-main'
+					className='input-main input'
 					name='registrationPlateIdentification'
 					onChange={handleChange}
 					value={data.registrationPlateIdentification}
@@ -159,28 +194,58 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 							provinceCode: item ? item.value : null,
 						})
 					}
-					styles={customStyle}
+					styles={selectStyle}
 				/>
 			</label>
 
 			<label className='label-main'>
 				Make
-				<input
+				{/* <input
 					type='text'
-					className='input-main'
+					className='input-main input'
 					name='vehicleMake'
 					onChange={handleChange}
 					value={data.vehicleMake}
+				/> */}
+				<Select
+					options={makeOptions}
+					isClearable={true}
+					value={makeOptions.filter(
+						(option) => option.value === data.vehicleMake
+					)}
+					onChange={(item) => {
+						console.log(item);
+						setData({
+							...data,
+							vehicleMake: item ? item.value : null,
+						});
+					}}
+					styles={selectStyle}
 				/>
 			</label>
 			<label className='label-main'>
 				Model
-				<input
+				{/* <input
 					type='text'
-					className='input-main'
+					className='input-main input'
 					name='vehicleModel'
 					onChange={handleChange}
 					value={data.vehicleModel}
+				/> */}
+				<Select
+					options={modelOptions}
+					isClearable={true}
+					value={modelOptions.filter(
+						(option) => option.value === data.vehicleModel
+					)}
+					onChange={(item) =>
+						setData({
+							...data,
+							vehicleModel: item ? item.value : null,
+						})
+					}
+					styles={selectStyle}
+					noOptionsMessage={() => <div>Please select a make</div>}
 				/>
 			</label>
 			<label className='label-main'>
@@ -204,7 +269,7 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 							vehicleExteriorColour: item ? item.value : null,
 						})
 					}
-					styles={customStyle}
+					styles={selectStyle}
 					menuPlacement='top'
 				/>
 			</label>
@@ -229,7 +294,7 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 							year: item ? item.value : null,
 						})
 					}
-					styles={customStyle}
+					styles={selectStyle}
 					menuPlacement='top'
 				/>
 			</label>

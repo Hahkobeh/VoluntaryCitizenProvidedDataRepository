@@ -378,13 +378,6 @@ class Registration extends Component {
 						</label>
 						<label className='label-main'>
 							Telephone Type
-							{/* <input
-								type='text'
-								className='input-main'
-								name='telephoneType'
-								onChange={this.handleChange}
-								value={this.state.info.telephoneType}
-							/> */}
 							<Select
 								options={telephoneOptions}
 								value={telephoneOptions.filter(
@@ -403,7 +396,6 @@ class Registration extends Component {
 								styles={selectStyle}
 								isSearchable={false}
 							/>
-							{/* TODO make dropdown */}
 						</label>
 
 						<input

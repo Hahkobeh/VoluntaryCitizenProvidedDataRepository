@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./src/main/userinterface/src/images/icon.svg" />
+  <img src="./src/main/userinterface/src/images/icon.svg" alt="Logo image"/>
 </p>
 
 # Voluntary Citizen Provided Data Repository
@@ -49,11 +49,10 @@ so that 9-1-1 call takers can quickly find this information in case of an emerge
 
 ## To Run
 
-	// In ./VCPDR
-	$ 
+    // In ./VCPDR
+    $
 
 [1]: https://developers.arcgis.com/javascript/latest/
 [2]: https://www.npmjs.com/package/@arcgis/core
 [3]: https://www.npmjs.com/package/@react-google-maps/api
 [4]: https://www.npmjs.com/package/react-google-places-autocomplete
-

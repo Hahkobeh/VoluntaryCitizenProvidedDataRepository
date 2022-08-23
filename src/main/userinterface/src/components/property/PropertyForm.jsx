@@ -257,6 +257,19 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 					onChange={(item) => setData({ ...data, sts: item.value })}
 					styles={selectStyle}
 				/>
+				<label className='label-main'>
+					Quadrant
+					<Select
+						options={quadrantOptions}
+						value={quadrantOptions.filter(
+							(option) => option.value === data.pod
+						)}
+						onChange={(item) =>
+							setData({ ...data, pod: item.value })
+						}
+						styles={selectStyle}
+					/>
+				</label>
 			</label>
 			<label className='label-main'>
 				Province
@@ -288,17 +301,6 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 				/>
 			</label>
 
-			<label className='label-main'>
-				Quadrant
-				<Select
-					options={quadrantOptions}
-					value={quadrantOptions.filter(
-						(option) => option.value === data.pod
-					)}
-					onChange={(item) => setData({ ...data, pod: item.value })}
-					styles={selectStyle}
-				/>
-			</label>
 			<button type='submit' className='button-main'>
 				Add!
 			</button>

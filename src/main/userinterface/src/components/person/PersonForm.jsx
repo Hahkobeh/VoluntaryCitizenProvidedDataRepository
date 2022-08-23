@@ -71,7 +71,6 @@ const customStyle = {
 	}),
 };
 
-const styleSelect = {};
 
 const PersonForm = ({ userId, reloadPersons }) => {
 	const [data, setData] = useState({
@@ -178,16 +177,6 @@ const PersonForm = ({ userId, reloadPersons }) => {
 							: null
 					}
 				/>
-				{/* <select
-					onChange={handleChange}
-					value={data.personRelationship}
-					name='personRelationship'
-					className='select-main'
-				>
-					<option value='Child'>Child (18 or younger)</option>
-					<option value='Dependant'>Dependant</option>
-					<option value='Spouse/Partner'>Spouse/Partner</option>
-				</select> */}
 			</label>
 			<button type='submit' className='button-main'>
 				Add!

@@ -3,9 +3,7 @@ import Circle from '@arcgis/core/geometry/Circle';
 import Point from '@arcgis/core/geometry/Point';
 import Graphic from '@arcgis/core/Graphic';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
-import MapImageLayer from '@arcgis/core/layers/MapImageLayer';
 import SimpleRenderer from '@arcgis/core/renderers/SimpleRenderer';
-import * as locator from '@arcgis/core/rest/locator';
 import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
 import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol';
 import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol';
@@ -13,12 +11,10 @@ import MapView from '@arcgis/core/views/MapView';
 import WebMap from '@arcgis/core/WebMap';
 import BaseMapToggle from '@arcgis/core/widgets/BasemapToggle';
 import Bookmarks from '@arcgis/core/widgets/Bookmarks';
-import Expand from '@arcgis/core/widgets/Expand';
 import Legend from '@arcgis/core/widgets/Legend';
 import ScaleBar from '@arcgis/core/widgets/ScaleBar';
 import Search from '@arcgis/core/widgets/Search';
 import Zoom from '@arcgis/core/widgets/Zoom';
-import Geometry from 'esri/geometry/Geometry';
 
 import React, { useEffect, useRef, useState } from 'react';
 import { cameraData } from '../../cameras';
@@ -79,7 +75,6 @@ const Map = ({
 	});
 
 	const [circleGraphic, setCircleGraphic] = useState<Graphic>();
-	// const [view, setView] = useState<MapView>();
 
 	useEffect(() => {
 		if (!map) return;
@@ -146,7 +141,6 @@ const Map = ({
 					x: e.x,
 					y: e.y,
 				};
-				//TODO also make drop down for property type
 
 				view.hitTest(screenPoint).then((response) => {
 					var graphicHits = response.results?.filter(
@@ -199,11 +193,7 @@ const Map = ({
 
 			view.ui.add(bmt, 'bottom-right');
 
-			const legend = new Legend({
-				view: view,
-			});
 
-			// view.ui.add(legend, 'top-right');
 
 			const scalebar = new ScaleBar({
 				view: view,

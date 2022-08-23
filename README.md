@@ -23,7 +23,7 @@ so that 9-1-1 call takers can quickly find this information in case of an emerge
 
 # Getting Started
 
-## The system is comprised of the following:
+## The system comprises the following:
 
 -   Backend
     -   Spring boot & Gradle (Java)
@@ -113,6 +113,20 @@ so that 9-1-1 call takers can quickly find this information in case of an emerge
 ![](screenshots/personsearchinfo.png)
 
 ![](screenshots/tabs.png)
+
+# Code Guide
+
+## Backend
+
+### API
+
+### Database
+
+## Frontend
+
+### User
+
+### PSAP
 
 [1]: https://developers.arcgis.com/javascript/latest/
 [2]: https://www.npmjs.com/package/@arcgis/core

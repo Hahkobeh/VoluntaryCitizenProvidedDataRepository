@@ -227,16 +227,6 @@ const PropertyForm = ({ userId, reloadProperties }) => {
 					value={data.hno}
 				/>
 			</label>
-			{/*<label className='label-main'>
-				Unit Number (if applicable)
-				<input
-					type='text'
-					className='input-main input'
-					name='hns'
-					onChange={handleChange}
-					value={data.hns}
-				/>
-			</label>*/}
 			<label className='label-main'>
 				Road
 				<input

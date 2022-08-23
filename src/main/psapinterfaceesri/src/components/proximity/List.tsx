@@ -1,20 +1,14 @@
 import Point from '@arcgis/core/geometry/Point';
 import MapView from '@arcgis/core/views/MapView';
-import React, { MutableRefObject, SetStateAction, useEffect } from 'react';
+import React from 'react';
 import searchIcon from '../../images/search.png';
-import { Property, PropertyInfo } from '../../interfaces';
+import {  PropertyInfo } from '../../interfaces';
 
 type Props = {
-	// mapRef: MutableRefObject<google.maps.Map | undefined>;
 
 	location: Point | undefined;
 	radius: number;
-	// selected: google.maps.LatLngLiteral;
-	// properties: PropertyInfo[];
 	handleProximitySearch: any;
-
-	// selectedprop: number;
-	// setSelectedprop: React.Dispatch<SetStateAction<number>>;
 
 	selected: number;
 	setSelected: React.Dispatch<React.SetStateAction<number>>;
@@ -23,14 +17,9 @@ type Props = {
 };
 
 const List = ({
-	// mapRef,
-	// properties,
-	// selected,
 	location,
 	radius,
 	handleProximitySearch,
-	// selectedprop,
-	// setSelectedprop,
 	selected,
 	setSelected,
 	properties,
@@ -93,10 +82,6 @@ const List = ({
 									: {}
 							}
 							onClick={() => {
-								// mapRef.current!.panTo({
-								// 	lat: prop.property.lat,
-								// 	lng: prop.property.lng,
-								// });
 								const { lat, lng } = prop.property;
 								view?.goTo({ center: [lng, lat] });
 								setSelected(prop.property.propertyId);

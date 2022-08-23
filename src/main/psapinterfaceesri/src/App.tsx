@@ -9,9 +9,6 @@ const App = () => {
 	const [loggedIn, setLoggedIn] = useState(false);
 
 	useEffect(() => {
-		// if (sessionStorage.getItem('user') !== null) {
-		// 	setLoggedIn(true);
-		// }
 		login({
 			username: 'test1',
 			password: 'test1',

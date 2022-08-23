@@ -75,84 +75,10 @@ const Property = ({
 							<option value={prov.code}>{prov.name}</option>
 						))}
 					</select>
-					{/* <input
-						type='text'
-						value={propertySearch.a1}
-						onChange={(e) =>
-							setPropertySearch({
-								...propertySearch,
-								a1: e.target.value,
-							})
-						}
-					/> */}
 				</label>
 			</div>
 
-			{/*<label>
-				House Number and Suffix (eg. 12 2)
-				<input
-					type='text'
-					value={propertySearch.hnos}
-					onChange={(e) =>
-						setPropertySearch({
-							...propertySearch,
-							hnos: e.target.value,
-						})
-					}
-				/>
-			</label>
-			<label>
-				Road Name
-				<input
-					type='text'
-					value={propertySearch.rd}
-					onChange={(e) =>
-						setPropertySearch({
-							...propertySearch,
-							rd: e.target.value,
-						})
-					}
-				/>
-			</label>
-			<label>
-				Street Suffix (eg. Street)
-				<input
-					type='text'
-					value={propertySearch.sts}
-					onChange={(e) =>
-						setPropertySearch({
-							...propertySearch,
-							sts: e.target.value,
-						})
-					}
-				/>
-			</label>
-			<label>
-				City
-				<input
-					type='text'
-					value={propertySearch.a3}
-					onChange={(e) =>
-						setPropertySearch({
-							...propertySearch,
-							a3: e.target.value,
-						})
-					}
-				/>
-			</label>
-			<label>
-				Province
-				<input
-					type='text'
-					value={propertySearch.a1}
-					onChange={(e) =>
-						setPropertySearch({
-							...propertySearch,
-							a1: e.target.value,
-						})
-					}
-				/>
-			</label>*/}
+		
 
 			<input
 				className='button submit-search'

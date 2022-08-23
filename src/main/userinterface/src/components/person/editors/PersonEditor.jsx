@@ -52,7 +52,6 @@ const PersonEditor = ({
 				reloadPersons();
 			});
 
-		// onSelect(null, 'person');
 	};
 
 	return (

@@ -121,17 +121,6 @@ const TelephoneEditor = ({ personId }) => {
 								<option>Business Landline</option>
 								<option>Mobile</option>
 							</select>
-							{/* <input
-								type='text'
-								name='telephoneType'
-								onChange={(data) =>
-									setNewTelephone({
-										...newTelephone,
-										telephoneType: data.target.value,
-									})
-								}
-								value={newTelephone.telephoneType}
-							/>*/}
 						</label>
 						<input type='submit' className='editor-submit' />
 					</form>

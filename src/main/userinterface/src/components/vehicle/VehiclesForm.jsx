@@ -97,13 +97,6 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 
 	useEffect(() => {
 		if (data.vehicleMake === null) {
-			// setModelOptions([
-			// 	...[].concat(
-			// 		...carInfo.map((info) =>
-			// 			info.models.map((item) => ({ value: item.title }))
-			// 		)
-			// 	),
-			// ]);
 			setModelOptions([]);
 		} else {
 			setModelOptions([
@@ -175,13 +168,6 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 			</label>
 			<label className='label-main'>
 				Province
-				{/* <input
-					type='text'
-					className='input-main'
-					name='provinceCode'
-					onChange={handleChange}
-					value={data.provinceCode}
-				/> */}
 				<Select
 					options={provinceOptions}
 					isClearable={true}
@@ -200,13 +186,6 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 
 			<label className='label-main'>
 				Make
-				{/* <input
-					type='text'
-					className='input-main input'
-					name='vehicleMake'
-					onChange={handleChange}
-					value={data.vehicleMake}
-				/> */}
 				<Select
 					options={makeOptions}
 					isClearable={true}
@@ -225,13 +204,6 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 			</label>
 			<label className='label-main'>
 				Model
-				{/* <input
-					type='text'
-					className='input-main input'
-					name='vehicleModel'
-					onChange={handleChange}
-					value={data.vehicleModel}
-				/> */}
 				<Select
 					options={modelOptions}
 					isClearable={true}
@@ -250,13 +222,6 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 			</label>
 			<label className='label-main'>
 				Colour
-				{/* <input
-					type='text'
-					className='input-main'
-					name='vehicleExteriorColour'
-					onChange={handleChange}
-					value={data.vehicleExteriorColour}
-				/> */}
 				<Select
 					options={colourOptions}
 					isClearable={true}
@@ -275,13 +240,6 @@ const VehiclesForm = ({ userId, reloadVehicles }) => {
 			</label>
 			<label className='label-main'>
 				Year
-				{/* <input
-					type='text'
-					className='input-main'
-					name='year'
-					onChange={handleChange}
-					value={data.year}
-				/> */}
 				<Select
 					options={yearOptions}
 					isClearable={true}

@@ -4,8 +4,6 @@
 
 # Voluntary Citizen Provided Data Repository
 
----
-
 ## A fullstack application developed by Jacob Artuso in collaboration with the Calgary Next Generation 9-1-1 team.
 
     NG 9-1-1 Team:
@@ -24,8 +22,6 @@ Citizens enter personal data related to:
 so that 9-1-1 call takers can quickly find this information in case of an emergency.
 
 # Getting Started
-
----
 
 ## The system is comprised of the following:
 
@@ -79,8 +75,6 @@ so that 9-1-1 call takers can quickly find this information in case of an emerge
     $ npm run start
 
 # Screenshots
-
----
 
 ## User Interface
 

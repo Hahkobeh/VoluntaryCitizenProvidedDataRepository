@@ -4,7 +4,6 @@ import Map from './Map';
 import '../../styles/proximity.scss';
 import { useRef, useState } from 'react';
 import { Property, PropertyInfo } from '../../interfaces';
-import Search from './Search';
 import { useJsApiLoader } from '@react-google-maps/api';
 import { ProximityCheckAPI } from '../../API';
 import GooglePlacesAutocomplete, {
@@ -76,12 +75,6 @@ const Proximity = ({ handleProximitySearch }: Props) => {
 
 	return (
 		<div className='p-container'>
-			{/* <Search
-				setSelected={setSelected}
-				radius={radius}
-				setRadius={setRadius}
-				isLoaded={isLoaded}
-			/> */}
 
 			<Map
 				markers={markers}

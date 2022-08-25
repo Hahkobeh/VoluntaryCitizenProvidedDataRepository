@@ -74,6 +74,47 @@ so that 9-1-1 call takers can quickly find this information in case of an emerge
     $ npm i
     $ npm run start
 
+# Code Guide
+
+## Backend
+
+### Overview
+
+All datatypes are stored in the data folder, each of which has a main class, a service, and the repository interface.
+The PSAP side makes use of the classes contained in the search folder, these classes are helpers to group data and make searches. Lastly, some classes are contained in the forms folder which help define the incoming data structure on searches. Spring boot annotations are used, these include @Controller, @Service, and @Repository, to define specific functionalities for each class.
+
+### API
+
+The API endpoints are contained within the controllers folder. There are two separate controllers, one for user and one for call takers (PSAP). The two paths are 'api/user/v1' and 'api/psap/v1'.
+
+### Database
+
+The data is stored in a MySQL server which is accessed through the data repository interfaces, where you can define changes and requests.
+
+## Frontend
+
+### User
+
+The app component determines whether the user is logged in and renders components in the pages file. The landing component contains the landing navbar and the selected component for users to register and login. The Interface page displays a disclaimer if necessary and allows navigation between the three main possibilities for entering data (person/property/vehicle). The components for these can be found in their respective folders in the components tab. Initially displaying a list and form, items in the list can be clicked on to access a menu and editors to make changes. In the constants.js file you can find items like the base url, some data for dropdowns, and allow editing of the disclaimer (it will appear if the date accepted stored with the user does not match that of the data in constants.js).
+
+	API_BASE_URL in constants.js
+
+	googleMapsApiKey in PropertyForm.jsx 
+
+### PSAP
+
+The app component again determines whether user is logged in, which they are by default (to a pre-created account for all users). The main pages are contained in the pages folder, with interface.tsx being the main holder of data for the system. Components in the proximity folder will be displayed by default below the navbar, but can be exchanged for the results window when closed. In the search tab we can make search which will automatically change the result. We can return to previous tabs using the tabs component of the navbar. All map components are contained in the proximity folder. API connections are called in functions from the API.ts file. getProperName.ts transforms database names to correctly formatting strings. Lastly, data objects are defined in the interfaces.ts file. 
+
+
+
+	URL in API.ts (psapinterface & psapinterfaceesri)
+
+	googleMapsApiKey in Proximity.tsx (psapinterface)
+
+	esriConfig.apiKey in Maps.tsx (psapinterfaceesri)
+
+
+
 # Screenshots
 
 ## User Interface
@@ -113,20 +154,6 @@ so that 9-1-1 call takers can quickly find this information in case of an emerge
 ![](screenshots/personsearchinfo.png)
 
 ![](screenshots/tabs.png)
-
-# Code Guide
-
-## Backend
-
-### API
-
-### Database
-
-## Frontend
-
-### User
-
-### PSAP
 
 [1]: https://developers.arcgis.com/javascript/latest/
 [2]: https://www.npmjs.com/package/@arcgis/core

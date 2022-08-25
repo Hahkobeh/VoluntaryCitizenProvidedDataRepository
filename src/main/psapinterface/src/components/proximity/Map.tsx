@@ -9,7 +9,7 @@ import React, {
 import { Property, PropertyInfo } from '../../interfaces';
 
 import { GoogleMap, Marker, Circle, InfoWindow } from '@react-google-maps/api';
-import Search from './Search';
+
 
 const containerStyle = {
 	width: '75vw',
@@ -61,16 +61,6 @@ const Map = ({
 	selectedMarker,
 	setSelectedMarker,
 }: Props) => {
-	// const onMapClick = useCallback((e: any) => {
-	// 	setMarkers((current) => [
-	// 		...current,
-	// 		{
-	// 			lat: e.latLng.lat(),
-	// 			lng: e.latLng.lng(),
-	// 			time: new Date(),
-	// 		},
-	// 	]);
-	// }, []);
 
 	const onLoad = useCallback(function callback(map: google.maps.Map) {
 		console.log('map loaded');
@@ -83,10 +73,6 @@ const Map = ({
 		circle: google.maps.Circle
 	) {
 		console.log('setting circle ref');
-
-		// circleRef.current = circle;
-		// circleRef.current.setCenter(selected);
-		// console.log(circleRef.current.getCenter());
 	},
 	[]);
 
@@ -194,22 +180,6 @@ const Map = ({
 					/>
 				))}
 				{selectedMarker !== -1 && getInfoWindow()}
-				{/* {selectedMarker !== -1 && (
-					<InfoWindow
-						position={{
-							lat: selectedMarker.property.lat,
-							lng: selectedMarker.property.lng,
-						}}
-					>
-						<div>
-							<ul>
-								{selectedMarker.hazardousMaterials?.map((mat) =>
-									JSON.stringify(mat)
-								)}
-							</ul>
-						</div>
-					</InfoWindow>
-				)} */}
 			</GoogleMap>
 		</>
 	) : (

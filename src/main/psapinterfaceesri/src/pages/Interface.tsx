@@ -34,7 +34,7 @@ type Props = {
 };
 
 const Interface = ({ logout, psapUser }: Props) => {
-	const [proximity, setProximity] = useState(true);
+	const [proximity, setProximity] = useState(false);
 
 	const [currentTab, setCurrentTab] = useState<number>(-1);
 

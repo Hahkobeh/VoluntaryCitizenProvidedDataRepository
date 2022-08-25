@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from 'react';
+import {
+	personSearchAPI,
+	propertySearchAPI,
+	telephoneSearchAPI,
+	vehicleSearchAPI,
+} from '../API';
 import Navbar from '../components/navbar/Navbar';
-import '../styles/interface.scss';
+import Search from '../components/navbar/Search';
+import Proximity from '../components/proximity/Proximity';
+import Results from '../components/results/Results';
 import {
 	PersonSearchInfo,
+	Property,
+	PropertyInfo,
+	PropertySearchInfo,
+	ProximitySearchInfo,
+	PSAPUser,
+	RequestedDataObjects,
 	SearchInfo,
 	SearchObjects,
 	Tab,
-	PSAPUser,
 	TabsObject,
 	TelephoneInfo,
-	RequestedDataObjects,
 	TelephoneSearchInfo,
 	VehicleSearchInfo,
-	Property,
-	PropertyInfo,
 } from '../interfaces';
-import {
-	personSearchAPI,
-	telephoneSearchAPI,
-	propertySearchAPI,
-	vehicleSearchAPI,
-} from '../API';
-import Search from '../components/navbar/Search';
-import Results from '../components/results/Results';
-import { tab } from '@testing-library/user-event/dist/tab';
-import Proximity from '../components/proximity/Proximity';
-import { ProximitySearchInfo, PropertySearchInfo } from '../interfaces';
+import '../styles/interface.scss';
 
 type Props = {
 	logout: () => void;
@@ -300,7 +300,7 @@ const Interface = ({ logout, psapUser }: Props) => {
 				/>
 				{currentTab !== -1 ? (
 					<Results
-						tab={tabs.find((tab) => currentTab == tab.id)!}
+						tab={tabs.find((tab) => currentTab === tab.id)!}
 						editSelected={editSelected}
 						requestedDataObjects={requestedDataObjects}
 					/>

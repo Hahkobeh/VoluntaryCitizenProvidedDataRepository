@@ -101,7 +101,7 @@ The app component determines whether the user is logged in and renders component
 
 	googleMapsApiKey in PropertyForm.jsx 
 
-### PSAP
+### PSAP (911 call operator)
 
 The app component again determines whether user is logged in, which they are by default (to a pre-created account for all users). The main pages are contained in the pages folder, with interface.tsx being the main holder of data for the system. Components in the proximity folder will be displayed by default below the navbar, but can be exchanged for the results window when closed. In the search tab we can make search which will automatically change the result. We can return to previous tabs using the tabs component of the navbar. All map components are contained in the proximity folder. API connections are called in functions from the API.ts file. getProperName.ts transforms database names to correctly formatting strings. Lastly, data objects are defined in the interfaces.ts file. 
 
